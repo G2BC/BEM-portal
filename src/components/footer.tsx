@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router";
-import { LummLogo } from "./logo";
+import bemLogo from "@/assets/bem_logo.svg";
 import { Button } from "./ui/button";
 import { useTranslation } from "react-i18next";
 import { DEFAULT_LOCALE } from "@/lib/lang";
@@ -22,7 +22,7 @@ export function Footer() {
       <div className="flex-1 px-4 bg-[#131313] flex items-center min-h-[200px]">
         <div className="py-6 container mx-auto px-2 flex flex-row-reverse md:flex-row md:items-center justify-end md:justify-between">
           <div className="hidden md:flex">
-            <LummLogo />
+            <img src={bemLogo} alt="BEM" className="h-16 w-auto" />
           </div>
 
           <div className="flex md:items-center gap-6 shrink flex-col-reverse md:flex-row">

@@ -1,4 +1,4 @@
-import { LummLogo } from "@/components/logo";
+import bemLogo from "@/assets/bem_logo.svg";
 import LanguageSwitcher from "@/components/languege-switcher";
 import {
   Sidebar,
@@ -56,7 +56,7 @@ export default function InternalPanelPage() {
       <Sidebar>
         <SidebarHeader className="p-3">
           <Link to={`/${locale}/painel`}>
-            <LummLogo textClassName="text-slate-900" textOnly textStyles={{ zoom: 0.8 }} />
+            <img src={bemLogo} alt="BEM" className="h-11 w-auto" />
           </Link>
         </SidebarHeader>
 

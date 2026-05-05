@@ -1,4 +1,4 @@
-import { LummLogo } from "./logo";
+import bemLogo from "@/assets/bem_logo.svg";
 import { HeaderNav } from "./header-nav";
 import { Button } from "./ui/button";
 import { Link, useNavigate, useParams } from "react-router";
@@ -24,7 +24,7 @@ export function Header() {
       <div className="container mx-auto px-4 flex items-center justify-between h-full">
         <div className="flex h-full items-center gap-16">
           <Link to="/">
-            <LummLogo />
+            <img src={bemLogo} alt="BEM" className="h-12 w-auto" />
           </Link>
           <HeaderNav />
         </div>
