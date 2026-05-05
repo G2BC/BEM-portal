@@ -1,5 +1,5 @@
-import heroDesktop from "@/assets/home/hero_desktop.webp";
-import heroMobile from "@/assets/home/hero_mobile.webp";
+import heroDesktop from "@/assets/home/hero_desktop.png";
+import heroMobile from "@/assets/home/hero_mobile.png";
 import { Button } from "@/components/ui/button";
 import { DEFAULT_LOCALE } from "@/lib/lang";
 import { useTranslation } from "react-i18next";
@@ -9,47 +9,48 @@ export function Hero() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { lang } = useParams();
+  const locale = lang ?? DEFAULT_LOCALE;
 
   return (
-    <div className="w-full bg-[#030003] h-[100vh] max-h-[800px] lg:max-h-[900px]">
-      <section className="container mx-auto w-full h-full flex  flex-col lg:flex-row justify-between items-center px-4 lg:px-0 overflow-hidden">
-        <div className="flex-1 w-full flex justify-center flex-col px-2 lg:pt-0 pt-12">
-          <h1 className="hero-reveal hero-reveal-1 text-white text-[32px] lg:text-[48px] font-black">
+    <section className="relative isolate h-[560px] overflow-hidden bg-[#131313] md:h-[702px]">
+      <picture className="absolute inset-0 -z-20 block h-full w-full">
+        <source media="(min-width: 768px)" srcSet={heroDesktop} />
+        <img
+          loading="eager"
+          fetchPriority="high"
+          draggable="false"
+          src={heroMobile}
+          alt="BEM Banner"
+          className="h-full w-full object-cover object-center"
+        />
+      </picture>
+
+      <div className="flex h-full items-center px-6 py-16 md:items-start md:px-10 md:pt-[190px]">
+        <div className="max-w-[714px]">
+          <h1 className="hero-reveal hero-reveal-1 max-w-[714px] font-hero text-[44px] font-semibold leading-[1.08] tracking-[-0.02em] text-[#f8faf7] md:text-[72px] md:leading-[78px]">
             {t("home.hero.title.first_block")} <br />
-            {t("home.hero.title.second_block")}{" "}
-            <span className="leading-0 font-(family-name:--font-syne) lg:text-[48px] lg:leading-[24px] text-[28px] font-extrabold">
-              LUMM
-            </span>
+            {t("home.hero.title.second_block")}
           </h1>
-          <h2 className="hero-reveal hero-reveal-2 text-white text-[22px] lg:text-[28px] font-bold mt-4">
-            {t("home.hero.description.first_block")} <br className="lg:hidden" />{" "}
-            {t("home.hero.description.second_block")}
-          </h2>
-          <Button
-            onClick={() => navigate(`/${lang ?? DEFAULT_LOCALE}/explorar`)}
-            className="hero-reveal hero-reveal-3 h-12 lg:max-w-[220px] max-w-[145px] mt-8"
-          >
-            {t("home.hero.cta")}
-          </Button>
+          <p className="hero-reveal hero-reveal-2 mt-6 max-w-[635px] text-[18px] leading-7 text-[#dde7dc] md:text-[21px] md:leading-8">
+            {t("home.hero.description")}
+          </p>
+          <div className="hero-reveal hero-reveal-3 mt-8 flex flex-col gap-4 sm:flex-row">
+            <Button
+              onClick={() => navigate(`/${locale}/explorar`)}
+              className="h-11 min-w-[172px] rounded-md bg-primary px-6 text-base font-semibold text-primary-foreground hover:bg-primary/90"
+            >
+              {t("home.hero.cta")}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate(`/${locale}/distribuicao`)}
+              className="h-11 min-w-[221px] rounded-md border-2 border-primary bg-transparent px-6 text-base font-semibold text-white hover:bg-primary/15 hover:text-white"
+            >
+              {t("home.hero.secondary_cta")}
+            </Button>
+          </div>
         </div>
-        <div className="hero-image-reveal flex-1 self-end select-none">
-          <img
-            loading="eager"
-            fetchPriority="high"
-            draggable="false"
-            src={heroDesktop}
-            alt="LUMM Banner"
-            className="hidden md:block"
-          />
-          <img
-            loading="eager"
-            fetchPriority="high"
-            src={heroMobile}
-            alt="LUMM Banner"
-            className="md:hidden"
-          />
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

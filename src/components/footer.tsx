@@ -56,7 +56,7 @@ export function Footer() {
 
       <div className="w-full px-4 h-[45px] bg-[#202020] flex items-center">
         <span className="container mx-auto text-white font-medium text-sm">
-          © {new Date().getFullYear()} Luminescent Mushrooms Database
+          Copyright © {new Date().getFullYear()} Brazilian Edible Mushrooms
         </span>
       </div>
     </footer>

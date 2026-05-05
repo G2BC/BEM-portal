@@ -1,4 +1,4 @@
-import heroDesktop from "@/assets/home/hero_desktop.webp";
+import heroDesktop from "@/assets/home/hero_desktop.png";
 import { getCurrentUser, registerUser } from "@/api/auth";
 import { Button } from "@/components/ui/button";
 import {
@@ -110,11 +110,11 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="grid min-h-full w-full lg:grid-cols-2">
+    <div className="grid min-h-[760px] w-full lg:min-h-[calc(100vh-85px)] lg:grid-cols-2">
       <div className="relative hidden h-full w-full overflow-hidden bg-black lg:block">
         <img
           src={heroDesktop}
-          alt="Bioluminescent mushrooms"
+          alt="BEM mushrooms"
           className="h-full w-full object-cover"
           loading="lazy"
         />

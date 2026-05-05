@@ -36,7 +36,7 @@
       "join_us_section": {
         "title": "Join us:",
         "subtitle": "Explore with us the universe",
-        "subtitle_end": "of bioluminescent mushrooms",
+        "subtitle_end": "of edible mushrooms",
         "cta": "Sign up"
       },
       "links": {
@@ -48,18 +48,13 @@
     "home": {
       "hero": {
         "title": {
-          "first_block": "Welcome",
-          "second_block": "to"
+          "first_block": "Edible",
+          "second_block": "mushrooms of Brazil"
         },
-        "description": {
-          "first_block": "A project dedicated to the world of bioluminescent",
-          "second_block": "mushrooms"
-        },
-        "cta": "Explore"
+        "description": "Explore species, records, and scientific information about Brazilian edible mushrooms",
+        "cta": "Explore species",
+        "secondary_cta": "View distribution map"
       }
-    },
-    "distribution": {
-      "title": "Distribution of species (2024)"
     },
     "explore_page": {
       "input_placeholder": "Species",

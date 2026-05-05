@@ -36,7 +36,7 @@
       "join_us_section": {
         "title": "Junte-se a nós:",
         "subtitle": "Explore conosco o universo",
-        "subtitle_end": "dos cogumelos bioluminescentes",
+        "subtitle_end": "dos cogumelos comestíveis brasileiros",
         "cta": "Cadastre-se"
       },
       "links": {
@@ -48,18 +48,13 @@
     "home": {
       "hero": {
         "title": {
-          "first_block": "Bem-vindo",
-          "second_block": "ao"
+          "first_block": "Cogumelos",
+          "second_block": "comestíveis do Brasil"
         },
-        "description": {
-          "first_block": "Um projeto dedicado ao universo dos cogumelos",
-          "second_block": "bioluminescentes"
-        },
-        "cta": "Explorar"
+        "description": "Explore espécies, registros e informações científicas sobre os cogumelos comestíveis brasileiros",
+        "cta": "Explorar espécies",
+        "secondary_cta": "Ver mapa de distribuição"
       }
-    },
-    "distribution": {
-      "title": "Distribuição das espécies (2024)"
     },
     "explore_page": {
       "input_placeholder": "Espécie",
