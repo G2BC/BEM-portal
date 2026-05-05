@@ -50,8 +50,8 @@ export default function GlossaryPage() {
     fixed z-[100] left-1/2 -translate-x-1/2 
     transition-all duration-300 ease-in-out
     
-    bg-[#00c000] 
-    text-black 
+    bg-[#E64420] 
+    text-white 
     font-semibold 
     py-2 px-6 
     rounded-md 
@@ -99,7 +99,7 @@ export default function GlossaryPage() {
           return (
             <div key={letter} id={`section-${letter}`} className="scroll-mt-24">
               <div className="flex items-center gap-4 mb-8">
-                <span className="text-3xl font-black text-[#00c000]">{letter}</span>
+                <span className="text-3xl font-black text-[#E64420]">{letter}</span>
                 <div className="h-[1px] flex-1 bg-white/10" />
               </div>
 

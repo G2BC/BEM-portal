@@ -59,7 +59,7 @@ export default function ExplorePage() {
           {loading ? (
             <Skeleton className="hidden md:block h-6 w-48" />
           ) : (
-            <p className="hidden md:block font-semibold text-[16px] text-white">
+            <p className="hidden md:block font-semibold text-[16px] text-[#131313]">
               {dados?.total
                 ? `${dados.total} ${t("explore_page.result_label")}`
                 : t("explore_page.result_label_empty")}
@@ -90,7 +90,7 @@ export default function ExplorePage() {
         {loading ? (
           <Skeleton className="md:hidden col-span-full h-6 w-48" />
         ) : (
-          <p className="md:hidden col-span-full font-semibold text-[16px] text-white">
+          <p className="md:hidden col-span-full font-semibold text-[16px] text-[#131313]">
             {dados?.total
               ? `${dados.total} ${t("explore_page.result_label")}`
               : t("explore_page.result_label_empty")}
@@ -123,7 +123,7 @@ export default function ExplorePage() {
           {loadingMore && (
             <div className="w-full h-full flex flex-col justify-center items-center my-6">
               <Loader2 className="w-7 h-7 text-primary animate-spin mb-2" />
-              <p className="text-[#00C000] text-sm font-semibold">{t("common.loading")}</p>
+              <p className="text-primary text-sm font-semibold">{t("common.loading")}</p>
             </div>
           )}
         </>

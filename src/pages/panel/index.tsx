@@ -52,7 +52,7 @@ export default function InternalPanelPage() {
     .join("");
 
   return (
-    <SidebarProvider className="[--primary:#118A2A] [--primary-foreground:#ffffff]">
+    <SidebarProvider className="[--primary:#E64420] [--primary-foreground:#ffffff]">
       <Sidebar>
         <SidebarHeader className="p-3">
           <Link to={`/${locale}/painel`}>

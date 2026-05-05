@@ -178,7 +178,7 @@ export function FilterModal({
       <SlidersHorizontal className="w-4 h-4" />
       {t("explore_page.filters")}
       {activeCount > 0 && (
-        <span className="absolute -top-1.5 -right-1.5 bg-primary text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+        <span className="absolute -top-1.5 -right-1.5 bg-primary text-primary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
           {activeCount}
         </span>
       )}
@@ -254,7 +254,7 @@ export function FilterModal({
           <DrawerFooter>
             <Button
               onClick={handleApply}
-              className="bg-primary text-black font-semibold hover:bg-primary/90"
+              className="bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
             >
               {t("explore_page.filter_apply")}
             </Button>
@@ -282,7 +282,7 @@ export function FilterModal({
           </Button>
           <Button
             onClick={handleApply}
-            className="bg-primary text-black font-semibold hover:bg-primary/90"
+            className="bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
           >
             {t("explore_page.filter_apply")}
           </Button>

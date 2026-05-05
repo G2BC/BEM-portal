@@ -352,7 +352,7 @@ export function RequestCard({
                 <Button
                   disabled={isBusy}
                   onClick={onGranularReview}
-                  className="bg-[#118A2A] text-white hover:bg-[#0E7323]"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   {isBusy ? (
                     <Loader2 className="h-4 w-4 animate-spin" />

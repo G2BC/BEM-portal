@@ -65,7 +65,7 @@ export function HeaderNav({
             to={targetPath}
             className={clsx(
               "h-full flex items-center border-b-[4px] border-b-transparent transition-colors duration-500",
-              isActive && "!border-b-[#00C000]",
+              isActive && "!border-b-primary",
               mobile && "max-h-[40px]"
             )}
             onClick={onClick}
@@ -85,7 +85,7 @@ export function HeaderNav({
               to={targetPath}
               className={clsx(
                 "h-full flex items-center border-b-[4px] border-b-transparent transition-colors duration-500 max-h-[40px]",
-                isActive && "!border-b-[#00C000]"
+                isActive && "!border-b-primary"
               )}
               onClick={onClick}
             >
@@ -98,13 +98,13 @@ export function HeaderNav({
           <DropdownMenuTrigger
             className={clsx(
               "h-full flex items-center gap-1 border-b-[4px] border-b-transparent transition-colors duration-500 outline-none cursor-pointer",
-              isSobreActive && "!border-b-[#00C000]"
+              isSobreActive && "!border-b-primary"
             )}
           >
             <span className="text-white font-bold leading-0">{t("header.about")}</span>
             <ChevronDown className="text-white w-4 h-4" />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-[#0A100B] border-white/10 min-w-[160px]">
+          <DropdownMenuContent className="bg-[#131313] border-white/10 min-w-[160px]">
             {sobreLinks.map(({ path, label }) => (
               <DropdownMenuItem
                 key={path}

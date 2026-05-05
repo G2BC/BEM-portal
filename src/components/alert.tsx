@@ -6,6 +6,6 @@ const _Alert = withReactContent(Swal);
 export function Alert(props: SweetAlertOptions) {
   return _Alert.fire({
     ...props,
-    confirmButtonColor: props.confirmButtonColor ?? "#00C000",
+    confirmButtonColor: props.confirmButtonColor ?? "#E64420",
   });
 }

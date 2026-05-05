@@ -20,7 +20,7 @@ export function Header() {
   const panelPath = mustChangePassword ? `/${locale}/trocar-senha` : `/${locale}/painel`;
 
   return (
-    <header className="h-20 w-full bg-[#0A100B] flex items-center min-h-[85px]">
+    <header className="h-20 w-full bg-[#131313] flex items-center min-h-[85px]">
       <div className="container mx-auto px-4 flex items-center justify-between h-full">
         <div className="flex h-full items-center gap-16">
           <Link to="/">
@@ -32,7 +32,7 @@ export function Header() {
           {showPanelButton ? (
             <Button
               onClick={() => navigate(panelPath)}
-              className="h-9 bg-primary text-black font-semibold hover:bg-primary/90"
+              className="h-9 bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
             >
               {t("header.ctas.panel")}
             </Button>
@@ -40,13 +40,13 @@ export function Header() {
             <>
               <Button
                 variant="outline"
-                className="h-9 border-primary/60 bg-transparent text-primary hover:bg-primary/15 hover:text-primary"
+                className="h-9 border-primary/60 bg-transparent text-white hover:bg-primary/15 hover:text-white"
                 onClick={() => navigate(`/${locale}/login`)}
               >
                 {t("header.ctas.login")}
               </Button>
               <Button
-                className="h-9 bg-primary text-black font-semibold hover:bg-primary/90"
+                className="h-9 bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
                 onClick={() => navigate(`/${locale}/cadastro`)}
               >
                 {t("header.ctas.register")}

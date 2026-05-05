@@ -153,8 +153,8 @@ export default defineConfig(({ mode }) => {
           description: "Banco de dados científico sobre cogumelos comestíveis brasileiros.",
           start_url: "/",
           scope: "/",
-          theme_color: "#0a100b",
-          background_color: "#0a100b",
+          theme_color: "#131313",
+          background_color: "#131313",
           lang: "pt-BR",
           display: "standalone",
           icons: [

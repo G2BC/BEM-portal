@@ -21,9 +21,9 @@ export default function DistributionPage() {
       <div className="py-10 overflow-x-auto mb-10 scrollbar-hide">
         <div className="min-w-max md:min-w-0">
           {!loaded && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0A100B]">
-              <Loader2 className="w-8 h-8 text-[#00C000] animate-spin mb-4" />
-              <p className="text-[#00C000] font-semibold">{t("common.loading")}</p>
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#131313]">
+              <Loader2 className="w-8 h-8 text-primary animate-spin mb-4" />
+              <p className="text-primary font-semibold">{t("common.loading")}</p>
             </div>
           )}
 

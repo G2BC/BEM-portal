@@ -32,7 +32,7 @@ export function SpeciesVisibilityField({ form, t }: SpeciesVisibilityFieldProps)
             >
               <ToggleGroupItem
                 value="true"
-                className="data-[state=on]:border-[#118A2A] data-[state=on]:bg-[#118A2A] data-[state=on]:text-white hover:data-[state=on]:bg-[#0E7323]"
+                className="data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground hover:data-[state=on]:bg-primary/90"
               >
                 {t("species_page.lumm.yes")}
               </ToggleGroupItem>

@@ -96,7 +96,7 @@ export default function DadosPage() {
         <Button
           disabled={loading}
           onClick={handleDownload}
-          className="bg-primary text-black font-semibold hover:bg-primary/90"
+          className="bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
         >
           {loading ? t("dados_page.downloading") : t("dados_page.download_cta")}
         </Button>

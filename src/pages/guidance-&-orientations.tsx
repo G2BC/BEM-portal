@@ -28,7 +28,7 @@ export default function GuidancePage() {
         <h2 className="text-2xl font-semibold mb-4 uppercase tracking-wide">
           {t("guidance.section_guidance_title")}
         </h2>
-        <div className="h-1 w-12 bg-[#00c000] rounded-full" />
+        <div className="h-1 w-12 bg-[#E64420] rounded-full" />
         <div className="space-y-12 mt-8">
           <div className="pb-12 space-y-4">
             <div className="flex items-center gap-4">
@@ -205,7 +205,7 @@ export default function GuidancePage() {
           <h2 className="text-3xl font-medium text-white mb-4">
             {t("guidance.photo_guide.title")}
           </h2>
-          <div className="h-1 w-12 bg-[#00c000] rounded-full" />
+          <div className="h-1 w-12 bg-[#E64420] rounded-full" />
         </div>
 
         <div className="grid md:grid-cols-2 gap-x-12 gap-y-16">

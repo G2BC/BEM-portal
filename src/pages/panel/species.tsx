@@ -144,7 +144,7 @@ export default function PanelSpeciesPage() {
 
         {canManageSpecies ? (
           <Link to={`/${locale}/painel/especies/cadastro`}>
-            <Button className="text-white bg-[#118A2A] hover:bg-[#0E7323] font-medium">
+            <Button className="bg-primary text-primary-foreground font-medium hover:bg-primary/90">
               <PlusIcon /> {t("panel_page.species_add_new")}
             </Button>
           </Link>

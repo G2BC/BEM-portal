@@ -187,7 +187,7 @@ function SidebarMenuButton({
       data-active={isActive}
       className={cn(
         "flex w-full items-center gap-2 overflow-hidden rounded-md px-3 py-2 text-left text-sm font-medium text-slate-700 outline-none transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 focus-visible:ring-sidebar-ring",
-        "data-[active=true]:bg-[#118A2A] data-[active=true]:text-white",
+        "data-[active=true]:bg-primary data-[active=true]:text-primary-foreground",
         className
       )}
       {...props}

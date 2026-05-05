@@ -14,7 +14,7 @@ export default function AlphabetNavigation({ onLetterClick }: AlphabetNavigation
         <button
           key={letter}
           onClick={() => onLetterClick && onLetterClick(letter)}
-          className="text-2xl font-bold text-[#00c000] hover:text-white transition-colors"
+          className="text-2xl font-bold text-[#E64420] hover:text-white transition-colors"
         >
           {letter}
         </button>

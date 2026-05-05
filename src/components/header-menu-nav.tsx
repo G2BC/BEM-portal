@@ -36,10 +36,10 @@ export function HeaderMenuNav() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="link" className="p-0">
-          <Menu className="text-[#00C000] min-w-8 w-8 min-h-8 h-8 cursor-pointer" />
+          <Menu className="text-primary min-w-8 w-8 min-h-8 h-8 cursor-pointer" />
         </Button>
       </SheetTrigger>
-      <SheetContent closeButtonClassName="text-primary" className="bg-[#0A100B] border-transparent">
+      <SheetContent closeButtonClassName="text-primary" className="bg-[#131313] border-transparent">
         <SheetHeader>
           <SheetTitle>
             <LanguageSwitcher onClick={handleClose} />
@@ -55,7 +55,7 @@ export function HeaderMenuNav() {
                 navigate(panelPath);
                 handleClose();
               }}
-              className="w-full bg-primary text-black font-semibold hover:bg-primary/90"
+              className="w-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
             >
               {t("header.ctas.panel")}
             </Button>
@@ -67,7 +67,7 @@ export function HeaderMenuNav() {
                   handleClose();
                 }}
                 variant="outline"
-                className="w-full border-primary/60 bg-transparent text-primary hover:bg-primary/15 hover:text-primary"
+                className="w-full border-primary/60 bg-transparent text-white hover:bg-primary/15 hover:text-white"
               >
                 {t("header.ctas.login")}
               </Button>
@@ -76,7 +76,7 @@ export function HeaderMenuNav() {
                   navigate(`/${locale}/cadastro`);
                   handleClose();
                 }}
-                className="w-full bg-primary text-black font-semibold hover:bg-primary/90"
+                className="w-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
               >
                 {t("header.ctas.register")}
               </Button>
