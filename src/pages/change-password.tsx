@@ -103,10 +103,10 @@ export default function ChangePasswordPage() {
       </div>
 
       <div className="flex items-center justify-center px-5 py-12 lg:px-12">
-        <div className="w-full max-w-xl text-white">
+        <div className="w-full max-w-xl text-foreground">
           <div className="mb-6 space-y-2">
             <h1 className="text-3xl font-bold">{t("change_password_page.title")}</h1>
-            <p className="text-white/70">{t("change_password_page.subtitle")}</p>
+            <p className="text-muted-foreground">{t("change_password_page.subtitle")}</p>
           </div>
 
           <Form {...form}>

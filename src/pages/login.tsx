@@ -110,10 +110,10 @@ export default function LoginPage() {
       </div>
 
       <div className="flex items-center justify-center px-5 py-12 lg:px-12">
-        <div className="w-full max-w-xl text-white">
+        <div className="w-full max-w-xl text-foreground">
           <div className="mb-6 space-y-2">
             <h1 className="text-3xl font-bold">{t("login_page.title")}</h1>
-            <p className="text-white/70">{t("login_page.subtitle")}</p>
+            <p className="text-muted-foreground">{t("login_page.subtitle")}</p>
           </div>
 
           <Form {...form}>
@@ -159,7 +159,7 @@ export default function LoginPage() {
                 {form.formState.isSubmitting ? t("common.loading") : t("login_page.submit")}
               </Button>
 
-              <p className="text-center text-sm text-white/70">
+              <p className="text-center text-sm text-muted-foreground">
                 {t("login_page.register_prompt")}{" "}
                 <button
                   type="button"

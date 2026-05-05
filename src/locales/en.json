@@ -94,7 +94,7 @@
     },
     "register_page": {
       "title": "Create your account",
-      "subtitle": "Explore and collaborate on bioluminescent species with LUMM",
+      "subtitle": "Explore and collaborate on Brazilian edible mushrooms with BEM",
       "name_label": "Full name",
       "name_placeholder": "Enter your name",
       "email_label": "Email",
@@ -124,7 +124,7 @@
     },
     "login_page": {
       "title": "Welcome back",
-      "subtitle": "Access your account to continue exploring with LUMM",
+      "subtitle": "Access your account to continue exploring BEM",
       "email_label": "Email",
       "email_placeholder": "you@example.com",
       "password_label": "Password",

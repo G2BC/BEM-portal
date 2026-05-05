@@ -122,10 +122,10 @@ export default function RegisterPage() {
       </div>
 
       <div className="flex items-center justify-center px-5 py-12 lg:px-12">
-        <div className="w-full max-w-xl text-white">
+        <div className="w-full max-w-xl text-foreground">
           <div className="mb-6 space-y-2">
             <h1 className="text-3xl font-bold">{t("register_page.title")}</h1>
-            <p className="text-white/70">{t("register_page.subtitle")}</p>
+            <p className="text-muted-foreground">{t("register_page.subtitle")}</p>
           </div>
 
           <Form {...form}>
@@ -226,7 +226,7 @@ export default function RegisterPage() {
                 {form.formState.isSubmitting ? t("common.loading") : t("register_page.submit")}
               </Button>
 
-              <p className="text-center text-sm text-white/70">
+              <p className="text-center text-sm text-muted-foreground">
                 {t("register_page.login_prompt")}{" "}
                 <button
                   type="button"

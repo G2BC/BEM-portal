@@ -94,7 +94,7 @@
     },
     "register_page": {
       "title": "Crie sua conta",
-      "subtitle": "Explore e colabore sobre espécies bioluminescentes com o LUMM",
+      "subtitle": "Explore e colabore sobre cogumelos comestíveis brasileiros com o BEM",
       "name_label": "Nome completo",
       "name_placeholder": "Digite seu nome",
       "email_label": "E-mail",
@@ -124,7 +124,7 @@
     },
     "login_page": {
       "title": "Bem-vindo de volta",
-      "subtitle": "Acesse sua conta para continuar explorando com o LUMM",
+      "subtitle": "Acesse sua conta para continuar explorando o BEM",
       "email_label": "E-mail",
       "email_placeholder": "voce@email.com",
       "password_label": "Senha",

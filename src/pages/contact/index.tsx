@@ -46,7 +46,7 @@ export default function ContatoPage() {
 
   return (
     <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 my-10 gap-16">
-      <div className="text-white">
+      <div className="text-foreground">
         <h1 className="text-[34px] xl:text-[50px] font-bold leading-[38px] xl:leading-[54px] mb-8">
           {t("contact_page.title")}
         </h1>

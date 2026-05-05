@@ -199,7 +199,7 @@ export function FilterModal({
       <label className="flex flex-col gap-1.5">
         <span className="text-sm text-muted-foreground">{t("explore_page.select_lineage")}</span>
         <ComboboxAsync
-          variant="dark"
+          variant="light"
           fetchOptions={fetchLineageOptions}
           initialKnownOptions={lineageInitialOptions}
           value={draftLineage || null}
@@ -210,7 +210,7 @@ export function FilterModal({
       <label className="flex flex-col gap-1.5">
         <span className="text-sm text-muted-foreground">{t("explore_page.select_country")}</span>
         <ComboboxAsync
-          variant="dark"
+          variant="light"
           fetchOptions={fetchCountryOptions}
           value={draftCountry || null}
           onSelect={(id) => setDraftCountry(id ? String(id) : "")}
@@ -221,7 +221,7 @@ export function FilterModal({
           {t("explore_page.select_distributions")}
         </span>
         <ComboboxAsync
-          variant="dark"
+          variant="light"
           multiple
           fetchOptions={fetchDistributionOptions}
           initialKnownOptions={distributionInitialOptions}
