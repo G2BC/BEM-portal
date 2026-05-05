@@ -1,0 +1,469 @@
+import { DomainComboboxAsync } from "@/components/domain-combobox-async";
+import type { SpeciesDomainSelectType } from "@/api/species";
+import { selectDistributions, selectSpeciesCountry } from "@/api/species";
+import type { ISelectLocalized } from "@/api/types/ISelectLocalized";
+import { SpeciesComboboxAsync } from "@/components/species-combobox-async";
+import { ComboboxAsync, type ComboboxOption } from "@/components/combobox-async";
+import { getCountryName } from "@/lib/country-names";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Alert } from "@/components/alert";
+import type { TFunction } from "i18next";
+import { useCallback, useMemo, useRef } from "react";
+import type { UseFormReturn } from "react-hook-form";
+import { DETAIL_VALUE_TEXT_CLASS } from "../constants";
+import type { SpeciesEditFieldConfig, SpeciesEditFieldName, SpeciesEditFormValues } from "../types";
+import { getFieldDisplayValue, resolveOptionLabel } from "../utils";
+
+type SpeciesFieldsGridProps = {
+  form: UseFormReturn<SpeciesEditFormValues>;
+  visibleFields: SpeciesEditFieldConfig[];
+  isViewMode: boolean;
+  locale: string;
+  viewValueOverrides?: Partial<Record<SpeciesEditFieldName, string>>;
+  excludeSpeciesId?: number;
+  domainPreloadedOptions?: Partial<Record<SpeciesDomainSelectType, ISelectLocalized[]>>;
+  similarSpeciesPreloadedOptions?: Array<{ id: number; label: string; photo?: string | null }>;
+  distributionPreloadedOptions?: Array<{ id: number; label: string }>;
+  isOutdatedMycobank?: boolean;
+  t: TFunction;
+};
+
+export function SpeciesFieldsGrid({
+  form,
+  visibleFields,
+  isViewMode,
+  locale,
+  viewValueOverrides,
+  excludeSpeciesId,
+  domainPreloadedOptions,
+  similarSpeciesPreloadedOptions,
+  distributionPreloadedOptions,
+  isOutdatedMycobank,
+  t,
+}: SpeciesFieldsGridProps) {
+  const hasShownMycobankAlert = useRef(false);
+  const fetchCountryOptions = useCallback(
+    async (search: string, signal: AbortController["signal"]): Promise<ComboboxOption[]> => {
+      const res = await selectSpeciesCountry(search, signal);
+      return res.map((item) => ({
+        id: item.value,
+        label: getCountryName(item.label, locale) || item.label,
+      }));
+    },
+    [locale]
+  );
+
+  const isPtLocale = locale.toLowerCase().startsWith("pt");
+  const fetchDistributionOptions = useCallback(
+    async (_search: string, signal: AbortController["signal"]): Promise<ComboboxOption[]> => {
+      const res = await selectDistributions(signal);
+      return res.map((item) => ({
+        id: item.id,
+        label: isPtLocale ? item.label_pt : item.label_en,
+      }));
+    },
+    [isPtLocale]
+  );
+
+  const triStateFieldNames = new Set([
+    "edible",
+    "lum_mycelium",
+    "lum_basidiome",
+    "lum_stipe",
+    "lum_pileus",
+    "lum_lamellae",
+    "lum_spores",
+  ]);
+
+  const getNormalizedSelectValue = (name: SpeciesEditFieldName, value: unknown) => {
+    if (triStateFieldNames.has(name)) {
+      if (value === true) return "true";
+      if (value === false) return "false";
+      if (value === null || value === undefined) return "unknown";
+
+      const normalized = String(value ?? "")
+        .trim()
+        .toLowerCase();
+      if (normalized === "true" || normalized === "false" || normalized === "unknown") {
+        return normalized;
+      }
+      return "unknown";
+    }
+
+    if (name === "is_visible") {
+      if (value === true) return "true";
+      if (value === false) return "false";
+
+      const normalized = String(value ?? "")
+        .trim()
+        .toLowerCase();
+      return normalized === "true" ? "true" : "false";
+    }
+
+    return String(value ?? "").trim();
+  };
+
+  const monthOptions = useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, index) => {
+        const month = index + 1;
+        const label = new Intl.DateTimeFormat(locale, { month: "long" }).format(
+          new Date(2020, index, 1)
+        );
+        return {
+          value: String(month),
+          label: label.charAt(0).toUpperCase() + label.slice(1),
+        };
+      }),
+    [locale]
+  );
+
+  const getMonthLabel = (value: string) =>
+    monthOptions.find((option) => option.value === value)?.label;
+  const hasSeasonEndField = visibleFields.some((field) => field.name === "season_end_month");
+  const hasColorsField = visibleFields.some((field) => field.name === "colors");
+
+  return (
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      {visibleFields.map((fieldConfig) => {
+        if (fieldConfig.name === "season_end_month" && hasSeasonEndField) {
+          return null;
+        }
+
+        if (fieldConfig.name === "season_start_month" && hasSeasonEndField) {
+          const startFieldConfig = fieldConfig;
+          const endFieldConfig = visibleFields.find(
+            (field) => field.name === "season_end_month"
+          ) as SpeciesEditFieldConfig | undefined;
+
+          if (!endFieldConfig) return null;
+
+          const seasonStartValue = String(form.watch("season_start_month") ?? "");
+          const seasonEndValue = String(form.watch("season_end_month") ?? "");
+
+          return (
+            <div key="season-range" className="md:col-span-2">
+              <p className="mb-2 text-sm font-medium tracking-normal text-slate-600">
+                {t("panel_page.species_edit_field_seasonality")}
+              </p>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:items-end">
+                <FormField
+                  control={form.control}
+                  name="season_start_month"
+                  render={({ field }) => (
+                    <FormItem className="gap-1">
+                      <FormLabel className="text-sm font-medium tracking-normal text-slate-600">
+                        {t(startFieldConfig.labelKey)}
+                      </FormLabel>
+                      {isViewMode ? (
+                        <p className={DETAIL_VALUE_TEXT_CLASS}>
+                          {seasonStartValue
+                            ? getMonthLabel(seasonStartValue) || seasonStartValue
+                            : t("panel_page.species_edit_empty_value")}
+                        </p>
+                      ) : (
+                        <Select value={String(field.value ?? "")} onValueChange={field.onChange}>
+                          <FormControl>
+                            <SelectTrigger className="w-full text-slate-900 focus-visible:border-slate-300 focus-visible:ring-slate-200 [&_svg]:text-slate-500">
+                              <SelectValue placeholder={t(startFieldConfig.placeholderKey)} />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {monthOptions.map((option) => (
+                              <SelectItem key={option.value} value={option.value}>
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                      {!isViewMode ? <FormMessage /> : null}
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="season_end_month"
+                  render={({ field }) => (
+                    <FormItem className="gap-1">
+                      <FormLabel className="text-sm font-medium tracking-normal text-slate-600">
+                        {t(endFieldConfig.labelKey)}
+                      </FormLabel>
+                      {isViewMode ? (
+                        <p className={DETAIL_VALUE_TEXT_CLASS}>
+                          {seasonEndValue
+                            ? getMonthLabel(seasonEndValue) || seasonEndValue
+                            : t("panel_page.species_edit_empty_value")}
+                        </p>
+                      ) : (
+                        <Select value={String(field.value ?? "")} onValueChange={field.onChange}>
+                          <FormControl>
+                            <SelectTrigger className="w-full text-slate-900 focus-visible:border-slate-300 focus-visible:ring-slate-200 [&_svg]:text-slate-500">
+                              <SelectValue placeholder={t(endFieldConfig.placeholderKey)} />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {monthOptions.map((option) => (
+                              <SelectItem key={option.value} value={option.value}>
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                      {!isViewMode ? <FormMessage /> : null}
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+          );
+        }
+
+        if (fieldConfig.name === "colors" && hasColorsField) {
+          return null;
+        }
+
+        if (fieldConfig.name === "colors_pt" && hasColorsField) {
+          const colorsPtConfig = fieldConfig;
+          const colorsConfig = visibleFields.find((field) => field.name === "colors") as
+            | SpeciesEditFieldConfig
+            | undefined;
+
+          if (!colorsConfig) return null;
+
+          return (
+            <div key="colors-pair" className="md:col-span-2">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="colors_pt"
+                  render={({ field }) => (
+                    <FormItem className="gap-1">
+                      <FormLabel className="text-sm font-medium tracking-normal text-slate-600">
+                        {t(colorsPtConfig.labelKey)}
+                      </FormLabel>
+                      {isViewMode ? (
+                        <p className={DETAIL_VALUE_TEXT_CLASS}>
+                          {String(field.value ?? "") || t("panel_page.species_edit_empty_value")}
+                        </p>
+                      ) : (
+                        <FormControl>
+                          <Textarea
+                            value={String(field.value ?? "")}
+                            onChange={field.onChange}
+                            rows={colorsPtConfig.rows ?? 2}
+                            placeholder={t(colorsPtConfig.placeholderKey)}
+                            spellCheck={false}
+                            className="field-sizing-fixed min-h-28 text-slate-900 placeholder:text-slate-400 focus-visible:border-slate-300 focus-visible:ring-slate-200"
+                          />
+                        </FormControl>
+                      )}
+                      {!isViewMode ? <FormMessage /> : null}
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="colors"
+                  render={({ field }) => (
+                    <FormItem className="gap-1">
+                      <FormLabel className="text-sm font-medium tracking-normal text-slate-600">
+                        {t(colorsConfig.labelKey)}
+                      </FormLabel>
+                      {isViewMode ? (
+                        <p className={DETAIL_VALUE_TEXT_CLASS}>
+                          {String(field.value ?? "") || t("panel_page.species_edit_empty_value")}
+                        </p>
+                      ) : (
+                        <FormControl>
+                          <Textarea
+                            value={String(field.value ?? "")}
+                            onChange={field.onChange}
+                            rows={colorsConfig.rows ?? 2}
+                            placeholder={t(colorsConfig.placeholderKey)}
+                            spellCheck={false}
+                            className="field-sizing-fixed min-h-28 text-slate-900 placeholder:text-slate-400 focus-visible:border-slate-300 focus-visible:ring-slate-200"
+                          />
+                        </FormControl>
+                      )}
+                      {!isViewMode ? <FormMessage /> : null}
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div key={fieldConfig.name} className={fieldConfig.fullWidth ? "md:col-span-2" : ""}>
+            <FormField
+              control={form.control}
+              name={fieldConfig.name}
+              render={({ field }) => {
+                const rawFieldValue = String(field.value ?? "");
+                const normalizedFieldValue =
+                  fieldConfig.inputType === "select"
+                    ? getNormalizedSelectValue(fieldConfig.name, field.value)
+                    : rawFieldValue;
+                const overrideViewValue = viewValueOverrides?.[fieldConfig.name];
+                return (
+                  <FormItem className="gap-1">
+                    <div className="flex items-center gap-1.5">
+                      <FormLabel className="text-sm font-medium tracking-normal text-slate-600">
+                        {t(fieldConfig.labelKey)}
+                      </FormLabel>
+                      {fieldConfig.name === "mycobank_index_fungorum_id" && isOutdatedMycobank ? (
+                        <span className="inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700">
+                          {t("panel_page.outdated_badge")}
+                        </span>
+                      ) : null}
+                    </div>
+                    {isViewMode ? (
+                      <p
+                        className={
+                          fieldConfig.inputType === "textarea"
+                            ? `${DETAIL_VALUE_TEXT_CLASS} whitespace-pre-wrap`
+                            : DETAIL_VALUE_TEXT_CLASS
+                        }
+                      >
+                        {overrideViewValue !== undefined
+                          ? overrideViewValue || t("panel_page.species_edit_empty_value")
+                          : getFieldDisplayValue(fieldConfig, normalizedFieldValue, t)}
+                      </p>
+                    ) : fieldConfig.inputType === "species-multi-async" ? (
+                      <FormControl>
+                        <SpeciesComboboxAsync
+                          variant="light"
+                          excludeSpeciesId={excludeSpeciesId}
+                          value={Array.isArray(field.value) ? field.value : []}
+                          onSelect={field.onChange}
+                          placeholder={t(fieldConfig.placeholderKey)}
+                          initialKnownOptions={similarSpeciesPreloadedOptions}
+                        />
+                      </FormControl>
+                    ) : fieldConfig.inputType === "domain-multi-async" && fieldConfig.domain ? (
+                      <FormControl>
+                        <DomainComboboxAsync
+                          variant="light"
+                          domain={fieldConfig.domain}
+                          multiple
+                          value={Array.isArray(field.value) ? field.value : []}
+                          onSelect={(nextValues) => {
+                            const normalizedIds = nextValues
+                              .map((value) => Number(value))
+                              .filter((value) => Number.isFinite(value));
+                            field.onChange(normalizedIds);
+                          }}
+                          placeholder={t(fieldConfig.placeholderKey)}
+                          initialKnownOptions={domainPreloadedOptions?.[fieldConfig.domain]}
+                        />
+                      </FormControl>
+                    ) : fieldConfig.inputType === "select" ? (
+                      <Select value={normalizedFieldValue} onValueChange={field.onChange}>
+                        <FormControl>
+                          <SelectTrigger className="w-full text-slate-900 focus-visible:border-slate-300 focus-visible:ring-slate-200 [&_svg]:text-slate-500">
+                            <SelectValue placeholder={t(fieldConfig.placeholderKey)} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {fieldConfig.options?.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {resolveOptionLabel(option, t)}
+                            </SelectItem>
+                          ))}
+                          {normalizedFieldValue &&
+                            !fieldConfig.options?.some((o) => o.value === normalizedFieldValue) && (
+                              <SelectItem value={normalizedFieldValue}>
+                                {normalizedFieldValue}
+                              </SelectItem>
+                            )}
+                        </SelectContent>
+                      </Select>
+                    ) : fieldConfig.inputType === "distribution-multi-async" ? (
+                      <FormControl>
+                        <ComboboxAsync
+                          variant="light"
+                          fetchOptions={fetchDistributionOptions}
+                          multiple
+                          value={Array.isArray(field.value) ? field.value : []}
+                          onSelect={(nextValues) => {
+                            const normalizedIds = nextValues
+                              .map((v) => Number(v))
+                              .filter((v) => Number.isFinite(v));
+                            field.onChange(normalizedIds);
+                          }}
+                          placeholder={t(fieldConfig.placeholderKey)}
+                          initialKnownOptions={distributionPreloadedOptions}
+                        />
+                      </FormControl>
+                    ) : fieldConfig.inputType === "country-select" ? (
+                      <FormControl>
+                        <ComboboxAsync
+                          variant="light"
+                          fetchOptions={fetchCountryOptions}
+                          value={rawFieldValue || null}
+                          onSelect={(id) => field.onChange(id ? String(id) : "")}
+                          placeholder={t(fieldConfig.placeholderKey)}
+                        />
+                      </FormControl>
+                    ) : fieldConfig.inputType === "textarea" ? (
+                      <FormControl>
+                        <Textarea
+                          value={rawFieldValue}
+                          onChange={field.onChange}
+                          rows={fieldConfig.rows ?? 3}
+                          placeholder={t(fieldConfig.placeholderKey)}
+                          spellCheck={false}
+                          className="field-sizing-fixed min-h-28 text-slate-900 placeholder:text-slate-400 focus-visible:border-slate-300 focus-visible:ring-slate-200"
+                        />
+                      </FormControl>
+                    ) : (
+                      <FormControl>
+                        <Input
+                          type={fieldConfig.inputType}
+                          value={rawFieldValue}
+                          onChange={field.onChange}
+                          onClick={
+                            fieldConfig.name === "mycobank_index_fungorum_id"
+                              ? () => {
+                                  if (hasShownMycobankAlert.current) return;
+                                  hasShownMycobankAlert.current = true;
+                                  Alert({
+                                    title: t("common.warning"),
+                                    icon: "warning",
+                                    text: t("panel_page.species_edit_mycobank_sync_tooltip"),
+                                    confirmButtonText: t("common.continue"),
+                                  }).then(() => null);
+                                }
+                              : undefined
+                          }
+                          placeholder={t(fieldConfig.placeholderKey)}
+                          spellCheck={false}
+                          inputMode={fieldConfig.inputType === "number" ? "decimal" : undefined}
+                          className="text-slate-900 placeholder:text-slate-400 focus-visible:border-slate-300 focus-visible:ring-slate-200"
+                        />
+                      </FormControl>
+                    )}
+                    {!isViewMode ? <FormMessage /> : null}
+                  </FormItem>
+                );
+              }}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+}

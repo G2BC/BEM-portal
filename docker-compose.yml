@@ -1,0 +1,9 @@
+services:
+  web:
+    image: ${APP_IMAGE:-ghcr.io/g2bc/bem-web}:${IMAGE_TAG:-latest}
+    container_name: bem-web
+    restart: unless-stopped
+    ports:
+      - "4001:80"
+    security_opt:
+      - no-new-privileges:true

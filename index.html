@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/bem.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0A100B" />
+
+    <meta
+      name="robots"
+      content="%VITE_ROBOTS%, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+
+    <meta name="image" property="og:image" content="/share.webp" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Syne:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>BEM - Brazilian Edible Mushrooms</title>
+    <meta
+      name="keywords"
+      content="cogumelos comestíveis, BEM, Brazilian Edible Mushrooms, mycology, ciência, biodiversidade, fungos, banco de dados, UNEB"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/share.webp" />
+    <meta property="og:image:alt" content="BEM - Brazilian Edible Mushrooms" />
+
+    <!-- X (Twitter) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/share.webp" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "BEM - Brazilian Edible Mushrooms",
+        "url": "https://bem.uneb.br",
+        "description": "Um banco de dados web para divulgação científica sobre cogumelos comestíveis brasileiros.",
+        "publisher": {
+          "@type": "ResearchProject",
+          "name": "G2BC - Grupo de Pesquisa em Bioinformática e Biologia Computacional da UNEB",
+          "url": "https://g2bc.uneb.br/",
+          "parentOrganization": {
+            "@type": "CollegeOrUniversity",
+            "name": "Universidade do Estado da Bahia",
+            "url": "https://portal.uneb.br/"
+          }
+        },
+        "creator": {
+          "@type": "Organization",
+          "name": "BEM Project Team",
+          "url": "https://bem.uneb.br"
+        },
+        "inLanguage": ["pt-BR", "en"],
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://bem.uneb.br/explorar?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root" class="antialiased overflow-x-hidden"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

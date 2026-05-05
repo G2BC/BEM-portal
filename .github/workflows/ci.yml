@@ -1,0 +1,180 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: "${{ !startsWith(github.event.pull_request.title, 'chore(main): release') }}"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Validate locales
+        run: npm run validate:locales
+
+      - name: Build app
+        run: npm run build
+
+  scan:
+    if: "${{ !startsWith(github.event.pull_request.title, 'chore(main): release') }}"
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure dir
+        run: mkdir -p artifacts
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image from current commit (local only)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          load: true
+          tags: lumm-web:${{ github.sha }}
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
+            VITE_API_KEY=${{ secrets.VITE_API_KEY }}
+            VITE_ROBOTS=${{ secrets.VITE_ROBOTS }}
+            VITE_SITE_URL=${{ secrets.VITE_SITE_URL }}
+            VITE_PUBLIC_STORAGE_BASE_URL=${{ secrets.VITE_PUBLIC_STORAGE_BASE_URL }}
+            VITE_CLARITY_ID=${{ secrets.VITE_CLARITY_ID }}
+
+      - name: Install Trivy CLI
+        run: curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Trivy fs
+        run: |
+          mkdir -p artifacts
+          trivy fs . \
+            --scanners vuln,secret \
+            --severity LOW,MEDIUM,HIGH,CRITICAL \
+            --ignore-unfixed \
+            -f table -o artifacts/trivy-fs.txt
+
+          trivy fs . \
+            --scanners vuln,secret \
+            --severity LOW,MEDIUM,HIGH,CRITICAL \
+            --ignore-unfixed \
+            -f json -o artifacts/trivy-fs.json
+
+      - name: Trivy image
+        run: |
+          trivy image lumm-web:${{ github.sha }} \
+            --severity LOW,MEDIUM,HIGH,CRITICAL \
+            --ignore-unfixed \
+            -f table -o artifacts/trivy-image.txt
+
+          trivy image lumm-web:${{ github.sha }} \
+            --severity LOW,MEDIUM,HIGH,CRITICAL \
+            --ignore-unfixed \
+            -f json -o artifacts/trivy-image.json
+
+      - name: Trivy config
+        run: |
+          mkdir -p artifacts
+          trivy config . \
+            --severity LOW,MEDIUM,HIGH,CRITICAL \
+            -f table -o artifacts/trivy-config.txt
+
+          trivy config . \
+            --severity LOW,MEDIUM,HIGH,CRITICAL \
+            -f json -o artifacts/trivy-config.json
+
+      - name: Calculate EPV
+        run: |
+          mkdir -p artifacts
+
+          C=$(jq '[.Results[].Vulnerabilities[]? | select(.Severity=="CRITICAL")] | length' artifacts/trivy-image.json)
+          H=$(jq '[.Results[].Vulnerabilities[]? | select(.Severity=="HIGH")] | length' artifacts/trivy-image.json)
+          M=$(jq '[.Results[].Vulnerabilities[]? | select(.Severity=="MEDIUM")] | length' artifacts/trivy-image.json)
+          L=$(jq '[.Results[].Vulnerabilities[]? | select(.Severity=="LOW")] | length' artifacts/trivy-image.json)
+
+          echo "Detected failures - CRITICAL: $C, HIGH: $H, MEDIUM: $M, LOW: $L"
+
+          EPV=$(echo "scale=2; (1.0*$C) + (0.75*$H) + (0.5*$M) + (0.25*$L)" | bc)
+          echo "Calculated EPV: $EPV"
+          echo "$EPV" > artifacts/epv.txt
+
+          if [ ! -f artifacts/epv.csv ]; then
+            echo 'date,commit,epv' > artifacts/epv.csv
+          fi
+
+          printf '%s,%s,%s\n' "$(date +%F)" "${GITHUB_SHA::7}" "$EPV" >> artifacts/epv.csv
+
+      - name: Generate EPV graph
+        run: |
+          pip install matplotlib pandas seaborn
+          python3 scripts/plot_epv.py
+
+      - name: Check EPV threshold
+        run: |
+          EPV=$(< artifacts/epv.txt)
+          echo "🔎 EPV detected: $EPV (threshold: $EPV_THRESHOLD)"
+          RESULT=$(echo "$EPV >= $EPV_THRESHOLD" | bc)
+
+          C=$(jq '[.Results[].Vulnerabilities[]? | select(.Severity=="CRITICAL")] | length' artifacts/trivy-image.json)
+          H=$(jq '[.Results[].Vulnerabilities[]? | select(.Severity=="HIGH")] | length' artifacts/trivy-image.json)
+          M=$(jq '[.Results[].Vulnerabilities[]? | select(.Severity=="MEDIUM")] | length' artifacts/trivy-image.json)
+          L=$(jq '[.Results[].Vulnerabilities[]? | select(.Severity=="LOW")] | length' artifacts/trivy-image.json)
+
+          echo "### 🔐 Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Severity  | Count |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 🟥 CRITICAL |   $C   |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🟧 HIGH     |   $H   |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🟨 MEDIUM   |   $M   |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🟦 LOW      |   $L   |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **EPV**: \`$EPV\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Threshold**: \`$EPV_THRESHOLD\`" >> $GITHUB_STEP_SUMMARY
+
+          if [ "$RESULT" -eq 1 ]; then
+            echo "- ❌ **Rejected**: EPV >= threshold" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          else
+            echo "- ✅ **Approved**: EPV below threshold" >> $GITHUB_STEP_SUMMARY
+          fi
+        env:
+          EPV_THRESHOLD: ${{ vars.EPV_THRESHOLD || 5 }}
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-security-scan
+          path: artifacts/*
+
+      - name: Clean workspace
+        if: always()
+        run: |
+          echo "Cleaning up..."
+          docker container prune -f
+          docker volume prune -f
+          rm -rf artifacts/

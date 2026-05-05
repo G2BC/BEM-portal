@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>category-sm_dd</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="category-sm_dd">
+            <path d="M43.9997223,21.9995835 L43.9997223,0 L21.6255467,0 L21.6255467,0.00916336924 C9.64998264,0.209369103 0,9.97363323 0,22.0006942 C0,34.1513218 9.85046859,44 21.9987504,44 C34.1114891,44 43.9366886,34.2113002 43.9972232,22.112876 L43.9997223,22.112876 L43.9997223,22.0212424 C43.9997223,22.0145781 44,22.0076361 44,22.0006942 C44,22.0006942 43.9997223,21.9998612 43.9997223,21.9995835" id="Fill-197-Copy-8" fill="#666666"></path>
+            
+            <!-- Inserir letras NE em branco -->
+            <g id="Group-16" transform="translate(14.000000, 17.000000)" fill="#FFFFFF">
+                <text x="-1" y="9" font-family="Arial" font-size="13" font-weight="bold" fill="#FFFFFF">NE</text>
+            </g>
+
+            <polyline id="Fill-233-Copy-8" fill="#FFFFFF" points="33 16 38.4215756 21.4992653 33 27 35.5699077 27 41 21.4992653 35.5649397 16 33 16"></polyline>
+            <polyline id="Fill-234-Copy-8" fill="#FFFFFF" points="11 16 5.57865318 21.4992653 11 27 8.43057404 27 3 21.4992653 8.43554254 16 11 16"></polyline>
+        </g>
+    </g>
+</svg>

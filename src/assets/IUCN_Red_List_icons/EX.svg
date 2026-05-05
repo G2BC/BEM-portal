@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="121.89pt" height="121.89pt" viewBox="0 0 121.89 121.89">
+<g enable-background="new">
+<g id="Layer-1" data-name="Artifact">
+<clipPath id="cp11">
+<path transform="matrix(1,0,0,-1,0,121.89)" d="M 0 0 L 121.89 0 L 121.89 121.89 L 0 121.89 Z "/>
+</clipPath>
+<g clip-path="url(#cp11)">
+<path transform="matrix(1,0,0,-1,121.8882,60.9436)" d="M 0 0 L 0 60.944 L -61.98 60.944 L -61.98 60.917 C -95.156 60.364 -121.888 33.314 -121.888 -.004 C -121.888 -33.663 -94.6 -60.947 -60.947 -60.947 C -27.393 -60.947 -.175 -33.83 -.007 -.314 L 0 -.314 L 0 -.06 C 0 -.042 .002 -.023 .002 -.004 C .002 -.004 0 -.002 0 0 " fill="#231f20"/>
+</g>
+<g id="Layer-1" data-name="Artifact">
+</g>
+<path transform="matrix(1,0,0,-1,36.9655,76.1163)" d="M 0 0 L 23.038 0 L 23.038 5.611 L 6.673 5.611 L 6.673 13.049 L 21.38 13.049 L 21.38 18.235 L 6.673 18.235 L 6.673 24.738 L 22.698 24.738 L 22.698 30.349 L 0 30.349 Z M 24.976 0 L 32.499 0 L 39.257 10.499 L 45.888 0 L 53.837 0 L 43.253 15.854 L 52.987 30.349 L 45.676 30.349 L 39.512 20.657 L 33.562 30.349 L 25.826 30.349 L 35.602 15.897 Z " fill="#ffffff"/>
+</g>
+</g>
+</svg>
