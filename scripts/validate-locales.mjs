@@ -3,7 +3,7 @@ import path from "node:path";
 import process from "node:process";
 
 const LOCALES_DIR = path.resolve("src/locales");
-const SOURCE_LOCALE = "en";
+const SOURCE_LOCALE = "pt";
 
 function isPlainObject(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -88,9 +88,7 @@ function diffLocale(baseLocale, baseEntries, locale, entries) {
     }
 
     if (entry.type !== baseEntry.type) {
-      errors.push(
-        `${locale}: key "${key}" has type "${entry.type}", expected "${baseEntry.type}"`
-      );
+      errors.push(`${locale}: key "${key}" has type "${entry.type}", expected "${baseEntry.type}"`);
     }
 
     const basePlaceholders = baseEntry.placeholders.join(", ");
