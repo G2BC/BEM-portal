@@ -21,11 +21,11 @@ export function Hero() {
           draggable="false"
           src={heroMobile}
           alt="BEM Banner"
-          className="h-full w-full object-cover object-center"
+          className="h-full w-full object-cover object-center md:object-[center_35%]"
         />
       </picture>
 
-      <div className="flex h-full items-center px-6 py-16 md:items-start md:px-10 md:pt-[190px]">
+      <div className="container mx-auto flex h-full items-center px-4 py-16 md:items-start md:pt-[190px]">
         <div className="max-w-[714px]">
           <h1 className="hero-reveal hero-reveal-1 max-w-[714px] font-hero text-[44px] font-semibold leading-[1.08] tracking-[-0.02em] text-[#f8faf7] md:text-[72px] md:leading-[78px]">
             {t("home.hero.title.first_block")} <br />
