@@ -20,8 +20,8 @@ export function DecisionToggle({
         variant={value === "approve" ? "default" : "ghost"}
         className={
           value === "approve"
-            ? "h-7 bg-primary px-2 text-xs text-primary-foreground hover:bg-primary/90"
-            : "h-7 px-2 text-xs text-primary hover:bg-primary/10 hover:text-primary"
+            ? "h-7 bg-emerald-600 px-2 text-xs text-white hover:bg-emerald-700"
+            : "h-7 px-2 text-xs text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"
         }
         onClick={() => onChange("approve")}
       >
