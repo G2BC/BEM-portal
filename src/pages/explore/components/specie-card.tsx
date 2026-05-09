@@ -3,6 +3,7 @@ import type { ISpecie } from "@/api/species/types/ISpecie";
 import photoDefault from "@/assets/specie-card-default.png";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router";
+import { Binoculars } from "lucide-react";
 import { DEFAULT_LOCALE } from "@/lib/lang";
 import { getPhotoUrl } from "@/pages/species/utils";
 import { ConservationStatusIcon } from "@/components/conservation-status-icon";
@@ -10,8 +11,9 @@ import { CountryTypeIcon } from "@/components/country-type-icon";
 import { getCountryTypeDescription } from "@/lib/country-type-description";
 
 export function SpecieCard(props: ISpecie) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { lang } = useParams();
+  const numberFormatter = new Intl.NumberFormat(i18n.language);
 
   const photoFeatured = props.photos?.find((p) => p.featured === true);
   const firstPhoto = props.photos?.[0];
@@ -19,6 +21,9 @@ export function SpecieCard(props: ISpecie) {
   const selectedPhoto = photoFeatured ?? firstPhoto;
   const photo = selectedPhoto ? getPhotoUrl(selectedPhoto) || photoDefault : photoDefault;
   const countryTypeCode = props.brazilian_type || props.brazilian_type_synonym;
+  const observationsCount = props.observations_count ?? 0;
+  const formattedObservationsCount =
+    observationsCount > 9999 ? "9999+" : numberFormatter.format(observationsCount);
   const conservationStatusCode = props.species_characteristics?.conservation_status;
   const conservationStatusDescription = t(
     `species_page.fields.conservation_status_values.${(conservationStatusCode || "NE")
@@ -64,21 +69,36 @@ export function SpecieCard(props: ISpecie) {
                   {props.common_name?.trim() || ""}
                 </CardDescription>
               </div>
-              <span className="mt-3 flex items-center gap-2 self-end">
-                <CountryTypeIcon
-                  country={countryTypeCode}
-                  description={getCountryTypeDescription(t, countryTypeCode)}
-                  className="inline-flex shrink-0"
-                  imageClassName="h-8 w-8 shrink-0"
-                />
-                <ConservationStatusIcon
-                  code={conservationStatusCode}
-                  label={conservationStatusLabel}
-                  description={conservationStatusDescription}
-                  className="inline-flex shrink-0"
-                  imageClassName="h-8 w-8 shrink-0"
-                />
-              </span>
+              <div className="mt-3 flex min-w-0 items-center justify-between gap-2">
+                {observationsCount > 0 ? (
+                  <span
+                    className="inline-flex min-w-0 items-center gap-1 text-xs font-medium text-muted-foreground"
+                    title={`${t("explore_page.statistics.observations")}: ${numberFormatter.format(observationsCount)}`}
+                  >
+                    <Binoculars className="h-5 w-5 shrink-0" strokeWidth={2.4} />
+                    <span className="truncate">
+                      {t("explore_page.statistics.observations")}: {formattedObservationsCount}
+                    </span>
+                  </span>
+                ) : (
+                  <span />
+                )}
+                <span className="flex shrink-0 items-center gap-2">
+                  <CountryTypeIcon
+                    country={countryTypeCode}
+                    description={getCountryTypeDescription(t, countryTypeCode)}
+                    className="inline-flex shrink-0"
+                    imageClassName="h-8 w-8 shrink-0"
+                  />
+                  <ConservationStatusIcon
+                    code={conservationStatusCode}
+                    label={conservationStatusLabel}
+                    description={conservationStatusDescription}
+                    className="inline-flex shrink-0"
+                    imageClassName="h-8 w-8 shrink-0"
+                  />
+                </span>
+              </div>
             </div>
           </CardFooter>
         </CardContent>
