@@ -1,5 +1,5 @@
 import type { SpeciePhoto } from "@/api/species/types/ISpecie";
-import specieCardDefault from "@/assets/specie-card-default.webp";
+import specieCardDefault from "@/assets/specie-card-default.png";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

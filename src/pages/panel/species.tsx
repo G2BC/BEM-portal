@@ -1,7 +1,7 @@
 import { searchEspecies } from "@/api/species";
 import { speciesKeys } from "@/api/query-keys";
 import type { ISpecie } from "@/api/species/types/ISpecie";
-import specieCardDefault from "@/assets/specie-card-default.webp";
+import specieCardDefault from "@/assets/specie-card-default.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DEFAULT_LOCALE } from "@/lib/lang";

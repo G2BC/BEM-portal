@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import specieCardDefault from "@/assets/specie-card-default.webp";
+import specieCardDefault from "@/assets/specie-card-default.png";
 import { selectSpecies } from "@/api/species";
 import { ComboboxAsync, type ComboboxOption } from "@/components/combobox-async";
 import { useInitialComboboxOptions } from "@/components/use-initial-combobox-options";

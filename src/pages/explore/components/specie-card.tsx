@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
 import type { ISpecie } from "@/api/species/types/ISpecie";
-import photoDefault from "@/assets/specie-card-default.webp";
+import photoDefault from "@/assets/specie-card-default.png";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router";
 import { DEFAULT_LOCALE } from "@/lib/lang";
@@ -44,7 +44,7 @@ export function SpecieCard(props: ISpecie) {
     >
       <Card className="p-0 border-0 overflow-hidden w-full h-[500px] md:h-[390px]">
         <CardContent className="p-0 h-full flex flex-col">
-          <div className="w-full flex-1 overflow-hidden bg-[#020504]">
+          <div className="w-full flex-1 overflow-hidden bg-[#BBBBBB]">
             <img
               className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
               src={photo}

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
-import defaultPhoto from "@/assets/specie-card-default.webp";
+import defaultPhoto from "@/assets/specie-card-default.png";
 import {
   extractSpeciesBibliographyLinks,
   getLocalizedCharacteristicValue,
