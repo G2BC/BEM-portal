@@ -115,7 +115,7 @@ export default function RegisterPage() {
         <img
           src={heroDesktop}
           alt="BEM mushrooms"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-[65%_center]"
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0D140E] via-transparent" />
