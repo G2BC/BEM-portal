@@ -28,7 +28,7 @@ import { CharacteristicsCard } from "./components/characteristicsCard";
 import { ConservationStatusCard } from "./components/conservationStatusCard";
 import { SpeciesRequestCard } from "./components/speciesRequestCard";
 import { CountryTypeIcon } from "@/components/country-type-icon";
-import { getCountryName } from "@/lib/country-names";
+import { getCountryTypeDescription } from "@/lib/country-type-description";
 
 export default function SpeciesPage() {
   const { dados, loading, ncbiRecords, ncbiLoading } = useSpeciesPage();
@@ -47,6 +47,7 @@ export default function SpeciesPage() {
 
   const locale = lang ?? DEFAULT_LOCALE;
   const characteristics = dados?.species_characteristics;
+  const countryTypeCode = dados?.brazilian_type || dados?.brazilian_type_synonym;
   const isPtLanguage = i18n.language.toLowerCase().startsWith("pt");
   const noInformationLabel = t("species_page.fields.no_information");
   const conservationStatusCode = normalizeConservationStatusCode(
@@ -103,10 +104,8 @@ export default function SpeciesPage() {
           </div>
           <span className="flex items-center gap-3 shrink-0">
             <CountryTypeIcon
-              country={dados?.type_country ?? ""}
-              description={t("common.type_country_description", {
-                country: getCountryName(dados?.type_country, lang ?? DEFAULT_LOCALE),
-              })}
+              country={countryTypeCode ?? ""}
+              description={getCountryTypeDescription(t, countryTypeCode)}
               imageClassName="w-12 h-12 shrink-0"
             />
             <ConservationStatusIcon
@@ -133,10 +132,8 @@ export default function SpeciesPage() {
               </div>
               <span className="flex items-center gap-3 shrink-0">
                 <CountryTypeIcon
-                  country={dados?.type_country ?? ""}
-                  description={t("common.type_country_description", {
-                    country: getCountryName(dados?.type_country, lang ?? DEFAULT_LOCALE),
-                  })}
+                  country={countryTypeCode ?? ""}
+                  description={getCountryTypeDescription(t, countryTypeCode)}
                   imageClassName="w-12 h-12 xl:h-16 xl:w-16 shrink-0"
                 />
                 <ConservationStatusIcon

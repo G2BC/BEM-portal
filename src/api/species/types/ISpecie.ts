@@ -60,6 +60,9 @@ export interface SpeciesCharacteristics {
 export interface ISpecie {
   id: number;
   is_visible?: boolean;
+  bem: string | null;
+  brazilian_type: string | null;
+  brazilian_type_synonym: string | null;
   similar_species?: SpeciesTopLevelSimpleOption[];
   photos: SpeciePhoto[];
   scientific_name: string;

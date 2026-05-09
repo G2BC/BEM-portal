@@ -5,9 +5,9 @@ import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router";
 import { DEFAULT_LOCALE } from "@/lib/lang";
 import { getPhotoUrl } from "@/pages/species/utils";
-import { getCountryName } from "@/lib/country-names";
 import { ConservationStatusIcon } from "@/components/conservation-status-icon";
 import { CountryTypeIcon } from "@/components/country-type-icon";
+import { getCountryTypeDescription } from "@/lib/country-type-description";
 
 export function SpecieCard(props: ISpecie) {
   const { t } = useTranslation();
@@ -18,6 +18,7 @@ export function SpecieCard(props: ISpecie) {
 
   const selectedPhoto = photoFeatured ?? firstPhoto;
   const photo = selectedPhoto ? getPhotoUrl(selectedPhoto) || photoDefault : photoDefault;
+  const countryTypeCode = props.brazilian_type || props.brazilian_type_synonym;
   const conservationStatusCode = props.species_characteristics?.conservation_status;
   const conservationStatusDescription = t(
     `species_page.fields.conservation_status_values.${(conservationStatusCode || "NE")
@@ -65,12 +66,10 @@ export function SpecieCard(props: ISpecie) {
               </div>
               <span className="mt-3 flex items-center gap-2 self-end">
                 <CountryTypeIcon
-                  country={props.type_country}
-                  description={t("common.type_country_description", {
-                    country: getCountryName(props.type_country, lang ?? DEFAULT_LOCALE),
-                  })}
+                  country={countryTypeCode}
+                  description={getCountryTypeDescription(t, countryTypeCode)}
                   className="inline-flex shrink-0"
-                  imageClassName="h-10 w-10 shrink-0"
+                  imageClassName="h-8 w-8 shrink-0"
                 />
                 <ConservationStatusIcon
                   code={conservationStatusCode}

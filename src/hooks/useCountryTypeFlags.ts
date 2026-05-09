@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const countryFlagsLoaders = import.meta.glob<{ default: string }>(
-  "../assets/flags/country_types/*.webp"
+  "../assets/flags/country_types/*.png"
 );
 
 export function useCountryTypeFlags(country: string | null) {
@@ -13,10 +13,7 @@ export function useCountryTypeFlags(country: string | null) {
       return;
     }
 
-    const normalizedArr = country.split(" ");
-    const normalized = normalizedArr.join("_").toLowerCase();
-
-    const iconPath = `../assets/flags/country_types/${normalized}.webp`;
+    const iconPath = `../assets/flags/country_types/${country}.png`;
     const loadIcon = countryFlagsLoaders[iconPath];
     let isMounted = true;
 

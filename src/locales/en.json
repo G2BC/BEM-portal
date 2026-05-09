@@ -14,6 +14,10 @@
       "source": "Source",
       "view_more": "View more",
       "type_country_description": "Type specimen country: {{country}}",
+      "country_type_descriptions": {
+        "T": "Brazilian Type",
+        "TS": "Brazilian Type Synonym"
+      },
       "continue": "Continue",
       "warning": "Warning",
       "open_link": "Open link"

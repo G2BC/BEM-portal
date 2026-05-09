@@ -14,6 +14,10 @@
       "source": "Fonte",
       "view_more": "Ver mais",
       "type_country_description": "País do espécime tipo: {{country}}",
+      "country_type_descriptions": {
+        "T": "Tipo Brasileiro",
+        "TS": "Sinônimo Tipo Brasileiro"
+      },
       "continue": "Continuar",
       "warning": "Aviso",
       "open_link": "Abrir link"
