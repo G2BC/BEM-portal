@@ -82,6 +82,7 @@
     "vite": "^6.3.5",
     "vite-plugin-pwa": "^1.1.0",
     "vite-plugin-sitemap": "^0.8.2",
+    "vite-plugin-svgr": "^5.2.0",
     "vite-prerender-plugin": "^0.5.12"
   },
   "lint-staged": {

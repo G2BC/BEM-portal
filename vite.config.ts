@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 import sitemap from "vite-plugin-sitemap";
 import { vitePrerenderPlugin } from "vite-prerender-plugin";
 import { VitePWA } from "vite-plugin-pwa";
+import svgr from "vite-plugin-svgr";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -37,6 +38,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       tailwindcss(),
+      svgr(),
       {
         name: "inject-clarity-script",
         transformIndexHtml() {
