@@ -850,7 +850,7 @@
       "loading": "Carregando solicitações...",
       "empty": "Nenhuma solicitação encontrada para o filtro selecionado.",
       "request_id": "Solicitação #{{id}}",
-      "species_id": "LUMM ID",
+      "species_id": "BEM ID",
       "requester": "Solicitante",
       "email": "E-mail",
       "proposed_data": "Dados propostos",
