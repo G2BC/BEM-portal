@@ -148,9 +148,11 @@ export default function SpeciesPage() {
           <div className="xl:mt-6 space-y-4 xl:max-w-[95%]">
             <TaxonomyCard
               show={Boolean(
-                dados?.taxonomy?.classification ||
-                  dados?.taxonomy?.authors ||
-                  dados?.taxonomy?.years_of_effective_publication
+                dados?.taxonomy &&
+                  (Object.values(dados.taxonomy).some((value) =>
+                    Boolean(String(value ?? "").trim())
+                  ) ||
+                    dados?.type_country)
               )}
               sectionCardClass={sectionCardClass}
               sectionCardContentClass={sectionCardContentClass}

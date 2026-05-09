@@ -1,4 +1,9 @@
-import { fetchSpeciesStatistics, searchEspecies, selectDistributions } from "@/api/species";
+import {
+  fetchSpeciesStatistics,
+  searchEspecies,
+  selectDistributions,
+  selectSpeciesBem,
+} from "@/api/species";
 import { speciesKeys } from "@/api/query-keys";
 import { paramsToObject } from "@/utils/paramsToObject";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
@@ -37,15 +42,18 @@ export function useExplorePage() {
   const lang = i18n.language;
 
   const searchParam = searchParams.get("search") ?? "";
+  const bemParam = searchParams.get("bem") ?? "";
   const distributionsParam = searchParams.get("distributions") ?? "";
 
+  const [bem, setBem] = useState<string>(bemParam);
   const [distributions, setDistributions] = useState<string[]>(() =>
     distributionsParam ? distributionsParam.split(",") : []
   );
   const [search, setSearch] = useState<string>(searchParam);
   const [filterLabels, setFilterLabels] = useState<{
+    bem: string;
     distributions: Record<string, string>;
-  }>({ distributions: {} });
+  }>({ bem: "", distributions: {} });
 
   // Resolve distribution labels from URL params on mount / when lang changes
   useEffect(() => {
@@ -70,6 +78,24 @@ export function useExplorePage() {
       .catch(() => {});
     return () => ctrl.abort();
   }, [distributionsParam, lang]);
+
+  // Resolve BEM label from URL params on mount / when the param changes
+  useEffect(() => {
+    if (!bemParam) {
+      setFilterLabels((prev) => ({ ...prev, bem: "" }));
+      return;
+    }
+
+    const ctrl = new AbortController();
+    selectSpeciesBem(bemParam, ctrl.signal)
+      .then((all) => {
+        const option = all.find((item) => item.value === bemParam);
+        setFilterLabels((prev) => ({ ...prev, bem: option?.label ?? prev.bem }));
+      })
+      .catch(() => {});
+    return () => ctrl.abort();
+  }, [bemParam]);
+
   const [autoLoadsUsed, setAutoLoadsUsed] = useState(0);
   const [perPage, setPerPage] = useState<number>(() => {
     if (typeof window === "undefined") return 16;
@@ -84,13 +110,14 @@ export function useExplorePage() {
   // Sync local input state when URL changes (e.g. back/forward navigation)
   useEffect(() => {
     setSearch(searchParam);
+    setBem(bemParam);
     setDistributions(distributionsParam ? distributionsParam.split(",") : []);
-  }, [searchParam, distributionsParam]);
+  }, [searchParam, bemParam, distributionsParam]);
 
   // Reset auto-load counter whenever filters change
   useEffect(() => {
     setAutoLoadsUsed(0);
-  }, [searchParam, distributionsParam, perPage]);
+  }, [searchParam, bemParam, distributionsParam, perPage]);
 
   // Responsive per_page
   useEffect(() => {
@@ -107,12 +134,14 @@ export function useExplorePage() {
     useInfiniteQuery({
       queryKey: speciesKeys.explore({
         search: searchParam,
+        bem: bemParam,
         distributions: distributionsParam,
         perPage,
       }),
       queryFn: ({ pageParam, signal }) =>
         searchEspecies({
           search: searchParam || undefined,
+          bem: bemParam || undefined,
           distributions: distributionsParam || undefined,
           page: pageParam as number,
           per_page: perPage,
@@ -161,19 +190,20 @@ export function useExplorePage() {
   );
 
   const upsertFilterParams = (
-    patch: Partial<{ search: string; distributions: string }>,
+    patch: Partial<{ search: string; bem: string; distributions: string }>,
     opts?: { replace?: boolean }
   ) => {
     const curr = paramsToObject(searchParams);
     const next: Record<string, string> = { ...curr };
 
-    const setOrDelete = (key: "search" | "distributions", val?: string) => {
+    const setOrDelete = (key: "search" | "bem" | "distributions", val?: string) => {
       const v = (val ?? "").trim();
       if (v) next[key] = v;
       else delete next[key];
     };
 
     if ("search" in patch) setOrDelete("search", String(patch.search ?? ""));
+    if ("bem" in patch) setOrDelete("bem", String(patch.bem ?? ""));
     if ("distributions" in patch) setOrDelete("distributions", String(patch.distributions ?? ""));
     delete next.country;
 
@@ -218,16 +248,27 @@ export function useExplorePage() {
     if (labels) setFilterLabels((prev) => ({ ...prev, distributions: labels }));
   };
 
+  const changeBem = (newBem: string, label = "") => {
+    if (bem === newBem) return;
+    setBem(newBem);
+    setFilterLabels((prev) => ({ ...prev, bem: label }));
+    upsertFilterParams({ bem: newBem });
+  };
+
   const applyFilters = (filters: {
     search: string;
+    bem: string;
+    bemLabel: string;
     distributions: string[];
     distributionLabels: Record<string, string>;
   }) => {
     setSearch(filters.search);
+    setBem(filters.bem);
     setDistributions(filters.distributions);
-    setFilterLabels({ distributions: filters.distributionLabels });
+    setFilterLabels({ bem: filters.bemLabel, distributions: filters.distributionLabels });
     upsertFilterParams({
       search: filters.search,
+      bem: filters.bem,
       distributions: filters.distributions.join(","),
     });
   };
@@ -244,11 +285,13 @@ export function useExplorePage() {
     loadMore,
     fetchedSearch,
     search,
+    bem,
     distributions,
     filterLabels,
     onChangeSearch,
     handleSearch,
     handleClearInput,
+    changeBem,
     changeDistributions,
     applyFilters,
   };

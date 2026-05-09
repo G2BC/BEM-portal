@@ -2,12 +2,20 @@ import type { IDistribution } from "@/api/types/IDistribution";
 import type { IReference } from "@/api/types/IReference";
 
 interface Taxonomy {
-  authors: string;
-  classification: string;
-  gender: string | null;
-  synonyms: string;
+  authors: string | null;
   basionym: string | null;
-  years_of_effective_publication: string;
+  class_name?: string | null;
+  family?: string | null;
+  gender: string | null;
+  genus?: string | null;
+  group?: string | null;
+  kingdom?: string | null;
+  order?: string | null;
+  phylum?: string | null;
+  section?: string | null;
+  specific_epithet?: string | null;
+  synonyms: string | null;
+  years_of_effective_publication: string | null;
 }
 
 export interface SpeciesLocalizedOption {

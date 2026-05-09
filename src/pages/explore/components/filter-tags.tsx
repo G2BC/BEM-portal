@@ -3,20 +3,31 @@ import { useTranslation } from "react-i18next";
 
 interface FilterTagsProps {
   search: string;
+  bem: string;
+  bemLabel: string;
   distributions: string[];
   onClearSearch: () => void;
+  onClearBem: () => void;
   onClearDistributions: () => void;
 }
 
-function Tag({ prefix, value, onRemove }: { prefix: string; value: string; onRemove: () => void }) {
+function Tag({
+  prefix,
+  value,
+  onRemove,
+}: {
+  prefix?: string;
+  value: string;
+  onRemove: () => void;
+}) {
   return (
     <span className="inline-flex items-center gap-1.5 bg-primary/20 text-primary text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap max-w-[320px]">
-      <span className="opacity-70 shrink-0">{prefix}:</span>
+      {prefix ? <span className="opacity-70 shrink-0">{prefix}:</span> : null}
       <span className="truncate">{value}</span>
       <button
         onClick={onRemove}
-        className="hover:text-white transition-colors flex items-center shrink-0"
-        aria-label={`Remover filtro ${prefix}`}
+        className="hover:text-primary/70 transition-colors flex items-center shrink-0"
+        aria-label={`Remover filtro ${prefix ?? value}`}
       >
         <X className="w-3 h-3" />
       </button>
@@ -26,8 +37,11 @@ function Tag({ prefix, value, onRemove }: { prefix: string; value: string; onRem
 
 export function FilterTags({
   search,
+  bem,
+  bemLabel,
   distributions,
   onClearSearch,
+  onClearBem,
   onClearDistributions,
 }: FilterTagsProps) {
   const { t } = useTranslation();
@@ -43,6 +57,13 @@ export function FilterTags({
           onRemove: onClearSearch,
         }
       : null,
+    bem
+      ? {
+          id: "bem",
+          value: bemLabel || bem,
+          onRemove: onClearBem,
+        }
+      : null,
     distributions.length
       ? {
           id: "distributions",
@@ -51,7 +72,7 @@ export function FilterTags({
           onRemove: onClearDistributions,
         }
       : null,
-  ].filter(Boolean) as Array<{ id: string; prefix: string; value: string; onRemove: () => void }>;
+  ].filter(Boolean) as Array<{ id: string; prefix?: string; value: string; onRemove: () => void }>;
 
   if (!tags.length) return null;
 

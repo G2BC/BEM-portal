@@ -20,30 +20,41 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { ComboboxAsync, type ComboboxOption } from "@/components/combobox-async";
-import { selectDistributions } from "@/api/species";
+import { selectDistributions, selectSpeciesBem } from "@/api/species";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import type { Locale } from "@/lib/lang";
 
 type FilterModalApplyFilters = {
   search: string;
+  bem: string;
+  bemLabel: string;
   distributions: string[];
   distributionLabels: Record<string, string>;
 };
 
 interface FilterModalProps {
   search: string;
+  bem: string;
   distributions: string[];
-  filterLabels: { distributions: Record<string, string> };
+  filterLabels: { bem: string; distributions: Record<string, string> };
   onApply: (_filters: FilterModalApplyFilters) => void;
 }
 
-export function FilterModal({ search, distributions, filterLabels, onApply }: FilterModalProps) {
+export function FilterModal({
+  search,
+  bem,
+  distributions,
+  filterLabels,
+  onApply,
+}: FilterModalProps) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language as Locale;
   const isMobile = useIsMobile();
   const [open, setOpen] = React.useState(false);
 
   const [draftSearch, setDraftSearch] = React.useState(search);
+  const [draftBem, setDraftBem] = React.useState(bem);
+  const [draftBemLabel, setDraftBemLabel] = React.useState(filterLabels.bem);
   const [draftDistributions, setDraftDistributions] = React.useState<string[]>(distributions);
   const [draftDistributionLabels, setDraftDistributionLabels] = React.useState<
     Record<string, string>
@@ -52,6 +63,8 @@ export function FilterModal({ search, distributions, filterLabels, onApply }: Fi
   React.useEffect(() => {
     if (open) {
       setDraftSearch(search);
+      setDraftBem(bem);
+      setDraftBemLabel(filterLabels.bem);
       setDraftDistributions(distributions);
       setDraftDistributionLabels(filterLabels.distributions);
     }
@@ -69,7 +82,18 @@ export function FilterModal({ search, distributions, filterLabels, onApply }: Fi
     };
   }, [open]);
 
-  const activeCount = [search, ...distributions].filter(Boolean).length;
+  const activeCount = [search, bem, ...distributions].filter(Boolean).length;
+
+  const fetchBemOptions = React.useCallback(
+    async (query: string, signal: AbortController["signal"]): Promise<ComboboxOption[]> => {
+      const res = await selectSpeciesBem(query, signal);
+      return res.map((item) => ({
+        id: item.value,
+        label: item.label,
+      }));
+    },
+    []
+  );
 
   const fetchDistributionOptions = React.useCallback(
     async (_query: string, signal: AbortController["signal"]): Promise<ComboboxOption[]> => {
@@ -90,24 +114,37 @@ export function FilterModal({ search, distributions, filterLabels, onApply }: Fi
     []
   );
 
+  const bemInitialOptions = React.useMemo<ComboboxOption[]>(
+    () => (bem ? [{ id: bem, label: filterLabels.bem || bem }] : []),
+    // only on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   const handleApply = () => {
     onApply({
       search: draftSearch,
+      bem: draftBem,
+      bemLabel: draftBemLabel,
       distributions: draftDistributions,
       distributionLabels: draftDistributionLabels,
     });
     setOpen(false);
   };
 
-  const hasActiveFilters = !!(search || distributions.length);
+  const hasActiveFilters = !!(search || bem || distributions.length);
 
   const handleClear = () => {
     setDraftSearch("");
+    setDraftBem("");
+    setDraftBemLabel("");
     setDraftDistributions([]);
     setDraftDistributionLabels({});
     if (hasActiveFilters) {
       onApply({
         search: "",
+        bem: "",
+        bemLabel: "",
         distributions: [],
         distributionLabels: {},
       });
@@ -139,6 +176,24 @@ export function FilterModal({ search, distributions, filterLabels, onApply }: Fi
           onChange={(e) => setDraftSearch(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleApply()}
           placeholder={t("common.search")}
+        />
+      </label>
+      <label className="sm:col-span-2 flex flex-col gap-1.5">
+        <span className="text-sm text-muted-foreground">{t("explore_page.select_bem")}</span>
+        <ComboboxAsync
+          variant="light"
+          fetchOptions={fetchBemOptions}
+          initialKnownOptions={bemInitialOptions}
+          value={draftBem || null}
+          onSelect={(id) => {
+            if (!id) {
+              setDraftBem("");
+              setDraftBemLabel("");
+            } else {
+              setDraftBem(String(id));
+            }
+          }}
+          onSelectOption={(opt) => setDraftBemLabel(opt?.label ?? "")}
         />
       </label>
       <label className="sm:col-span-2 flex flex-col gap-1.5">

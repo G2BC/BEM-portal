@@ -28,6 +28,7 @@ import type {
 
 export interface SearchEspeciesProps {
   search?: string;
+  bem?: string;
   country?: string;
   distributions?: string;
   page?: number;
@@ -47,6 +48,7 @@ export interface ISpeciesStatistics {
 
 export const searchEspecies = async ({
   search,
+  bem,
   country,
   distributions,
   page,
@@ -55,7 +57,7 @@ export const searchEspecies = async ({
   isVisible,
 }: SearchEspeciesProps): Promise<ISearchEspecies> => {
   const resposta: AxiosResponse<ISearchEspecies> = await API.get("/species/list", {
-    params: { search, country, distributions, page, per_page, is_visible: isVisible },
+    params: { search, bem, country, distributions, page, per_page, is_visible: isVisible },
     signal,
   });
 
@@ -81,6 +83,15 @@ export const selectDistributions = async (signal?: AbortController["signal"]) =>
 
 export const selectSpeciesCountry = async (search?: string, signal?: AbortController["signal"]) => {
   const resposta: AxiosResponse<ISelect[]> = await API.get("/species/country/select", {
+    params: { search },
+    signal,
+  });
+
+  return resposta.data;
+};
+
+export const selectSpeciesBem = async (search?: string, signal?: AbortController["signal"]) => {
+  const resposta: AxiosResponse<ISelect[]> = await API.get("/species/bem/select", {
     params: { search },
     signal,
   });

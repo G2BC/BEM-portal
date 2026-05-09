@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { useTranslation } from "react-i18next";
-import { parseClassification, splitTaxonName, taxonomyLabels } from "../utils";
 import type { ISpecie } from "@/api/species/types/ISpecie";
 import { BookOpenText } from "lucide-react";
 import { getCountryName } from "@/lib/country-names";
@@ -34,65 +33,94 @@ export function TaxonomyCard({
 
   if (!show || !species) return null;
 
-  const speciesNames = splitTaxonName(species.scientific_name);
+  const taxonomy = species.taxonomy;
 
-  const taxonomyRows = parseClassification(species?.taxonomy?.classification)
-    .map((item, index) => {
-      const label = taxonomyLabels[index];
-      if (!label || !item) return null;
-
-      const isGenus = label === "species_page.taxonomy.genus";
-
-      return {
-        label: t(label),
-        value: isGenus ? speciesNames.genus || item : item,
-        level: index,
-        italicValue: isGenus,
-      };
-    })
-    .concat({
-      label: t("species_page.taxonomy.epithet"),
-      value: speciesNames.epithet || "",
-      level: 7,
+  const taxonomyRows: TaxonomyRow[] = [
+    {
+      label: t("species_page.taxonomy.kingdom"),
+      value: taxonomy?.kingdom ?? "",
+      level: 0,
+      italicValue: false,
+    },
+    {
+      label: t("species_page.taxonomy.phylum"),
+      value: taxonomy?.phylum ?? "",
+      level: 1,
+      italicValue: false,
+    },
+    {
+      label: t("species_page.taxonomy.class"),
+      value: taxonomy?.class_name ?? "",
+      level: 2,
+      italicValue: false,
+    },
+    {
+      label: t("species_page.taxonomy.order"),
+      value: taxonomy?.order ?? "",
+      level: 3,
+      italicValue: false,
+    },
+    {
+      label: t("species_page.taxonomy.family"),
+      value: taxonomy?.family ?? "",
+      level: 4,
+      italicValue: false,
+    },
+    {
+      label: t("species_page.taxonomy.genus"),
+      value: taxonomy?.genus ?? "",
+      level: 5,
       italicValue: true,
-    })
-    .concat({
+    },
+    {
+      label: t("species_page.taxonomy.epithet"),
+      value: taxonomy?.specific_epithet ?? "",
+      level: 6,
+      italicValue: true,
+    },
+    {
+      label: t("species_page.taxonomy.section"),
+      value: taxonomy?.section ?? "",
+      level: 6,
+      italicValue: false,
+    },
+    {
       label: t("species_page.taxonomy.infraspecific_taxon"),
-      value: speciesNames.infraspecific_taxon || "",
-      level: 8,
+      value: taxonomy?.group ?? "",
+      level: 6,
       italicValue: false,
-    })
-    .concat({
+    },
+    {
       label: t("species_page.taxonomy.authors"),
-      value: species?.taxonomy?.authors || "",
+      value: taxonomy?.authors ?? "",
       level: 0,
       italicValue: false,
-    })
-    .concat({
+    },
+    {
       label: t("species_page.taxonomy.year_of_publication"),
-      value: species?.taxonomy?.years_of_effective_publication || "",
+      value: taxonomy?.years_of_effective_publication ?? "",
       level: 0,
       italicValue: false,
-    })
-    .concat({
+    },
+    {
       label: t("species_page.taxonomy.basionym"),
-      value: species?.taxonomy?.basionym || "",
+      value: taxonomy?.basionym ?? "",
       level: 0,
       italicValue: false,
-    })
-    .concat({
+    },
+    {
       label: t("species_page.taxonomy.synonyms"),
-      value: species?.taxonomy?.synonyms || "",
+      value: taxonomy?.synonyms ?? "",
       level: 0,
       italicValue: false,
-    })
-    .concat({
+    },
+    {
       label: t("species_page.taxonomy.type_country"),
       value: getCountryName(species?.type_country, i18n.language),
       level: 0,
       italicValue: false,
-    })
-    .filter((item): item is TaxonomyRow => Boolean(item && item.label));
+    },
+  ];
 
   return (
     <Card className={sectionCardClass}>

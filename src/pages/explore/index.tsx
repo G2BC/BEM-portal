@@ -23,8 +23,10 @@ export default function ExplorePage() {
     loadMore,
     fetchedSearch,
     handleClearInput,
+    bem,
     distributions,
     filterLabels,
+    changeBem,
     changeDistributions,
     applyFilters,
   } = useExplorePage();
@@ -68,6 +70,7 @@ export default function ExplorePage() {
             )}
             <FilterModal
               search={search}
+              bem={bem}
               distributions={distributions}
               filterLabels={filterLabels}
               onApply={applyFilters}
@@ -76,8 +79,11 @@ export default function ExplorePage() {
           <div className="col-span-full">
             <FilterTags
               search={fetchedSearch}
+              bem={bem}
+              bemLabel={filterLabels.bem}
               distributions={distributions}
               onClearSearch={handleClearInput}
+              onClearBem={() => changeBem("")}
               onClearDistributions={() => changeDistributions([], {})}
             />
           </div>

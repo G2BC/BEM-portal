@@ -13,7 +13,6 @@
       "external_links": "External links",
       "source": "Source",
       "view_more": "View more",
-      "type_country_description": "Type specimen country: {{country}}",
       "country_type_descriptions": {
         "T": "Brazilian Type",
         "TS": "Brazilian Type Synonym"
@@ -69,7 +68,7 @@
       "page_unavailable_text": "Use the button below to restart the search.",
       "page_unavailable_btn": "Restart",
       "select_lineage": "Luminescent lineage",
-      "select_country": "Type specimen country",
+      "select_bem": "BEM",
       "select_distributions": "Regions of occurrence",
       "filters": "Filters",
       "filter_apply": "Apply",
