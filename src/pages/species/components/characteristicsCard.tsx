@@ -161,15 +161,6 @@ export function CharacteristicsCard({
           longText: true,
         },
         {
-          label: t("species_page.fields.edible"),
-          value:
-            characteristics?.edible === true
-              ? t("species_page.lumm.yes")
-              : characteristics?.edible === false
-                ? t("species_page.lumm.no")
-                : t("species_page.fields.no_information"),
-        },
-        {
           label: t("species_page.fields.cultivation_possible"),
           value:
             characteristics?.cultivation_possible === true
@@ -222,7 +213,7 @@ export function CharacteristicsCard({
                     return (
                       <div
                         key={row.label}
-                        className={`border-b border-white/10 pb-2 last:border-b-0 ${
+                        className={`border-b border-slate-200 pb-2 last:border-b-0 ${
                           useLongTextLayout
                             ? "space-y-1"
                             : "flex items-center justify-between gap-4"
@@ -230,7 +221,7 @@ export function CharacteristicsCard({
                       >
                         <p className={rowLabelClass}>{row.label}</p>
                         {row.content ? (
-                          <div className="text-[0.98rem] leading-relaxed text-white/88">
+                          <div className="text-[0.98rem] leading-relaxed text-slate-800">
                             {row.content}
                           </div>
                         ) : (
@@ -242,7 +233,7 @@ export function CharacteristicsCard({
                             <p
                               className={`${rowValueClass} ${
                                 useLongTextLayout
-                                  ? "text-left leading-relaxed text-white/88"
+                                  ? "text-left leading-relaxed text-slate-800"
                                   : "break-words text-right"
                               }`}
                             >
@@ -250,13 +241,15 @@ export function CharacteristicsCard({
                             </p>
                             {row.tooltip ? (
                               <HoverPopover
-                                trigger={<Info className="size-4 text-white/50" />}
+                                trigger={<Info className="size-4 text-slate-400" />}
                                 triggerClassName="inline-flex items-center"
-                                contentClassName="max-w-80 border border-white/20 bg-black/90 px-3 py-2 text-xs leading-relaxed text-white/90 shadow-lg"
+                                contentClassName="max-w-80 border border-slate-200 bg-white px-3 py-2 text-xs leading-relaxed text-slate-700 shadow-lg"
                                 content={
                                   <>
                                     {row.tooltipTitle ? (
-                                      <p className="font-semibold text-white">{row.tooltipTitle}</p>
+                                      <p className="font-semibold text-slate-950">
+                                        {row.tooltipTitle}
+                                      </p>
                                     ) : null}
                                     <p className={row.tooltipTitle ? "mt-1" : ""}>{row.tooltip}</p>
                                   </>
@@ -273,7 +266,7 @@ export function CharacteristicsCard({
             ))}
           </div>
         ) : (
-          <p className="text-sm text-white/55">{t("common.unavailable")}</p>
+          <p className="text-sm text-slate-500">{t("common.unavailable")}</p>
         )}
       </CardContent>
     </Card>

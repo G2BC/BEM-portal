@@ -24,7 +24,6 @@ const ObservationMapCard = React.lazy(() =>
 );
 import { SpeciesRequestCard } from "./components/speciesRequestCard";
 import { TaxonomyCard } from "./components/taxonomyCard";
-import { LumCard } from "./components/lumCard";
 import { MolecularCard } from "./components/molecularCard";
 import { CharacteristicsCard } from "./components/characteristicsCard";
 import { ConservationStatusCard } from "./components/conservationStatusCard";
@@ -65,13 +64,13 @@ export default function SpeciesPage() {
       defaultValue: t("species_page.fields.conservation_status_values.NE.name"),
     }
   );
-  const sectionCardClass = "rounded-2xl border border-white/15 bg-white/[0.02] backdrop-blur-[1px]";
+  const sectionCardClass = "rounded-2xl border border-slate-200 bg-white shadow-sm";
   const sectionCardContentClass = "space-y-3 px-4 py-2";
   const sectionTitleWrapClass = "mb-2 flex items-center gap-2.5";
   const sectionIconWrapClass = "text-primary/90";
-  const sectionTitleClass = "text-[1.2rem] font-semibold tracking-tight text-white/95";
-  const rowLabelClass = "text-[0.98rem] text-white/72";
-  const rowValueClass = "text-[0.98rem] font-medium text-white/90";
+  const sectionTitleClass = "text-[1.2rem] font-semibold tracking-tight text-slate-950";
+  const rowLabelClass = "text-[0.98rem] text-slate-600";
+  const rowValueClass = "text-[0.98rem] font-medium text-slate-900";
 
   const photos = sortPhotos(dados?.photos ?? []);
 
@@ -80,7 +79,7 @@ export default function SpeciesPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 my-10 text-white">
+    <div className="container mx-auto px-4 my-10 text-slate-950">
       {window.history.length > 2 && (
         <Button
           variant="link"
@@ -115,7 +114,7 @@ export default function SpeciesPage() {
       </header>
 
       <div className="grid grid-cols-1 xl:grid-cols-[1.15fr_1fr] gap-4 lg:gap-8">
-        <div className="min-w-0 text-white max-xl:order-1">
+        <div className="min-w-0 text-slate-950 max-xl:order-1">
           {/* título desktop — escondido no mobile */}
           <header className="xl:max-w-[95%] max-xl:hidden">
             <div className="flex items-center gap-5 xl:gap-6">
@@ -140,15 +139,6 @@ export default function SpeciesPage() {
           </header>
 
           <div className="xl:mt-6 space-y-4 xl:max-w-[95%]">
-            <LumCard
-              sectionCardClass={sectionCardClass}
-              sectionCardContentClass={sectionCardContentClass}
-              sectionTitleWrapClass={sectionTitleWrapClass}
-              sectionIconWrapClass={sectionIconWrapClass}
-              sectionTitleClass={sectionTitleClass}
-              characteristics={dados?.species_characteristics}
-            />
-
             <TaxonomyCard
               show={Boolean(
                 dados?.taxonomy?.classification ||
@@ -258,8 +248,10 @@ export default function SpeciesPage() {
             </div>
           )}
           <section className="mt-6 hidden rounded-2xl border border-primary/35 bg-gradient-to-r from-primary/15 via-primary/5 to-transparent p-5 xl:block">
-            <p className="text-sm font-semibold text-white">{t("species_page.contribute_title")}</p>
-            <p className="mt-1 text-sm text-white/75">{t("species_page.contribute_text")}</p>
+            <p className="text-sm font-semibold text-slate-950">
+              {t("species_page.contribute_title")}
+            </p>
+            <p className="mt-1 text-sm text-slate-600">{t("species_page.contribute_text")}</p>
             <Button
               variant="outline"
               size="sm"

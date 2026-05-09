@@ -5,12 +5,9 @@ import type { Locale } from "@/lib/lang";
 
 interface FilterTagsProps {
   search: string;
-  lineage: string;
   country: string;
   distributions: string[];
-  filterLabels: { lineage?: string; distributions: Record<string, string> };
   onClearSearch: () => void;
-  onClearLineage: () => void;
   onClearCountry: () => void;
   onClearDistributions: () => void;
 }
@@ -33,12 +30,9 @@ function Tag({ prefix, value, onRemove }: { prefix: string; value: string; onRem
 
 export function FilterTags({
   search,
-  lineage,
   country,
   distributions,
-  filterLabels,
   onClearSearch,
-  onClearLineage,
   onClearCountry,
   onClearDistributions,
 }: FilterTagsProps) {
@@ -54,14 +48,6 @@ export function FilterTags({
           prefix: t("explore_page.input_placeholder"),
           value: search,
           onRemove: onClearSearch,
-        }
-      : null,
-    lineage
-      ? {
-          id: "lineage",
-          prefix: t("explore_page.select_lineage"),
-          value: filterLabels.lineage ?? lineage,
-          onRemove: onClearLineage,
         }
       : null,
     country

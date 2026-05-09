@@ -37,18 +37,15 @@ export function useExplorePage() {
   const lang = i18n.language;
 
   const searchParam = searchParams.get("search") ?? "";
-  const lineageParam = searchParams.get("lineage") ?? "";
   const countryParam = searchParams.get("country") ?? "";
   const distributionsParam = searchParams.get("distributions") ?? "";
 
-  const [lineage, setLineage] = useState<string>(lineageParam);
   const [country, setCountry] = useState<string>(countryParam);
   const [distributions, setDistributions] = useState<string[]>(() =>
     distributionsParam ? distributionsParam.split(",") : []
   );
   const [search, setSearch] = useState<string>(searchParam);
   const [filterLabels, setFilterLabels] = useState<{
-    lineage?: string;
     distributions: Record<string, string>;
   }>({ distributions: {} });
 
@@ -84,15 +81,14 @@ export function useExplorePage() {
   // Sync local input state when URL changes (e.g. back/forward navigation)
   useEffect(() => {
     setSearch(searchParam);
-    setLineage(lineageParam);
     setCountry(countryParam);
     setDistributions(distributionsParam ? distributionsParam.split(",") : []);
-  }, [searchParam, lineageParam, countryParam, distributionsParam]);
+  }, [searchParam, countryParam, distributionsParam]);
 
   // Reset auto-load counter whenever filters change
   useEffect(() => {
     setAutoLoadsUsed(0);
-  }, [searchParam, lineageParam, countryParam, distributionsParam, perPage]);
+  }, [searchParam, countryParam, distributionsParam, perPage]);
 
   // Responsive per_page
   useEffect(() => {
@@ -109,7 +105,6 @@ export function useExplorePage() {
     useInfiniteQuery({
       queryKey: speciesKeys.explore({
         search: searchParam,
-        lineage: lineageParam,
         country: countryParam,
         distributions: distributionsParam,
         perPage,
@@ -117,7 +112,6 @@ export function useExplorePage() {
       queryFn: ({ pageParam, signal }) =>
         searchEspecies({
           search: searchParam || undefined,
-          lineage: lineageParam || undefined,
           country: countryParam || undefined,
           distributions: distributionsParam || undefined,
           page: pageParam as number,
@@ -167,20 +161,19 @@ export function useExplorePage() {
   );
 
   const upsertFilterParams = (
-    patch: Partial<{ search: string; lineage: string; country: string; distributions: string }>,
+    patch: Partial<{ search: string; country: string; distributions: string }>,
     opts?: { replace?: boolean }
   ) => {
     const curr = paramsToObject(searchParams);
     const next: Record<string, string> = { ...curr };
 
-    const setOrDelete = (key: "search" | "lineage" | "country" | "distributions", val?: string) => {
+    const setOrDelete = (key: "search" | "country" | "distributions", val?: string) => {
       const v = (val ?? "").trim();
       if (v) next[key] = v;
       else delete next[key];
     };
 
     if ("search" in patch) setOrDelete("search", String(patch.search ?? ""));
-    if ("lineage" in patch) setOrDelete("lineage", String(patch.lineage ?? ""));
     if ("country" in patch) setOrDelete("country", String(patch.country ?? ""));
     if ("distributions" in patch) setOrDelete("distributions", String(patch.distributions ?? ""));
 
@@ -217,13 +210,6 @@ export function useExplorePage() {
     upsertFilterParams({ search: "" });
   };
 
-  const changeLineage = (newLineage: string, label?: string) => {
-    if (lineage === newLineage) return;
-    setLineage(newLineage);
-    upsertFilterParams({ lineage: newLineage });
-    setFilterLabels((prev) => ({ ...prev, lineage: label }));
-  };
-
   const changeCountry = (newCountry: string) => {
     if (country === newCountry) return;
     setCountry(newCountry);
@@ -240,20 +226,16 @@ export function useExplorePage() {
 
   const applyFilters = (filters: {
     search: string;
-    lineage: string;
     country: string;
     distributions: string[];
-    lineageLabel?: string;
     distributionLabels: Record<string, string>;
   }) => {
     setSearch(filters.search);
-    setLineage(filters.lineage);
     setCountry(filters.country);
     setDistributions(filters.distributions);
-    setFilterLabels({ lineage: filters.lineageLabel, distributions: filters.distributionLabels });
+    setFilterLabels({ distributions: filters.distributionLabels });
     upsertFilterParams({
       search: filters.search,
-      lineage: filters.lineage,
       country: filters.country,
       distributions: filters.distributions.join(","),
     });
@@ -269,14 +251,12 @@ export function useExplorePage() {
     loadMore,
     fetchedSearch,
     search,
-    lineage,
     country,
     distributions,
     filterLabels,
     onChangeSearch,
     handleSearch,
     handleClearInput,
-    changeLineage,
     changeCountry,
     changeDistributions,
     applyFilters,

@@ -2,34 +2,15 @@ import type { ISpecie } from "@/api/species/types/ISpecie";
 import type { UpdateSpeciesPayload } from "@/api/species";
 import type { TFunction } from "i18next";
 import { getCountryName } from "@/lib/country-names";
-import {
-  EDITABLE_PENDING_FIELDS,
-  LUMINESCENT_FIELDS,
-  SPECIES_LINEAGE_OPTIONS,
-  SPECIES_EDIT_FORM_INITIAL_VALUES,
-} from "./constants";
+import { EDITABLE_PENDING_FIELDS, SPECIES_EDIT_FORM_INITIAL_VALUES } from "./constants";
 import type {
   BooleanFormValue,
-  LuminescentRow,
   PendingFieldChange,
   SpeciesEditFieldConfig,
   SpeciesEditFormValues,
   SpeciesEditOption,
   TriStateFormValue,
 } from "./types";
-
-function normalizeLineageValue(value: unknown): string {
-  if (typeof value !== "string") return "";
-
-  const normalized = value.trim();
-  if (!normalized) return "";
-
-  const matchedOption = SPECIES_LINEAGE_OPTIONS.find(
-    (option) => option.toLowerCase() === normalized.toLowerCase()
-  );
-
-  return matchedOption ?? normalized;
-}
 
 export function toTriStateFormValue(value: unknown): TriStateFormValue {
   if (value === true) return "true";
@@ -59,17 +40,6 @@ function toBooleanFormValue(value: unknown): BooleanFormValue {
 }
 
 export function createSpeciesEditFormDefaults(speciesData: ISpecie): SpeciesEditFormValues {
-  const lumMycelium =
-    speciesData.lum_mycelium ?? speciesData.species_characteristics?.lum_mycelium ?? null;
-  const lumBasidiome =
-    speciesData.lum_basidiome ?? speciesData.species_characteristics?.lum_basidiome ?? null;
-  const lumStipe = speciesData.lum_stipe ?? speciesData.species_characteristics?.lum_stipe ?? null;
-  const lumPileus =
-    speciesData.lum_pileus ?? speciesData.species_characteristics?.lum_pileus ?? null;
-  const lumLamellae =
-    speciesData.lum_lamellae ?? speciesData.species_characteristics?.lum_lamellae ?? null;
-  const lumSpores =
-    speciesData.lum_spores ?? speciesData.species_characteristics?.lum_spores ?? null;
   const similarSpeciesIdsFromCharacteristics = (
     speciesData.species_characteristics?.similar_species ?? []
   )
@@ -80,10 +50,8 @@ export function createSpeciesEditFormDefaults(speciesData: ISpecie): SpeciesEdit
     .filter((value) => Number.isFinite(value));
 
   return {
-    lineage: normalizeLineageValue(speciesData.lineage),
     is_visible: toBooleanFormValue(speciesData.is_visible),
     mycobank_index_fungorum_id: speciesData.mycobank_index_fungorum_id ?? "",
-    family: speciesData.family ?? "",
     size_cm: String(speciesData.species_characteristics?.size_cm ?? ""),
     season_start_month:
       speciesData.species_characteristics?.season_start_month === null ||
@@ -95,7 +63,6 @@ export function createSpeciesEditFormDefaults(speciesData: ISpecie): SpeciesEdit
       speciesData.species_characteristics?.season_end_month === undefined
         ? ""
         : String(speciesData.species_characteristics?.season_end_month),
-    edible: toTriStateFormValue(speciesData.species_characteristics?.edible),
     similar_species_ids:
       similarSpeciesIdsFromCharacteristics.length > 0
         ? similarSpeciesIdsFromCharacteristics
@@ -128,7 +95,7 @@ export function createSpeciesEditFormDefaults(speciesData: ISpecie): SpeciesEdit
         ? ""
         : String(speciesData.inaturalist_taxon_id),
     cultivation_possible: toTriStateFormValue(
-      speciesData.species_characteristics?.cultivation_possible ?? speciesData.cultivation_possible
+      speciesData.species_characteristics?.cultivation_possible
     ),
     unite_taxon_id:
       speciesData.unite_taxon_id === null || speciesData.unite_taxon_id === undefined
@@ -145,12 +112,6 @@ export function createSpeciesEditFormDefaults(speciesData: ISpecie): SpeciesEdit
         : String(speciesData.iucn_redlist),
     type_country: speciesData.type_country ?? "",
     distributions: (speciesData.distributions ?? []).map((item) => item.id),
-    lum_mycelium: toTriStateFormValue(lumMycelium),
-    lum_basidiome: toTriStateFormValue(lumBasidiome),
-    lum_stipe: toTriStateFormValue(lumStipe),
-    lum_pileus: toTriStateFormValue(lumPileus),
-    lum_lamellae: toTriStateFormValue(lumLamellae),
-    lum_spores: toTriStateFormValue(lumSpores),
   };
 }
 
@@ -220,16 +181,7 @@ function normalizeForCompare(name: SpeciesEditFieldConfig["name"], value: unknow
     return normalizeIdArray(value);
   }
 
-  if (
-    name === "lum_mycelium" ||
-    name === "lum_basidiome" ||
-    name === "lum_stipe" ||
-    name === "lum_pileus" ||
-    name === "lum_lamellae" ||
-    name === "lum_spores" ||
-    name === "edible" ||
-    name === "cultivation_possible"
-  ) {
+  if (name === "cultivation_possible") {
     return toTriStateApiValue(String(value ?? "") as TriStateFormValue);
   }
 
@@ -243,10 +195,6 @@ function normalizeForCompare(name: SpeciesEditFieldConfig["name"], value: unknow
 
   if (name === "season_start_month" || name === "season_end_month") {
     return parseOptionalMonth(String(value ?? ""));
-  }
-
-  if (name === "lineage") {
-    return String(value ?? "").trim();
   }
 
   return toNullableText(String(value ?? ""));
@@ -326,22 +274,6 @@ export function getFieldDisplayValue(
   if (!selectedOption) return t("panel_page.species_edit_empty_value");
 
   return resolveOptionLabel(selectedOption, t);
-}
-
-export function buildLuminescentRows(speciesData: ISpecie, t: TFunction): LuminescentRow[] {
-  return LUMINESCENT_FIELDS.map((field) => {
-    const topLevelValue = speciesData[field.key];
-    const characteristicsValue = speciesData.species_characteristics?.[field.key];
-    const value = topLevelValue ?? characteristicsValue ?? null;
-    const statusValue: TriStateFormValue =
-      value === true ? "true" : value === false ? "false" : "unknown";
-
-    return {
-      ...field,
-      statusValue,
-      valueLabel: getTriStateValueLabel(statusValue, t),
-    };
-  });
 }
 
 function getLocalizedOptionLabels(

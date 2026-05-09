@@ -56,18 +56,18 @@ export function ConservationStatusCard({
         </div>
 
         <div className="space-y-2">
-          <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-2">
+          <div className="flex items-center justify-between gap-4 border-b border-slate-200 pb-2">
             <p className={rowLabelClass}>{t("species_page.fields.conservation_status")}</p>
             <div className="flex items-center gap-1.5">
               <p className={`${rowValueClass} break-words text-right`}>{conservationStatusLabel}</p>
               {conservationStatusDescription ? (
                 <HoverPopover
-                  trigger={<Info className="size-4 text-white/50" />}
+                  trigger={<Info className="size-4 text-slate-400" />}
                   triggerClassName="inline-flex items-center"
-                  contentClassName="max-w-80 border border-white/20 bg-black/90 px-3 py-2 text-xs leading-relaxed text-white/90 shadow-lg"
+                  contentClassName="max-w-80 border border-slate-200 bg-white px-3 py-2 text-xs leading-relaxed text-slate-700 shadow-lg"
                   content={
                     <>
-                      <p className="font-semibold text-white">
+                      <p className="font-semibold text-slate-950">
                         {conservationStatusCode} — {conservationStatusLabel}
                       </p>
                       <p className="mt-1">{conservationStatusDescription}</p>
@@ -78,7 +78,7 @@ export function ConservationStatusCard({
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-2">
+          <div className="flex items-center justify-between gap-4 border-b border-slate-200 pb-2">
             <p className={rowLabelClass}>{t("species_page.fields.iucn_assessment_year")}</p>
             <p className={`${rowValueClass} break-words text-right`}>
               {assessmentYear ?? noInformationLabel}

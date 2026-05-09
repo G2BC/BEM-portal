@@ -5,8 +5,6 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useParams } from "react-router";
 import { FormSection } from "./components/form-section";
-import { LuminescenceEditSection } from "./components/luminescence-edit-section";
-import { LuminescenceViewSection } from "./components/luminescence-view-section";
 import { SpeciesEditHeader } from "./components/species-edit-header";
 import { SpeciesEditSubmit } from "./components/species-edit-submit";
 import { SpeciesFieldsGrid } from "./components/species-fields-grid";
@@ -16,7 +14,6 @@ import { useSpeciesEditForm } from "./hooks/use-species-edit-form";
 
 const TAXONOMY_FIELDS_ORDER = [
   "type_country",
-  "lineage",
   "mycobank_index_fungorum_id",
   "ncbi_taxonomy_id",
   "inaturalist_taxon_id",
@@ -39,7 +36,6 @@ const DISTRIBUTION_FIELDS_ORDER = [
   "similar_species_ids",
   "season_start_month",
   "season_end_month",
-  "edible",
   "cultivation_possible",
   "cultivation_pt",
   "cultivation",
@@ -79,7 +75,6 @@ function SpeciesEditPage({ viewMode = false }: SpeciesEditPageProps) {
     hasLoadError,
     isFormReady,
     visibleFields,
-    luminescentRows,
     domainViewValueMap,
     domainPreloadedOptions,
     distributionPreloadedOptions,
@@ -178,9 +173,6 @@ function SpeciesEditPage({ viewMode = false }: SpeciesEditPageProps) {
           className="space-y-4"
         >
           {!viewMode ? <SpeciesVisibilityField form={form} t={t} /> : null}
-
-          {!viewMode ? <LuminescenceEditSection form={form} t={t} /> : null}
-          {viewMode ? <LuminescenceViewSection rows={luminescentRows} t={t} /> : null}
 
           <FormSection title={t("panel_page.species_section_taxonomy")}>
             <SpeciesFieldsGrid

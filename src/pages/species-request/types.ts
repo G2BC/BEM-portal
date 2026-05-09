@@ -1,8 +1,3 @@
-import type { LuminescentPartId } from "@/pages/species-request/constants";
-
-export type LuminescentPartAction = "none" | "add" | "remove";
-export type LuminescentPartsForm = Record<LuminescentPartId, LuminescentPartAction>;
-
 export type SpeciesRequestFormValues = {
   requester_name: string;
   requester_email: string;
@@ -10,7 +5,6 @@ export type SpeciesRequestFormValues = {
   request_note?: string;
   references_raw?: string;
   colors?: string;
-  cultivation_possible?: string;
   cultivation?: string;
   finding_tips?: string;
   nearby_trees?: string;
@@ -24,7 +18,6 @@ export type SpeciesRequestFormValues = {
   substrates: number[];
   decay_types: number[];
   habitats: number[];
-  luminescent_parts: LuminescentPartsForm;
 };
 
 export type PhotoLegalForm = {
@@ -32,7 +25,6 @@ export type PhotoLegalForm = {
   attribution: string;
   rights_holder: string;
   source_url: string;
-  lumm: boolean;
   declaration_confirmed: boolean;
 };
 

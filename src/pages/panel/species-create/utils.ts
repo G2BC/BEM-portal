@@ -20,6 +20,6 @@ export function buildCreateSpeciesPayload(values: SpeciesCreateFormValues): Crea
     ncbi_taxonomy_id: toOptionalInteger(values.ncbi_taxonomy_id),
     inaturalist_taxon_id: toOptionalInteger(values.inaturalist_taxon_id),
     unite_taxon_id: toOptionalInteger(values.unite_taxon_id),
-    iucn_redlist: toOptionalInteger(values.iucn_redlist),
+    iucn_redlist: values.iucn_redlist.trim() || undefined,
   };
 }

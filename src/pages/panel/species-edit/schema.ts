@@ -19,10 +19,8 @@ export function createSpeciesEditSchema(t: TFunction) {
   }, t("panel_page.species_edit_validation_season_month"));
 
   return z.object({
-    lineage: z.string().trim().min(1, t("panel_page.species_edit_validation_lineage")),
     is_visible: booleanFieldSchema,
     mycobank_index_fungorum_id: optionalIntegerIdSchema,
-    family: z.string(),
     size_cm: z
       .string()
       .refine(
@@ -33,7 +31,6 @@ export function createSpeciesEditSchema(t: TFunction) {
       ),
     season_start_month: monthFieldSchema,
     season_end_month: monthFieldSchema,
-    edible: triStateFieldSchema,
     distributions: z.array(z.number()).catch([]),
     similar_species_ids: z.array(z.number()).catch([]),
     growth_forms: z.array(z.number()).catch([]),
@@ -60,11 +57,5 @@ export function createSpeciesEditSchema(t: TFunction) {
     conservation_status: z.string(),
     iucn_redlist: z.string(),
     type_country: z.string(),
-    lum_mycelium: triStateFieldSchema,
-    lum_basidiome: triStateFieldSchema,
-    lum_stipe: triStateFieldSchema,
-    lum_pileus: triStateFieldSchema,
-    lum_lamellae: triStateFieldSchema,
-    lum_spores: triStateFieldSchema,
   });
 }

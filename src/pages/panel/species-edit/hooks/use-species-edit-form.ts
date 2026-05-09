@@ -13,7 +13,6 @@ import { createSpeciesEditSchema } from "../schema";
 import type { SpeciesEditFormValues } from "../types";
 import {
   buildDomainViewValueMap,
-  buildLuminescentRows,
   buildSpeciesUpdatePayload,
   createSpeciesEditFormDefaults,
 } from "../utils";
@@ -115,11 +114,6 @@ export function useSpeciesEditForm({ species, isViewMode, locale }: UseSpeciesEd
     [isViewMode]
   );
 
-  const luminescentRows = useMemo(
-    () => (speciesData ? buildLuminescentRows(speciesData, t) : []),
-    [speciesData, t]
-  );
-
   const domainViewValueMap = useMemo(
     () =>
       speciesData
@@ -174,7 +168,6 @@ export function useSpeciesEditForm({ species, isViewMode, locale }: UseSpeciesEd
     hasLoadError,
     isFormReady,
     visibleFields,
-    luminescentRows,
     domainViewValueMap,
     domainPreloadedOptions,
     distributionPreloadedOptions,

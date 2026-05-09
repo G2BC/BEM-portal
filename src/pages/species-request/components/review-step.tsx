@@ -1,5 +1,4 @@
 import type { SpeciesRequestFormValues } from "@/pages/species-request/types";
-import { LUMINESCENT_PART_OPTIONS } from "@/pages/species-request/constants";
 import { selectSpeciesDomain } from "@/api/species";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -54,16 +53,6 @@ export function ReviewStep({ values, selectedFileCount }: ReviewStepProps) {
       ids.map((id) => domainLabelsById[String(id)] ?? String(id)).join(", "),
     [domainLabelsById]
   );
-  const selectedLuminescentParts = LUMINESCENT_PART_OPTIONS.filter((option) => {
-    const action = values.luminescent_parts[option.id];
-    return action === "add" || action === "remove";
-  }).map((option) => {
-    const action = values.luminescent_parts[option.id];
-    const actionLabel =
-      action === "remove" ? t("species_page.lumm.no") : t("species_page.lumm.yes");
-    return `${t(option.labelKey)} (${actionLabel})`;
-  });
-  const hasLuminescentParts = selectedLuminescentParts.length > 0;
   const hasGrowthForms = values.growth_forms.length > 0;
   const hasNutritionModes = values.nutrition_modes.length > 0;
   const hasSubstrates = values.substrates.length > 0;
@@ -90,7 +79,6 @@ export function ReviewStep({ values, selectedFileCount }: ReviewStepProps) {
     return label.charAt(0).toUpperCase() + label.slice(1);
   };
   const hasSpeciesSectionData =
-    hasLuminescentParts ||
     hasGrowthForms ||
     hasNutritionModes ||
     hasSubstrates ||
@@ -124,11 +112,6 @@ export function ReviewStep({ values, selectedFileCount }: ReviewStepProps) {
         </p>
         {hasSpeciesSectionData ? (
           <>
-            {hasLuminescentParts ? (
-              <p>
-                {t("species_request.luminescent_parts")}: {selectedLuminescentParts.join(", ")}
-              </p>
-            ) : null}
             {hasGrowthForms ? (
               <p>
                 {t("species_request.growth_forms")}: {formatDomainValues(values.growth_forms)}

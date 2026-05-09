@@ -46,7 +46,7 @@ export function ExternalLinksCard({
         </div>
         {sections.map((section) => (
           <div key={section.titleKey} className="space-y-2">
-            <p className="text-sm font-semibold text-white/90">{t(section.titleKey)}</p>
+            <p className="text-sm font-semibold text-slate-900">{t(section.titleKey)}</p>
             <div className="flex flex-wrap gap-2">
               {section.links.map((link) => (
                 <a

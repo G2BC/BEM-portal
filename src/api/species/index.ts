@@ -28,7 +28,6 @@ import type {
 
 export interface SearchEspeciesProps {
   search?: string;
-  lineage?: string;
   country?: string;
   distributions?: string;
   page?: number;
@@ -41,7 +40,6 @@ export type ISearchEspecies = { items: ISpecie[] } & IPagination;
 
 export const searchEspecies = async ({
   search,
-  lineage,
   country,
   distributions,
   page,
@@ -50,7 +48,7 @@ export const searchEspecies = async ({
   isVisible,
 }: SearchEspeciesProps): Promise<ISearchEspecies> => {
   const resposta: AxiosResponse<ISearchEspecies> = await API.get("/species/list", {
-    params: { search, lineage, country, distributions, page, per_page, is_visible: isVisible },
+    params: { search, country, distributions, page, per_page, is_visible: isVisible },
     signal,
   });
 
@@ -64,26 +62,8 @@ export const selectDistributions = async (signal?: AbortController["signal"]) =>
   return resposta.data;
 };
 
-export const selectLineage = async (search?: string, signal?: AbortController["signal"]) => {
-  const resposta: AxiosResponse<ISelect[]> = await API.get("/species/lineage/select", {
-    params: { search },
-    signal,
-  });
-
-  return resposta.data;
-};
-
 export const selectSpeciesCountry = async (search?: string, signal?: AbortController["signal"]) => {
   const resposta: AxiosResponse<ISelect[]> = await API.get("/species/country/select", {
-    params: { search },
-    signal,
-  });
-
-  return resposta.data;
-};
-
-export const selectSpeciesFamily = async (search?: string, signal?: AbortController["signal"]) => {
-  const resposta: AxiosResponse<ISelect[]> = await API.get("/species/family/select", {
     params: { search },
     signal,
   });
@@ -139,15 +119,11 @@ export const fetchSpecies = async (
 export type CreateSpeciesPayload = UpdateSpeciesPayload &
   Partial<{
     scientific_name: string;
-    family: string;
-    group_name: string;
-    section: string;
     type_country: string;
-    mycobank_type: string;
     ncbi_taxonomy_id: number;
     inaturalist_taxon_id: number;
     unite_taxon_id: number;
-    iucn_redlist: number;
+    iucn_redlist: string;
     references_raw: string;
     distribution_regions: string;
   }>;
@@ -158,12 +134,10 @@ export const createSpecies = async (payload: CreateSpeciesPayload): Promise<ISpe
 };
 
 export type UpdateSpeciesPayload = Partial<{
-  lineage: string;
   is_visible: boolean;
   is_outdated_mycobank: boolean;
   mycobank_index_fungorum_id: string | null;
   size_cm: number | null;
-  edible: boolean | null;
   season_start_month: number | null;
   season_end_month: number | null;
   growth_forms: number[];
@@ -183,14 +157,10 @@ export type UpdateSpeciesPayload = Partial<{
   curiosities: string | null;
   general_description_pt: string | null;
   general_description: string | null;
-  lum_mycelium: boolean | null;
-  lum_basidiome: boolean | null;
-  lum_stipe: boolean | null;
-  lum_pileus: boolean | null;
-  lum_lamellae: boolean | null;
-  lum_spores: boolean | null;
+  ncbi_taxonomy_id: number | string | null;
   inaturalist_taxon_id: number | string | null;
   unite_taxon_id: number | string | null;
+  iucn_redlist: string | null;
   cultivation_possible: boolean | null;
   type_country: string | null;
   distributions: number[];

@@ -74,15 +74,7 @@ export function SpeciesFieldsGrid({
     [isPtLocale]
   );
 
-  const triStateFieldNames = new Set([
-    "edible",
-    "lum_mycelium",
-    "lum_basidiome",
-    "lum_stipe",
-    "lum_pileus",
-    "lum_lamellae",
-    "lum_spores",
-  ]);
+  const triStateFieldNames = new Set(["cultivation_possible"]);
 
   const getNormalizedSelectValue = (name: SpeciesEditFieldName, value: unknown) => {
     if (triStateFieldNames.has(name)) {

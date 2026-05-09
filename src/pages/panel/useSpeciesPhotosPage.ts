@@ -26,7 +26,6 @@ export function createDefaultPhotoMetadata(): PhotoMetadataValues {
     attribution: "",
     rights_holder: "",
     source_url: "",
-    lumm: false,
     featured: false,
   };
 }
@@ -37,7 +36,6 @@ export function createPhotoMetadataFromExistingPhoto(photo: SpeciePhoto): PhotoM
     attribution: photo.attribution?.trim() || "",
     rights_holder: photo.rights_holder?.trim() || "",
     source_url: photo.source_url?.trim() || "",
-    lumm: Boolean(photo.lumm),
     featured: Boolean(photo.featured),
   };
 }
@@ -193,7 +191,6 @@ export function useSpeciesPhotosPage() {
       rights_holder?: string;
       source_url?: string | null;
       featured?: boolean;
-      lumm?: boolean;
     } = {};
 
     const nextLicenseCode = editingPhotoValues.license_code.trim();
@@ -210,7 +207,6 @@ export function useSpeciesPhotosPage() {
     if (normalizedSourceUrl !== previousSourceUrl) payload.source_url = normalizedSourceUrl || null;
     if (editingPhotoValues.featured !== originalValues.featured)
       payload.featured = editingPhotoValues.featured;
-    if (editingPhotoValues.lumm !== originalValues.lumm) payload.lumm = editingPhotoValues.lumm;
 
     if (Object.keys(payload).length === 0) {
       setEditingPhotoMessage(t("panel_page.species_photos_edit_no_changes"));
@@ -357,7 +353,6 @@ export function useSpeciesPhotosPage() {
             attribution: metadata.attribution.trim(),
             rights_holder: metadata.rights_holder.trim(),
             source_url: metadata.source_url.trim() || undefined,
-            lumm: metadata.lumm,
             featured: metadata.featured,
           });
         })

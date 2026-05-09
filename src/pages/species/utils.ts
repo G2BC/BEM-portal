@@ -2,7 +2,7 @@ import type { ISpecie, SpeciePhoto, SpeciesCharacteristics } from "@/api/species
 
 type PhotoKind = "f" | "l" | "n";
 
-export const getKind = (p: SpeciePhoto): PhotoKind => (p.featured ? "f" : p.lumm ? "l" : "n");
+export const getKind = (p: SpeciePhoto): PhotoKind => (p.featured ? "f" : "n");
 
 const normalizePublicStorageBase = (value?: string | null) => {
   const raw = (value || "").trim();
@@ -477,13 +477,6 @@ export function extractSpeciesExternalLinks(
     results.fungal_links.push({
       url: `https://www.indexfungorum.org/names/NamesRecord.asp?RecordID=${species.mycobank_index_fungorum_id}`,
       labelKey: "species_page.external_links.links.index_fungorum",
-    });
-  }
-
-  if (species.mycobank_type) {
-    results.fungal_links.push({
-      url: `https://www.mycobank.org/details/${species.mycobank_type}`,
-      labelKey: "species_page.external_links.links.mycobank_type",
     });
   }
 

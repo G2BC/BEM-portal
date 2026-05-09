@@ -23,7 +23,6 @@ export type CreateSpeciesPhotoPayload = {
   rights_holder: string;
   source_url?: string;
   featured: boolean;
-  lumm: boolean;
 };
 
 export type UpdateSpeciesPhotoPayload = {
@@ -32,5 +31,4 @@ export type UpdateSpeciesPhotoPayload = {
   rights_holder?: string | null;
   source_url?: string | null;
   featured?: boolean;
-  lumm?: boolean;
 };

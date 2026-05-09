@@ -1,13 +1,5 @@
-import type { LuminescentFieldConfig, PendingFieldConfig, SpeciesEditFieldConfig } from "./types";
+import type { PendingFieldConfig, SpeciesEditFieldConfig } from "./types";
 import type { BooleanFormValue, SpeciesEditFormValues, TriStateFormValue } from "./types";
-
-export const SPECIES_LINEAGE_OPTIONS = [
-  "Lucentipes",
-  "Armillaria",
-  "Eoscyphella",
-  "Omphalotus",
-  "Mycenoid",
-] as const;
 
 export const TRISTATE_SELECT_OPTIONS: Array<{ value: TriStateFormValue; labelKey: string }> = [
   { value: "unknown", labelKey: "species_page.fields.no_information" },
@@ -21,13 +13,6 @@ export const BOOLEAN_SELECT_OPTIONS: Array<{ value: BooleanFormValue; labelKey: 
 ];
 
 export const SPECIES_EDIT_FIELDS: SpeciesEditFieldConfig[] = [
-  {
-    name: "lineage",
-    labelKey: "panel_page.species_edit_field_lineage",
-    placeholderKey: "panel_page.species_edit_lineage_placeholder",
-    inputType: "select",
-    options: SPECIES_LINEAGE_OPTIONS.map((value) => ({ value, label: value })),
-  },
   {
     name: "is_visible",
     labelKey: "panel_page.species_edit_field_is_visible",
@@ -67,18 +52,6 @@ export const SPECIES_EDIT_FIELDS: SpeciesEditFieldConfig[] = [
     name: "cultivation_possible",
     labelKey: "panel_page.species_edit_field_cultivation_possible",
     placeholderKey: "panel_page.species_edit_cultivation_possible_placeholder",
-    inputType: "select",
-    fullWidth: true,
-    options: TRISTATE_SELECT_OPTIONS.map((option) => ({
-      value: option.value,
-      label: option.labelKey,
-      isLabelKey: true,
-    })),
-  },
-  {
-    name: "edible",
-    labelKey: "panel_page.species_edit_field_edible",
-    placeholderKey: "panel_page.species_edit_edible_placeholder",
     inputType: "select",
     fullWidth: true,
     options: TRISTATE_SELECT_OPTIONS.map((option) => ({
@@ -249,29 +222,16 @@ export const EDITABLE_SPECIES_EDIT_FIELDS = SPECIES_EDIT_FIELDS.filter(
   (field) => !field.detailOnly
 );
 
-export const LUMINESCENT_FIELDS: LuminescentFieldConfig[] = [
-  { key: "lum_mycelium", labelKey: "species_page.lumm.mycelium", level: 0 },
-  { key: "lum_basidiome", labelKey: "species_page.lumm.basidiome", level: 0 },
-  { key: "lum_stipe", labelKey: "species_page.lumm.stipe", level: 1 },
-  { key: "lum_pileus", labelKey: "species_page.lumm.pileus", level: 1 },
-  { key: "lum_lamellae", labelKey: "species_page.lumm.lamellae", level: 2 },
-  { key: "lum_spores", labelKey: "species_page.lumm.spores", level: 2 },
-];
-
 export const EDITABLE_PENDING_FIELDS: PendingFieldConfig[] = [
   ...EDITABLE_SPECIES_EDIT_FIELDS.map((field) => ({ name: field.name, labelKey: field.labelKey })),
-  ...LUMINESCENT_FIELDS.map((field) => ({ name: field.key, labelKey: field.labelKey })),
 ];
 
 export const SPECIES_EDIT_FORM_INITIAL_VALUES: SpeciesEditFormValues = {
-  lineage: "",
   is_visible: "false",
   mycobank_index_fungorum_id: "",
-  family: "",
   size_cm: "",
   season_start_month: "",
   season_end_month: "",
-  edible: "unknown",
   similar_species_ids: [],
   growth_forms: [],
   nutrition_modes: [],
@@ -298,12 +258,6 @@ export const SPECIES_EDIT_FORM_INITIAL_VALUES: SpeciesEditFormValues = {
   iucn_redlist: "",
   type_country: "",
   distributions: [],
-  lum_mycelium: "unknown",
-  lum_basidiome: "unknown",
-  lum_stipe: "unknown",
-  lum_pileus: "unknown",
-  lum_lamellae: "unknown",
-  lum_spores: "unknown",
 };
 
 export const DETAIL_VALUE_TEXT_CLASS = "text-sm leading-6 font-normal text-slate-900";

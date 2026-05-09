@@ -11,8 +11,8 @@ export function SpeciesRequestCard({ onClick }: SpeciesRequestCardProps) {
 
   return (
     <section className="xl:hidden rounded-2xl border border-primary/35 bg-gradient-to-r from-primary/15 via-primary/5 to-transparent p-5">
-      <p className="text-sm font-semibold text-white">{t("species_page.contribute_title")}</p>
-      <p className="mt-1 text-sm text-white/75">{t("species_page.contribute_text")}</p>
+      <p className="text-sm font-semibold text-slate-950">{t("species_page.contribute_title")}</p>
+      <p className="mt-1 text-sm text-slate-600">{t("species_page.contribute_text")}</p>
       <Button
         variant="outline"
         size="sm"

@@ -173,7 +173,6 @@ export default function PanelSpeciesPage() {
                 <thead>
                   <tr className="border-b border-slate-200 bg-slate-50 text-slate-600">
                     <th className="px-4 py-3">{t("panel_page.col_species_name")}</th>
-                    <th className="px-4 py-3">{t("panel_page.col_lineage")}</th>
                     <th className="px-4 py-3">{t("panel_page.col_published")}</th>
                     <th className="px-4 py-3 text-right">{t("panel_page.col_actions")}</th>
                   </tr>
@@ -206,7 +205,6 @@ export default function PanelSpeciesPage() {
                           </Link>
                         </div>
                       </td>
-                      <td className="px-4 py-3 pr-3">{item.lineage || "-"}</td>
                       <td className="px-4 py-3 pr-3">
                         <span
                           className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${getPublishedBadgeClass(
@@ -262,9 +260,6 @@ export default function PanelSpeciesPage() {
                       {item.scientific_name}
                     </Link>
                   </div>
-                  <p className="mt-1 text-sm text-slate-600">
-                    {t("panel_page.col_lineage")}: {item.lineage || "-"}
-                  </p>
                   <p className="mt-1 text-sm text-slate-600 flex items-center gap-2">
                     <span>{t("panel_page.col_published")}:</span>
                     <span

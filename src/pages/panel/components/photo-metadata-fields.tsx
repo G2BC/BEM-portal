@@ -14,7 +14,6 @@ export type PhotoMetadataValues = {
   attribution: string;
   rights_holder: string;
   source_url: string;
-  lumm: boolean;
   featured: boolean;
 };
 
@@ -96,15 +95,6 @@ export function PhotoMetadataFields({
       </div>
 
       <div className="grid gap-2 md:grid-cols-2">
-        <label className="flex items-center gap-2 text-sm text-slate-700">
-          <input
-            type="checkbox"
-            className="h-4 w-4 rounded border-slate-300"
-            checked={values.lumm}
-            onChange={(event) => onChange("lumm", event.target.checked)}
-          />
-          <span>{t("panel_page.species_photos_mark_lumm")}</span>
-        </label>
         <label className="flex items-center gap-2 text-sm text-slate-700">
           <input
             type="checkbox"

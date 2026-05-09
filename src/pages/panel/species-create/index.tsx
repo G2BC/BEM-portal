@@ -23,7 +23,6 @@ import { Link, useLocation, useNavigate, useParams } from "react-router";
 import type { UseFormReturn } from "react-hook-form";
 import { CultivationFields } from "../species-edit/components/cultivation-fields";
 import { FormSection } from "../species-edit/components/form-section";
-import { LuminescenceEditSection } from "../species-edit/components/luminescence-edit-section";
 import { SpeciesFieldsGrid } from "../species-edit/components/species-fields-grid";
 import { SPECIES_EDIT_FIELDS, SPECIES_EDIT_FORM_INITIAL_VALUES } from "../species-edit/constants";
 import type { SpeciesEditFieldName, SpeciesEditFormValues } from "../species-edit/types";
@@ -64,7 +63,6 @@ function PanelSpeciesCreatePage() {
     () =>
       pickEditableFields([
         "type_country",
-        "lineage",
         "ncbi_taxonomy_id",
         "inaturalist_taxon_id",
         "unite_taxon_id",
@@ -88,7 +86,6 @@ function PanelSpeciesCreatePage() {
         "similar_species_ids",
         "season_start_month",
         "season_end_month",
-        "edible",
         "cultivation_possible",
         "finding_tips_pt",
         "finding_tips",
@@ -195,11 +192,6 @@ function PanelSpeciesCreatePage() {
                 <FormMessage />
               </FormItem>
             )}
-          />
-
-          <LuminescenceEditSection
-            form={form as unknown as UseFormReturn<SpeciesEditFormValues>}
-            t={t}
           />
 
           <FormSection title={t("panel_page.species_section_taxonomy")}>

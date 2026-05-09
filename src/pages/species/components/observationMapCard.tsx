@@ -152,7 +152,17 @@ export function ObservationMapCard({
   if (!isLoading && total === 0) return null;
 
   const legend = (
-    <div className="flex items-center gap-4 text-xs text-white/40">
+    <div className="flex items-center gap-4 text-xs text-slate-500">
+      {Object.entries(SOURCE_COLORS).map(([source, color]) => (
+        <span key={source} className="flex items-center gap-1.5">
+          <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
+          {t(`species_page.observations.source_${source}`)}
+        </span>
+      ))}
+    </div>
+  );
+  const modalLegend = (
+    <div className="flex items-center gap-4 text-xs text-white/50">
       {Object.entries(SOURCE_COLORS).map(([source, color]) => (
         <span key={source} className="flex items-center gap-1.5">
           <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
@@ -171,7 +181,7 @@ export function ObservationMapCard({
               <MapPin className="h-4 w-4" />
             </span>
             <p className={sectionTitleClass}>{t("species_page.observations.title")}</p>
-            {!isLoading && <span className="text-sm text-white/40">· {total}</span>}
+            {!isLoading && <span className="text-sm text-slate-500">· {total}</span>}
           </div>
 
           {isLoading ? (
@@ -206,7 +216,7 @@ export function ObservationMapCard({
           <div className="relative z-0 flex-1 min-h-0 [&_.leaflet-container]:!bg-[#1a1a1a]">
             <MapContent observations={observations} />
           </div>
-          <div className="px-4 py-2 border-t border-white/10">{legend}</div>
+          <div className="px-4 py-2 border-t border-white/10">{modalLegend}</div>
         </DialogContent>
       </Dialog>
     </>

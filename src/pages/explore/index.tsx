@@ -20,11 +20,9 @@ export default function ExplorePage() {
     loadMore,
     fetchedSearch,
     handleClearInput,
-    lineage,
     country,
     distributions,
     filterLabels,
-    changeLineage,
     changeCountry,
     changeDistributions,
     applyFilters,
@@ -67,7 +65,6 @@ export default function ExplorePage() {
           )}
           <FilterModal
             search={search}
-            lineage={lineage}
             country={country}
             distributions={distributions}
             filterLabels={filterLabels}
@@ -77,12 +74,9 @@ export default function ExplorePage() {
         <div className="col-span-full">
           <FilterTags
             search={fetchedSearch}
-            lineage={lineage}
             country={country}
             distributions={distributions}
-            filterLabels={filterLabels}
             onClearSearch={handleClearInput}
-            onClearLineage={() => changeLineage("")}
             onClearCountry={() => changeCountry("")}
             onClearDistributions={() => changeDistributions([], {})}
           />

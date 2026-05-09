@@ -51,12 +51,6 @@ export function TaxonomyCard({
       };
     })
     .concat({
-      label: t("species_page.taxonomy.section"),
-      value: species.section || "",
-      level: 6,
-      italicValue: true,
-    })
-    .concat({
       label: t("species_page.taxonomy.epithet"),
       value: speciesNames.epithet || "",
       level: 7,
@@ -98,12 +92,6 @@ export function TaxonomyCard({
       level: 0,
       italicValue: false,
     })
-    .concat({
-      label: t("species_page.taxonomy.lineage"),
-      value: species?.lineage || "",
-      level: 0,
-      italicValue: false,
-    })
     .filter((item): item is TaxonomyRow => Boolean(item && item.label));
 
   return (
@@ -123,13 +111,13 @@ export function TaxonomyCard({
               return (
                 <div
                   key={row.label}
-                  className={`flex border-b border-white/10 pb-2 last:border-b-0 ${isLong ? "flex-col gap-0.5" : "flex-wrap items-start justify-between gap-1"}`}
+                  className={`flex border-b border-slate-200 pb-2 last:border-b-0 ${isLong ? "flex-col gap-0.5" : "flex-wrap items-start justify-between gap-1"}`}
                 >
                   <div
                     className="flex items-center gap-2 shrink-0"
                     style={{ marginLeft: `${row.level * 12}px` }}
                   >
-                    {row.level > 0 ? <span className="text-white/45">↳</span> : null}
+                    {row.level > 0 ? <span className="text-slate-400">↳</span> : null}
                     <p className={rowLabelClass}>{row.label}</p>
                   </div>
                   <p

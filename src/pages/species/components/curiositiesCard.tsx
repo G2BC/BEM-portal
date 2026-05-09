@@ -34,7 +34,7 @@ export function CuriositiesCard({
           </span>
           <p className={sectionTitleClass}>{t("species_page.fields.curiosities")}</p>
         </div>
-        <p className="text-[0.98rem] leading-relaxed text-white/88 whitespace-pre-line">
+        <p className="text-[0.98rem] leading-relaxed text-slate-800 whitespace-pre-line">
           {curiosities}
         </p>
       </CardContent>

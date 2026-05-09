@@ -50,7 +50,7 @@ export function BibliographyCard({
             ))}
           </div>
         ) : (
-          <p className="text-[0.98rem] text-white/72">{t("species_page.fields.no_information")}</p>
+          <p className="text-[0.98rem] text-slate-600">{t("species_page.fields.no_information")}</p>
         )}
       </CardContent>
     </Card>

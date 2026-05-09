@@ -106,11 +106,6 @@ export function SpeciesPhotosGallery({
                         {t("panel_page.species_photos_badge_featured")}
                       </Badge>
                     ) : null}
-                    {photo.lumm ? (
-                      <Badge className="rounded-full border border-emerald-300 bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800 shadow-sm">
-                        {t("panel_page.species_photos_badge_lumm")}
-                      </Badge>
-                    ) : null}
                   </div>
 
                   <p className="text-xs text-slate-600">

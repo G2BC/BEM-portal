@@ -15,7 +15,7 @@ import { PhotosStep } from "@/pages/species-request/components/photos-step";
 import { ReviewStep } from "@/pages/species-request/components/review-step";
 import { SpeciesDataStep } from "@/pages/species-request/components/species-data-step";
 import { StepProgress } from "@/pages/species-request/components/step-progress";
-import { LUMINESCENT_PART_OPTIONS, SPECIES_REQUEST_STEPS } from "@/pages/species-request/constants";
+import { SPECIES_REQUEST_STEPS } from "@/pages/species-request/constants";
 import { usePhotoUploadState } from "@/pages/species-request/hooks/use-photo-upload-state";
 import type { SpeciesRequestFormValues } from "@/pages/species-request/types";
 import { getFileKey, normalizeUploadUrlProtocol } from "@/pages/species-request/utils";
@@ -80,10 +80,6 @@ export default function SpeciesRequestPage() {
           substrates: z.array(z.number()).catch([]),
           decay_types: z.array(z.number()).catch([]),
           habitats: z.array(z.number()).catch([]),
-          luminescent_parts: z.record(
-            z.enum(["mycelium", "basidiome", "stipe", "pileus", "lamellae", "spores"]),
-            z.enum(["none", "add", "remove"])
-          ),
         })
         .superRefine((value, context) => {
           const start = value.season_start_month?.trim();
@@ -127,14 +123,6 @@ export default function SpeciesRequestPage() {
       substrates: [],
       decay_types: [],
       habitats: [],
-      luminescent_parts: {
-        mycelium: "none",
-        basidiome: "none",
-        stipe: "none",
-        pileus: "none",
-        lamellae: "none",
-        spores: "none",
-      },
     },
   });
 
@@ -273,19 +261,7 @@ export default function SpeciesRequestPage() {
         return false;
       })
     );
-    const selectedLuminescentParts = formValues.luminescent_parts;
-    const luminescentPartsProposedData = Object.fromEntries(
-      LUMINESCENT_PART_OPTIONS.filter((option) => {
-        const action = selectedLuminescentParts[option.id];
-        return action === "add" || action === "remove";
-      }).map(
-        (option) => [option.proposedField, selectedLuminescentParts[option.id] === "add"] as const
-      )
-    );
-    const proposedData = {
-      ...structuredProposedData,
-      ...luminescentPartsProposedData,
-    };
+    const proposedData = structuredProposedData;
 
     if (!selectedFiles.length && Object.keys(proposedData).length === 0) {
       await Alert({
@@ -344,7 +320,6 @@ export default function SpeciesRequestPage() {
           attribution: legal?.attribution?.trim(),
           rights_holder: legal?.rights_holder?.trim(),
           source_url: legal?.source_url?.trim() || undefined,
-          lumm: Boolean(legal?.lumm),
           declaration_accepted_at: legal?.declaration_confirmed ? declarationAcceptedAt : undefined,
         });
       }

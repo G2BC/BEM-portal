@@ -14,10 +14,9 @@ export function SpecieCard(props: ISpecie) {
   const { lang } = useParams();
 
   const photoFeatured = props.photos?.find((p) => p.featured === true);
-  const photoLumm = props.photos?.find((p) => p.lumm === true);
   const firstPhoto = props.photos?.[0];
 
-  const selectedPhoto = photoFeatured ?? photoLumm ?? firstPhoto;
+  const selectedPhoto = photoFeatured ?? firstPhoto;
   const photo = selectedPhoto ? getPhotoUrl(selectedPhoto) || photoDefault : photoDefault;
   const conservationStatusCode = props.species_characteristics?.conservation_status;
   const conservationStatusDescription = t(
@@ -57,7 +56,9 @@ export function SpecieCard(props: ISpecie) {
                 <CardTitle className="font-bold leading-[22px] italic line-clamp-1">
                   {props.scientific_name}
                 </CardTitle>
-                <CardDescription className="font-light text-sm">{props.lineage}</CardDescription>
+                <CardDescription className="font-light text-sm">
+                  {getCountryName(props.type_country, lang ?? DEFAULT_LOCALE)}
+                </CardDescription>
               </div>
               <span className="flex items-center gap-2 self-end">
                 <CountryTypeIcon

@@ -36,19 +36,12 @@ export interface SpeciesCharacteristics {
   cultivation_pt?: string | null;
   curiosities?: string | null;
   curiosities_pt?: string | null;
-  edible?: boolean | null;
   finding_tips?: string | null;
   finding_tips_pt?: string | null;
   general_description?: string | null;
   general_description_pt?: string | null;
   growth_forms?: SpeciesLocalizedOption[];
   habitats?: SpeciesLocalizedOption[];
-  lum_mycelium?: boolean | null;
-  lum_basidiome?: boolean | null;
-  lum_stipe?: boolean | null;
-  lum_pileus?: boolean | null;
-  lum_lamellae?: boolean | null;
-  lum_spores?: boolean | null;
   nearby_trees?: string | null;
   nearby_trees_pt?: string | null;
   nutrition_modes?: SpeciesLocalizedOption[];
@@ -66,23 +59,13 @@ export interface SpeciesCharacteristics {
 
 export interface ISpecie {
   id: number;
-  lineage: string;
   is_visible?: boolean;
   similar_species?: SpeciesTopLevelSimpleOption[];
   photos: SpeciePhoto[];
-  family: string;
   scientific_name: string;
   taxonomy?: Taxonomy;
   species_characteristics?: SpeciesCharacteristics;
-  mycobank_type?: string | null;
   mycobank_index_fungorum_id?: string | null;
-  lum_mycelium?: boolean | null;
-  lum_basidiome?: boolean | null;
-  lum_stipe?: boolean | null;
-  lum_pileus?: boolean | null;
-  lum_lamellae?: boolean | null;
-  lum_spores?: boolean | null;
-  cultivation_possible?: boolean | null;
   ncbi_taxonomy_id: number | null;
   inaturalist_taxon_id?: string | null;
   unite_taxon_id?: string | null;
@@ -91,7 +74,6 @@ export interface ISpecie {
   type_country: string | null;
   references: IReference[];
   distributions: IDistribution[];
-  section: string | null;
 }
 
 export interface SpeciePhoto {
@@ -103,6 +85,5 @@ export interface SpeciePhoto {
   medium_url?: string | null;
   original_url?: string | null;
   photo_id: number;
-  lumm: boolean | null;
   featured: boolean | null;
 }

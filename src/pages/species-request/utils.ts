@@ -6,7 +6,6 @@ export function createEmptyPhotoLegal(): PhotoLegalForm {
     attribution: "",
     rights_holder: "",
     source_url: "",
-    lumm: false,
     declaration_confirmed: false,
   };
 }
