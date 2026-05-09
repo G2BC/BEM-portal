@@ -23,10 +23,8 @@ export default function ExplorePage() {
     loadMore,
     fetchedSearch,
     handleClearInput,
-    country,
     distributions,
     filterLabels,
-    changeCountry,
     changeDistributions,
     applyFilters,
   } = useExplorePage();
@@ -70,7 +68,6 @@ export default function ExplorePage() {
             )}
             <FilterModal
               search={search}
-              country={country}
               distributions={distributions}
               filterLabels={filterLabels}
               onApply={applyFilters}
@@ -79,10 +76,8 @@ export default function ExplorePage() {
           <div className="col-span-full">
             <FilterTags
               search={fetchedSearch}
-              country={country}
               distributions={distributions}
               onClearSearch={handleClearInput}
-              onClearCountry={() => changeCountry("")}
               onClearDistributions={() => changeDistributions([], {})}
             />
           </div>

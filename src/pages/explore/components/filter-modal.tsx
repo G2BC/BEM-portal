@@ -20,38 +20,30 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { ComboboxAsync, type ComboboxOption } from "@/components/combobox-async";
-import { selectDistributions, selectSpeciesCountry } from "@/api/species";
-import { getCountryName } from "@/lib/country-names";
+import { selectDistributions } from "@/api/species";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import type { Locale } from "@/lib/lang";
 
+type FilterModalApplyFilters = {
+  search: string;
+  distributions: string[];
+  distributionLabels: Record<string, string>;
+};
+
 interface FilterModalProps {
   search: string;
-  country: string;
   distributions: string[];
   filterLabels: { distributions: Record<string, string> };
-  onApply: (filters: {
-    search: string;
-    country: string;
-    distributions: string[];
-    distributionLabels: Record<string, string>;
-  }) => void;
+  onApply: (_filters: FilterModalApplyFilters) => void;
 }
 
-export function FilterModal({
-  search,
-  country,
-  distributions,
-  filterLabels,
-  onApply,
-}: FilterModalProps) {
+export function FilterModal({ search, distributions, filterLabels, onApply }: FilterModalProps) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language as Locale;
   const isMobile = useIsMobile();
   const [open, setOpen] = React.useState(false);
 
   const [draftSearch, setDraftSearch] = React.useState(search);
-  const [draftCountry, setDraftCountry] = React.useState(country);
   const [draftDistributions, setDraftDistributions] = React.useState<string[]>(distributions);
   const [draftDistributionLabels, setDraftDistributionLabels] = React.useState<
     Record<string, string>
@@ -60,7 +52,6 @@ export function FilterModal({
   React.useEffect(() => {
     if (open) {
       setDraftSearch(search);
-      setDraftCountry(country);
       setDraftDistributions(distributions);
       setDraftDistributionLabels(filterLabels.distributions);
     }
@@ -78,18 +69,7 @@ export function FilterModal({
     };
   }, [open]);
 
-  const activeCount = [search, country, ...distributions].filter(Boolean).length;
-
-  const fetchCountryOptions = React.useCallback(
-    async (query: string, signal: AbortController["signal"]): Promise<ComboboxOption[]> => {
-      const res = await selectSpeciesCountry(query, signal);
-      return res.map((item) => ({
-        id: item.value,
-        label: getCountryName(item.label, lang) || item.label,
-      }));
-    },
-    [lang]
-  );
+  const activeCount = [search, ...distributions].filter(Boolean).length;
 
   const fetchDistributionOptions = React.useCallback(
     async (_query: string, signal: AbortController["signal"]): Promise<ComboboxOption[]> => {
@@ -113,24 +93,21 @@ export function FilterModal({
   const handleApply = () => {
     onApply({
       search: draftSearch,
-      country: draftCountry,
       distributions: draftDistributions,
       distributionLabels: draftDistributionLabels,
     });
     setOpen(false);
   };
 
-  const hasActiveFilters = !!(search || country || distributions.length);
+  const hasActiveFilters = !!(search || distributions.length);
 
   const handleClear = () => {
     setDraftSearch("");
-    setDraftCountry("");
     setDraftDistributions([]);
     setDraftDistributionLabels({});
     if (hasActiveFilters) {
       onApply({
         search: "",
-        country: "",
         distributions: [],
         distributionLabels: {},
       });
@@ -162,15 +139,6 @@ export function FilterModal({
           onChange={(e) => setDraftSearch(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleApply()}
           placeholder={t("common.search")}
-        />
-      </label>
-      <label className="flex flex-col gap-1.5">
-        <span className="text-sm text-muted-foreground">{t("explore_page.select_country")}</span>
-        <ComboboxAsync
-          variant="light"
-          fetchOptions={fetchCountryOptions}
-          value={draftCountry || null}
-          onSelect={(id) => setDraftCountry(id ? String(id) : "")}
         />
       </label>
       <label className="sm:col-span-2 flex flex-col gap-1.5">

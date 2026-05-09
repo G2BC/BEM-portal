@@ -37,10 +37,8 @@ export function useExplorePage() {
   const lang = i18n.language;
 
   const searchParam = searchParams.get("search") ?? "";
-  const countryParam = searchParams.get("country") ?? "";
   const distributionsParam = searchParams.get("distributions") ?? "";
 
-  const [country, setCountry] = useState<string>(countryParam);
   const [distributions, setDistributions] = useState<string[]>(() =>
     distributionsParam ? distributionsParam.split(",") : []
   );
@@ -86,14 +84,13 @@ export function useExplorePage() {
   // Sync local input state when URL changes (e.g. back/forward navigation)
   useEffect(() => {
     setSearch(searchParam);
-    setCountry(countryParam);
     setDistributions(distributionsParam ? distributionsParam.split(",") : []);
-  }, [searchParam, countryParam, distributionsParam]);
+  }, [searchParam, distributionsParam]);
 
   // Reset auto-load counter whenever filters change
   useEffect(() => {
     setAutoLoadsUsed(0);
-  }, [searchParam, countryParam, distributionsParam, perPage]);
+  }, [searchParam, distributionsParam, perPage]);
 
   // Responsive per_page
   useEffect(() => {
@@ -110,14 +107,12 @@ export function useExplorePage() {
     useInfiniteQuery({
       queryKey: speciesKeys.explore({
         search: searchParam,
-        country: countryParam,
         distributions: distributionsParam,
         perPage,
       }),
       queryFn: ({ pageParam, signal }) =>
         searchEspecies({
           search: searchParam || undefined,
-          country: countryParam || undefined,
           distributions: distributionsParam || undefined,
           page: pageParam as number,
           per_page: perPage,
@@ -166,21 +161,21 @@ export function useExplorePage() {
   );
 
   const upsertFilterParams = (
-    patch: Partial<{ search: string; country: string; distributions: string }>,
+    patch: Partial<{ search: string; distributions: string }>,
     opts?: { replace?: boolean }
   ) => {
     const curr = paramsToObject(searchParams);
     const next: Record<string, string> = { ...curr };
 
-    const setOrDelete = (key: "search" | "country" | "distributions", val?: string) => {
+    const setOrDelete = (key: "search" | "distributions", val?: string) => {
       const v = (val ?? "").trim();
       if (v) next[key] = v;
       else delete next[key];
     };
 
     if ("search" in patch) setOrDelete("search", String(patch.search ?? ""));
-    if ("country" in patch) setOrDelete("country", String(patch.country ?? ""));
     if ("distributions" in patch) setOrDelete("distributions", String(patch.distributions ?? ""));
+    delete next.country;
 
     delete next.page;
 
@@ -215,12 +210,6 @@ export function useExplorePage() {
     upsertFilterParams({ search: "" });
   };
 
-  const changeCountry = (newCountry: string) => {
-    if (country === newCountry) return;
-    setCountry(newCountry);
-    upsertFilterParams({ country: newCountry });
-  };
-
   const changeDistributions = (newDistributions: string[], labels?: Record<string, string>) => {
     const joined = newDistributions.join(",");
     if (distributions.join(",") === joined) return;
@@ -231,17 +220,14 @@ export function useExplorePage() {
 
   const applyFilters = (filters: {
     search: string;
-    country: string;
     distributions: string[];
     distributionLabels: Record<string, string>;
   }) => {
     setSearch(filters.search);
-    setCountry(filters.country);
     setDistributions(filters.distributions);
     setFilterLabels({ distributions: filters.distributionLabels });
     upsertFilterParams({
       search: filters.search,
-      country: filters.country,
       distributions: filters.distributions.join(","),
     });
   };
@@ -258,13 +244,11 @@ export function useExplorePage() {
     loadMore,
     fetchedSearch,
     search,
-    country,
     distributions,
     filterLabels,
     onChangeSearch,
     handleSearch,
     handleClearInput,
-    changeCountry,
     changeDistributions,
     applyFilters,
   };

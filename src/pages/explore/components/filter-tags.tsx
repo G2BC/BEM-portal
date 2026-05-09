@@ -1,14 +1,10 @@
 import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { getCountryName } from "@/lib/country-names";
-import type { Locale } from "@/lib/lang";
 
 interface FilterTagsProps {
   search: string;
-  country: string;
   distributions: string[];
   onClearSearch: () => void;
-  onClearCountry: () => void;
   onClearDistributions: () => void;
 }
 
@@ -30,14 +26,11 @@ function Tag({ prefix, value, onRemove }: { prefix: string; value: string; onRem
 
 export function FilterTags({
   search,
-  country,
   distributions,
   onClearSearch,
-  onClearCountry,
   onClearDistributions,
 }: FilterTagsProps) {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language as Locale;
+  const { t } = useTranslation();
 
   const distributionValue = distributions.join(", ");
 
@@ -48,14 +41,6 @@ export function FilterTags({
           prefix: t("explore_page.input_placeholder"),
           value: search,
           onRemove: onClearSearch,
-        }
-      : null,
-    country
-      ? {
-          id: "country",
-          prefix: t("explore_page.select_country"),
-          value: getCountryName(country, lang) || country,
-          onRemove: onClearCountry,
         }
       : null,
     distributions.length
