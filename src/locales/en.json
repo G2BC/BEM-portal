@@ -76,6 +76,7 @@
       "filter_clear": "Clear",
       "statistics": {
         "edible_brazil_species": "Edible Species From Brazil",
+        "edible_brazil_species_tooltip": "The species considered are from BEM1 to BEM6.",
         "observations": "Observations",
         "extinction_risk_species": "Species At Risk of Extinction",
         "brazilian_type_species": "Brazilian Type Species"

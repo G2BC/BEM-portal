@@ -76,6 +76,7 @@
       "filter_clear": "Limpar",
       "statistics": {
         "edible_brazil_species": "Espécies Comestíveis Do Brasil",
+        "edible_brazil_species_tooltip": "As espécies consideradas são do BEM1 ao BEM6.",
         "observations": "Observações",
         "extinction_risk_species": "Espécies Em Risco de Extinção",
         "brazilian_type_species": "Espécies Tipo Brasileiras"

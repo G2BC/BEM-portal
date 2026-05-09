@@ -1,4 +1,5 @@
 import type { ISpeciesStatistics } from "@/api/species";
+import { HoverPopover } from "@/components/hover-popover";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -16,21 +17,25 @@ const statConfig = [
     key: "edible_brazil_species",
     icon: EdibleIcon,
     labelKey: "explore_page.statistics.edible_brazil_species",
+    tooltipKey: "explore_page.statistics.edible_brazil_species_tooltip",
   },
   {
     key: "observations",
     icon: Search,
     labelKey: "explore_page.statistics.observations",
+    tooltipKey: undefined,
   },
   {
     key: "extinction_risk_species",
     icon: ExtinctionIcon,
     labelKey: "explore_page.statistics.extinction_risk_species",
+    tooltipKey: undefined,
   },
   {
     key: "brazilian_type_species",
     icon: BrazilianType,
     labelKey: "explore_page.statistics.brazilian_type_species",
+    tooltipKey: undefined,
   },
 ] as const;
 
@@ -41,23 +46,38 @@ export function SpeciesStatisticsBar({ statistics, loading }: SpeciesStatisticsB
   return (
     <section className="w-full bg-[#131313] text-white">
       <div className="container mx-auto grid min-h-[136px] grid-cols-2 items-center gap-x-6 gap-y-7 px-4 py-7 md:grid-cols-4 md:gap-x-10 md:py-8">
-        {statConfig.map(({ key, icon: Icon, labelKey }) => (
-          <div key={key} className="grid grid-cols-[40px_1fr] items-center gap-4 md:gap-6">
+        {statConfig.map(({ key, icon: Icon, labelKey, tooltipKey }) => {
+          const icon = (
             <Icon className="h-8 w-8 shrink-0 text-white md:h-9 md:w-9" strokeWidth={2.6} />
-            <div className="min-w-0 text-center md:text-left">
-              <p className="text-[14px] font-bold leading-[1.08] text-white md:text-[16px]">
-                {t(labelKey)}
-              </p>
-              {loading ? (
-                <Skeleton className="mx-auto mt-4 h-5 w-12 bg-white/20 md:mx-0" />
+          );
+
+          return (
+            <div key={key} className="grid grid-cols-[40px_1fr] items-center gap-4 md:gap-6">
+              {tooltipKey ? (
+                <HoverPopover
+                  trigger={icon}
+                  triggerClassName="inline-flex h-10 w-10 items-center justify-center md:h-11 md:w-11"
+                  contentClassName="max-w-64 border border-white/20 bg-black/90 px-3 py-2 text-xs leading-relaxed text-white/90 shadow-lg"
+                  content={<p>{t(tooltipKey)}</p>}
+                />
               ) : (
-                <p className="mt-3 text-[18px] font-bold leading-none text-white">
-                  {numberFormatter.format(statistics?.[key] ?? 0)}
-                </p>
+                icon
               )}
+              <div className="min-w-0 text-center md:text-left">
+                <p className="text-[14px] font-bold leading-[1.08] text-white md:text-[16px]">
+                  {t(labelKey)}
+                </p>
+                {loading ? (
+                  <Skeleton className="mx-auto mt-4 h-5 w-12 bg-white/20 md:mx-0" />
+                ) : (
+                  <p className="mt-3 text-[18px] font-bold leading-none text-white">
+                    {numberFormatter.format(statistics?.[key] ?? 0)}
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
