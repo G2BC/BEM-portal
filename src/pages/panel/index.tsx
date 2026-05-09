@@ -1,4 +1,4 @@
-import bemLogoBlack from "@/assets/bem_logo_black.png";
+import bemLogoBlack from "@/assets/bem_logo_black.svg";
 import LanguageSwitcher from "@/components/languege-switcher";
 import {
   Sidebar,
