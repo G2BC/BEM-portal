@@ -19,7 +19,12 @@ export function CountryTypeIcon({
   if (!iconUrl) return null;
 
   const image = (
-    <img src={iconUrl} alt={country || ""} className={imageClassName} aria-label={country || ""} />
+    <img
+      src={iconUrl}
+      alt={country || ""}
+      className={`${imageClassName} max-w-[48px] max-h-[48px]`}
+      aria-label={country || ""}
+    />
   );
 
   if (!description) {
