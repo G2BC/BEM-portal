@@ -96,9 +96,9 @@ export function ReviewStep({ values, selectedFileCount }: ReviewStepProps) {
     hasRequestNote;
 
   return (
-    <section className="space-y-4 text-sm">
+    <section className="space-y-4 text-sm text-slate-900">
       <div className="space-y-2">
-        <p className="text-xs uppercase tracking-wide text-white/60">
+        <p className="text-xs uppercase tracking-wide text-slate-500">
           {t("species_request.review_identity")}
         </p>
         <p>{values.requester_name || "-"}</p>
@@ -106,8 +106,8 @@ export function ReviewStep({ values, selectedFileCount }: ReviewStepProps) {
         <p>{values.requester_institution || "-"}</p>
       </div>
 
-      <div className="space-y-2 border-t border-white/10 pt-4">
-        <p className="text-xs uppercase tracking-wide text-white/60">
+      <div className="space-y-2 border-t border-slate-200 pt-4">
+        <p className="text-xs uppercase tracking-wide text-slate-500">
           {t("species_request.review_species")}
         </p>
         {hasSpeciesSectionData ? (
@@ -186,8 +186,8 @@ export function ReviewStep({ values, selectedFileCount }: ReviewStepProps) {
         )}
       </div>
 
-      <div className="space-y-2 border-t border-white/10 pt-4">
-        <p className="text-xs uppercase tracking-wide text-white/60">
+      <div className="space-y-2 border-t border-slate-200 pt-4">
+        <p className="text-xs uppercase tracking-wide text-slate-500">
           {t("species_request.review_photos")}
         </p>
         <p>{t("species_request.files_selected", { count: selectedFileCount })}</p>

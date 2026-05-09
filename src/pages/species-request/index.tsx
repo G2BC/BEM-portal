@@ -342,7 +342,7 @@ export default function SpeciesRequestPage() {
         confirmButtonText: "OK",
       });
 
-      navigate(`/${locale}/especie/${speciesData.id}`, { replace: true });
+      navigate(`/${locale}/painel/especies/${speciesData.id}/detalhes`, { replace: true });
     } catch (error) {
       await Alert({
         icon: "error",
@@ -353,10 +353,10 @@ export default function SpeciesRequestPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-10 text-white">
+    <div className="px-0 py-0 text-slate-900">
       <div className="mb-6 space-y-2">
         <h1 className="text-3xl font-bold">{t("species_request.title")}</h1>
-        <p className="text-white/70">
+        <p className="text-slate-600">
           {speciesData?.scientific_name ? (
             <Trans
               i18nKey="species_request.subtitle_with_species"
@@ -372,14 +372,14 @@ export default function SpeciesRequestPage() {
       </div>
 
       {loadingSpecies ? (
-        <div className="flex items-center gap-2 text-white/70">
+        <div className="flex items-center gap-2 text-slate-600">
           <Loader2 className="h-4 w-4 animate-spin" />
           {t("common.loading")}
         </div>
       ) : (
         <Form {...form}>
           <form
-            className="space-y-6 rounded-xl border border-white/15 bg-black/20 p-5"
+            className="space-y-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
             onSubmit={(event) => event.preventDefault()}
           >
             <StepProgress currentStep={currentStep} />
@@ -405,7 +405,7 @@ export default function SpeciesRequestPage() {
               <ReviewStep values={values} selectedFileCount={selectedFiles.length} />
             ) : null}
 
-            <div className="flex flex-wrap items-center gap-3 border-t border-white/10 pt-4">
+            <div className="flex flex-wrap items-center gap-3 border-t border-slate-200 pt-4">
               {currentStep > 0 ? (
                 <Button type="button" variant="outline" onClick={handlePrevStep}>
                   <ChevronLeft className="h-4 w-4" />
@@ -442,7 +442,9 @@ export default function SpeciesRequestPage() {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => navigate(`/${locale}/especie/${speciesData?.id ?? species}`)}
+                  onClick={() =>
+                    navigate(`/${locale}/painel/especies/${speciesData?.id ?? species}/detalhes`)
+                  }
                 >
                   {t("common.back")}
                 </Button>

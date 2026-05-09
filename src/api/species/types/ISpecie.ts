@@ -63,6 +63,7 @@ export interface ISpecie {
   similar_species?: SpeciesTopLevelSimpleOption[];
   photos: SpeciePhoto[];
   scientific_name: string;
+  common_name?: string | null;
   taxonomy?: Taxonomy;
   species_characteristics?: SpeciesCharacteristics;
   mycobank_index_fungorum_id?: string | null;

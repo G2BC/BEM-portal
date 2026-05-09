@@ -22,11 +22,11 @@ import { ExternalLinksCard } from "./components/externalLinksCard";
 const ObservationMapCard = React.lazy(() =>
   import("./components/observationMapCard").then((m) => ({ default: m.ObservationMapCard }))
 );
-import { SpeciesRequestCard } from "./components/speciesRequestCard";
 import { TaxonomyCard } from "./components/taxonomyCard";
 import { MolecularCard } from "./components/molecularCard";
 import { CharacteristicsCard } from "./components/characteristicsCard";
 import { ConservationStatusCard } from "./components/conservationStatusCard";
+import { SpeciesRequestCard } from "./components/speciesRequestCard";
 import { CountryTypeIcon } from "@/components/country-type-icon";
 import { getCountryName } from "@/lib/country-names";
 
@@ -92,10 +92,15 @@ export default function SpeciesPage() {
       )}
       {/* título mobile — aparece acima de tudo, escondido no desktop */}
       <header className="xl:hidden mb-6">
-        <div className="flex items-center gap-5">
-          <h1 className="text-[34px] font-bold leading-[38px] italic tracking-tight">
-            {dados?.scientific_name}
-          </h1>
+        <div className="flex items-start gap-5">
+          <div className="min-w-0">
+            <h1 className="text-[34px] font-bold leading-[38px] italic tracking-tight">
+              {dados?.scientific_name}
+            </h1>
+            {dados?.common_name?.trim() ? (
+              <p className="mt-1.5 text-base text-slate-600">{dados.common_name.trim()}</p>
+            ) : null}
+          </div>
           <span className="flex items-center gap-3 shrink-0">
             <CountryTypeIcon
               country={dados?.type_country ?? ""}
@@ -117,10 +122,15 @@ export default function SpeciesPage() {
         <div className="min-w-0 text-slate-950 max-xl:order-1">
           {/* título desktop — escondido no mobile */}
           <header className="xl:max-w-[95%] max-xl:hidden">
-            <div className="flex items-center gap-5 xl:gap-6">
-              <h1 className="text-[34px] xl:text-[48px] font-bold leading-[38px] xl:leading-[52px] italic tracking-tight">
-                {dados?.scientific_name}
-              </h1>
+            <div className="flex items-start gap-5 xl:gap-6">
+              <div className="min-w-0">
+                <h1 className="text-[34px] xl:text-[48px] font-bold leading-[38px] xl:leading-[52px] italic tracking-tight">
+                  {dados?.scientific_name}
+                </h1>
+                {dados?.common_name?.trim() ? (
+                  <p className="mt-1.5 text-lg text-slate-600">{dados.common_name.trim()}</p>
+                ) : null}
+              </div>
               <span className="flex items-center gap-3 shrink-0">
                 <CountryTypeIcon
                   country={dados?.type_country ?? ""}
@@ -226,7 +236,9 @@ export default function SpeciesPage() {
             />
 
             <SpeciesRequestCard
-              onClick={() => navigate(`/${locale}/especie/${dados?.id}/solicitar-atualizacao`)}
+              onClick={() =>
+                navigate(`/${locale}/painel/especies/${dados?.id}/solicitar-atualizacao`)
+              }
             />
           </div>
         </div>
@@ -256,7 +268,9 @@ export default function SpeciesPage() {
               variant="outline"
               size="sm"
               className="mt-4 h-9 w-fit rounded-md border-primary/60 bg-primary/10 px-3 text-sm font-semibold text-primary hover:bg-primary/20 hover:text-primary"
-              onClick={() => navigate(`/${locale}/especie/${dados?.id}/solicitar-atualizacao`)}
+              onClick={() =>
+                navigate(`/${locale}/painel/especies/${dados?.id}/solicitar-atualizacao`)
+              }
             >
               <PencilLine className="h-4 w-4" />
               {t("species_page.request_update_cta")}

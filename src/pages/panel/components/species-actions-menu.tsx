@@ -74,7 +74,7 @@ export function SpeciesActionsMenu({
 
           {canRequestUpdate ? (
             <DropdownMenuItem asChild>
-              <Link to={`/${locale}/especie/${speciesId}/solicitar-atualizacao`}>
+              <Link to={`/${locale}/painel/especies/${speciesId}/solicitar-atualizacao`}>
                 <Send className="h-4 w-4" />
                 {requestUpdateLabel}
               </Link>

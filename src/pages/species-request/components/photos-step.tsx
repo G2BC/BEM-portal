@@ -63,18 +63,20 @@ export function PhotosStep({
           htmlFor="species-request-files"
           onDragOver={(event) => event.preventDefault()}
           onDrop={onDropFiles}
-          className="flex min-h-32 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-white/30 bg-black/25 px-4 py-6 text-center transition-colors hover:border-white/60 hover:bg-black/35"
+          className="flex min-h-32 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center transition-colors hover:border-primary/50 hover:bg-primary/5"
         >
-          <Upload className="h-5 w-5 text-white/80" />
-          <p className="text-sm font-medium text-white">{t("species_request.files_drop_title")}</p>
-          <p className="text-xs text-white/65">{t("species_request.files_drop_hint")}</p>
+          <Upload className="h-5 w-5 text-slate-500" />
+          <p className="text-sm font-medium text-slate-900">
+            {t("species_request.files_drop_title")}
+          </p>
+          <p className="text-xs text-slate-600">{t("species_request.files_drop_hint")}</p>
         </label>
         {selectedFiles.length ? (
-          <p className="text-xs text-white/70">
+          <p className="text-xs text-slate-600">
             {t("species_request.files_selected", { count: selectedFiles.length })}
           </p>
         ) : (
-          <p className="text-xs text-white/50">{t("species_request.files_hint")}</p>
+          <p className="text-xs text-slate-500">{t("species_request.files_hint")}</p>
         )}
       </div>
 
@@ -85,7 +87,7 @@ export function PhotosStep({
             return (
               <div
                 key={fileKey}
-                className="relative overflow-hidden rounded-md border border-white/15 bg-black/30"
+                className="relative overflow-hidden rounded-md border border-slate-200 bg-white"
               >
                 <img
                   src={previewByKey[fileKey]}
@@ -101,8 +103,8 @@ export function PhotosStep({
                   <X className="h-3.5 w-3.5" />
                 </button>
                 <div className="space-y-1 p-2">
-                  <p className="truncate text-xs font-medium text-white">{file.name}</p>
-                  <p className="text-[11px] text-white/60">{formatFileSize(file.size)}</p>
+                  <p className="truncate text-xs font-medium text-slate-900">{file.name}</p>
+                  <p className="text-[11px] text-slate-500">{formatFileSize(file.size)}</p>
                 </div>
               </div>
             );
@@ -111,14 +113,14 @@ export function PhotosStep({
       ) : null}
 
       {selectedFiles.length ? (
-        <div className="space-y-4 border-t border-white/10 pt-4">
-          <div className="space-y-3 rounded-md border border-emerald-400/25 bg-emerald-500/5 p-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-emerald-200">
+        <div className="space-y-4 border-t border-slate-200 pt-4">
+          <div className="space-y-3 rounded-md border border-primary/30 bg-primary/5 p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-primary">
               {t("species_request.photo_legal_bulk_title")}
             </p>
             <div className="grid gap-3 md:grid-cols-2">
               <div className="space-y-1">
-                <label className="text-xs font-medium text-white/85">
+                <label className="text-xs font-medium text-slate-700">
                   {t("species_request.photo_license")}
                 </label>
                 <Select
@@ -141,7 +143,7 @@ export function PhotosStep({
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-medium text-white/85">
+                <label className="text-xs font-medium text-slate-700">
                   {t("species_request.photo_attribution")}
                 </label>
                 <Input
@@ -152,7 +154,7 @@ export function PhotosStep({
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-medium text-white/85">
+                <label className="text-xs font-medium text-slate-700">
                   {t("species_request.photo_rights_holder")}
                 </label>
                 <Input
@@ -163,7 +165,7 @@ export function PhotosStep({
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-medium text-white/85">
+                <label className="text-xs font-medium text-slate-700">
                   {t("species_request.photo_source_url")}
                 </label>
                 <Input
@@ -175,10 +177,10 @@ export function PhotosStep({
               </div>
             </div>
 
-            <label className="flex items-start gap-2 text-xs text-white/85">
+            <label className="flex items-start gap-2 text-xs text-slate-700">
               <input
                 type="checkbox"
-                className="mt-0.5 h-4 w-4 rounded border-white/40 bg-transparent"
+                className="mt-0.5 h-4 w-4 rounded border-slate-300 bg-white"
                 checked={bulkPhotoLegal.declaration_confirmed}
                 onChange={(event) =>
                   updateBulkPhotoLegal("declaration_confirmed", event.target.checked)
@@ -203,16 +205,16 @@ export function PhotosStep({
               return (
                 <div
                   key={fileKey}
-                  className="space-y-3 border-b border-white/10 pb-3 last:border-b-0"
+                  className="space-y-3 border-b border-slate-200 pb-3 last:border-b-0"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="text-sm font-medium text-white">{file.name}</p>
-                    <span className="text-xs text-white/60">{formatFileSize(file.size)}</span>
+                    <p className="text-sm font-medium text-slate-900">{file.name}</p>
+                    <span className="text-xs text-slate-500">{formatFileSize(file.size)}</span>
                   </div>
 
                   <div className="grid gap-3 md:grid-cols-2">
                     <div className="space-y-1">
-                      <label className="text-xs font-medium text-white/85">
+                      <label className="text-xs font-medium text-slate-700">
                         {t("species_request.photo_license")}
                       </label>
                       <Select
@@ -235,12 +237,12 @@ export function PhotosStep({
                         </SelectContent>
                       </Select>
                       {errors.license_code ? (
-                        <p className="text-xs text-red-300">{errors.license_code}</p>
+                        <p className="text-xs text-red-600">{errors.license_code}</p>
                       ) : null}
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-xs font-medium text-white/85">
+                      <label className="text-xs font-medium text-slate-700">
                         {t("species_request.photo_attribution")}
                       </label>
                       <Input
@@ -251,12 +253,12 @@ export function PhotosStep({
                         placeholder={t("species_request.photo_attribution_placeholder")}
                       />
                       {errors.attribution ? (
-                        <p className="text-xs text-red-300">{errors.attribution}</p>
+                        <p className="text-xs text-red-600">{errors.attribution}</p>
                       ) : null}
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-xs font-medium text-white/85">
+                      <label className="text-xs font-medium text-slate-700">
                         {t("species_request.photo_rights_holder")}
                       </label>
                       <Input
@@ -267,12 +269,12 @@ export function PhotosStep({
                         placeholder={t("species_request.photo_rights_holder_placeholder")}
                       />
                       {errors.rights_holder ? (
-                        <p className="text-xs text-red-300">{errors.rights_holder}</p>
+                        <p className="text-xs text-red-600">{errors.rights_holder}</p>
                       ) : null}
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-xs font-medium text-white/85">
+                      <label className="text-xs font-medium text-slate-700">
                         {t("species_request.photo_source_url")}
                       </label>
                       <Input
@@ -283,19 +285,19 @@ export function PhotosStep({
                         }
                         placeholder={t("species_request.photo_source_url_placeholder")}
                       />
-                      <p className="text-[11px] text-white/55">
+                      <p className="text-[11px] text-slate-500">
                         {t("species_request.photo_source_url_optional")}
                       </p>
                       {errors.source_url ? (
-                        <p className="text-xs text-red-300">{errors.source_url}</p>
+                        <p className="text-xs text-red-600">{errors.source_url}</p>
                       ) : null}
                     </div>
                   </div>
 
-                  <label className="flex items-start gap-2 text-xs text-white/85">
+                  <label className="flex items-start gap-2 text-xs text-slate-700">
                     <input
                       type="checkbox"
-                      className="mt-0.5 h-4 w-4 rounded border-white/40 bg-transparent"
+                      className="mt-0.5 h-4 w-4 rounded border-slate-300 bg-white"
                       checked={Boolean(legal?.declaration_confirmed)}
                       onChange={(event) =>
                         updatePhotoLegal(fileKey, "declaration_confirmed", event.target.checked)
@@ -304,7 +306,7 @@ export function PhotosStep({
                     <span>{t("species_request.photo_declaration_label")}</span>
                   </label>
                   {errors.declaration_confirmed ? (
-                    <p className="text-xs text-red-300">{errors.declaration_confirmed}</p>
+                    <p className="text-xs text-red-600">{errors.declaration_confirmed}</p>
                   ) : null}
                 </div>
               );

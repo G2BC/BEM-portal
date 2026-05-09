@@ -56,11 +56,14 @@ export function SpecieCard(props: ISpecie) {
                 <CardTitle className="font-bold leading-[22px] italic line-clamp-1">
                   {props.scientific_name}
                 </CardTitle>
-                <CardDescription className="font-light text-sm">
-                  {getCountryName(props.type_country, lang ?? DEFAULT_LOCALE)}
+                <CardDescription
+                  className="min-h-5 truncate text-sm font-light"
+                  title={props.common_name?.trim() || undefined}
+                >
+                  {props.common_name?.trim() || ""}
                 </CardDescription>
               </div>
-              <span className="flex items-center gap-2 self-end">
+              <span className="mt-3 flex items-center gap-2 self-end">
                 <CountryTypeIcon
                   country={props.type_country}
                   description={t("common.type_country_description", {

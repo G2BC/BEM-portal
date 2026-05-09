@@ -57,6 +57,10 @@ function Router() {
             </Route>
             <Route path="especies" element={<PanelSpeciesPage />} />
             <Route path="especies/:species/detalhes" element={<PanelSpeciesEditPage viewMode />} />
+            <Route
+              path="especies/:species/solicitar-atualizacao"
+              element={<SpeciesRequestPage />}
+            />
             <Route element={<AuthGuard requireCurator />}>
               <Route path="especies/cadastro" element={<PanelSpeciesCreatePage />} />
               <Route path="especies/desatualizadas" element={<PanelSpeciesOutdatedPage />} />
@@ -85,7 +89,6 @@ function Router() {
             <Route index element={<ChangePasswordPage />} />
           </Route>
           <Route path="especie/:species" element={<SpeciesPage />} />
-          <Route path="especie/:species/solicitar-atualizacao" element={<SpeciesRequestPage />} />
           <Route path="contato" element={<ContactPage />} />
           <Route path="colaboradores" element={<ContributorsPage />} />
           <Route path="dados" element={<DadosPage />} />

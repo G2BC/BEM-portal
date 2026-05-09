@@ -1,4 +1,4 @@
-import bemLogo from "@/assets/bem_logo.svg";
+import bemLogoBlack from "@/assets/bem_logo_black.png";
 import LanguageSwitcher from "@/components/languege-switcher";
 import {
   Sidebar,
@@ -56,7 +56,7 @@ export default function InternalPanelPage() {
       <Sidebar>
         <SidebarHeader className="p-3">
           <Link to={`/${locale}/painel`}>
-            <img src={bemLogo} alt="BEM" className="h-11 w-auto" />
+            <img src={bemLogoBlack} alt="BEM" className="h-11 w-auto" />
           </Link>
         </SidebarHeader>
 

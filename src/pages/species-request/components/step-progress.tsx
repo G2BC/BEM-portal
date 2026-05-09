@@ -20,15 +20,15 @@ export function StepProgress({ currentStep }: StepProgressProps) {
             key={step}
             className={`flex items-center gap-2 rounded-md border px-3 py-2 text-xs ${
               active
-                ? "border-emerald-300/60 bg-emerald-500/10 text-white"
+                ? "border-primary/60 bg-primary/10 text-primary"
                 : done
-                  ? "border-white/20 bg-white/5 text-white/90"
-                  : "border-white/10 text-white/55"
+                  ? "border-slate-200 bg-slate-100 text-slate-700"
+                  : "border-slate-200 bg-white text-slate-500"
             }`}
           >
             <span
               className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] ${
-                active ? "bg-emerald-300/25" : done ? "bg-white/20" : "bg-white/10"
+                active ? "bg-primary/15" : done ? "bg-slate-200" : "bg-slate-100"
               }`}
             >
               {done ? <Check className="h-3 w-3" /> : index + 1}

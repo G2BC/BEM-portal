@@ -1,5 +1,6 @@
 import { Form } from "@/components/ui/form";
 import { DEFAULT_LOCALE } from "@/lib/lang";
+import { useAuthStore } from "@/stores/useAuthStore";
 import { Loader2 } from "lucide-react";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -64,9 +65,13 @@ function SpeciesEditPage({ viewMode = false }: SpeciesEditPageProps) {
   const { t } = useTranslation();
   const { lang, species } = useParams();
   const location = useLocation();
+  const user = useAuthStore((state) => state.user);
 
   const locale = lang ?? DEFAULT_LOCALE;
   const backToSpeciesListPath = `/${locale}/painel/especies${location.search}`;
+  const role = (user?.role ?? "").toLowerCase();
+  const canManageSpecies = role === "admin" || role === "curator";
+  const canRequestUpdate = role === "researcher";
 
   const {
     form,
@@ -162,8 +167,15 @@ function SpeciesEditPage({ viewMode = false }: SpeciesEditPageProps) {
         publicPath={`/${locale}/especie/${speciesData.id}`}
         photosPath={`/${locale}/painel/especies/${speciesData.id}/fotos${location.search}`}
         referencesPath={`/${locale}/painel/especies/${speciesData.id}/referencias${location.search}`}
+        requestUpdatePath={`/${locale}/painel/especies/${speciesData.id}/solicitar-atualizacao`}
         isViewMode={viewMode}
         isDeletingSpecies={isDeletingSpecies}
+        canManageSpecies={canManageSpecies}
+        canManagePhotos={canManageSpecies}
+        canManageReferences={canManageSpecies}
+        canDeleteSpecies={canManageSpecies}
+        canOpenPublicPage={canManageSpecies}
+        canRequestUpdate={canRequestUpdate}
         onDelete={handleDeleteSpecies}
       />
 
