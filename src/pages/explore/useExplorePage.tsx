@@ -1,7 +1,7 @@
-import { searchEspecies, selectDistributions } from "@/api/species";
+import { fetchSpeciesStatistics, searchEspecies, selectDistributions } from "@/api/species";
 import { speciesKeys } from "@/api/query-keys";
 import { paramsToObject } from "@/utils/paramsToObject";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import { useTranslation } from "react-i18next";
@@ -76,6 +76,11 @@ export function useExplorePage() {
   const [perPage, setPerPage] = useState<number>(() => {
     if (typeof window === "undefined") return 16;
     return getExplorePerPage(window.innerWidth);
+  });
+
+  const { data: statistics, isLoading: loadingStatistics } = useQuery({
+    queryKey: speciesKeys.statistics(),
+    queryFn: ({ signal }) => fetchSpeciesStatistics(signal),
   });
 
   // Sync local input state when URL changes (e.g. back/forward navigation)
@@ -243,7 +248,9 @@ export function useExplorePage() {
 
   return {
     dados,
+    statistics,
     loading,
+    loadingStatistics,
     loadingMore,
     canAutoLoadMore,
     showManualLoadMore,

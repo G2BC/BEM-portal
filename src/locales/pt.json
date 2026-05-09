@@ -69,7 +69,13 @@
       "select_distributions": "Regiões de ocorrência",
       "filters": "Filtros",
       "filter_apply": "Aplicar",
-      "filter_clear": "Limpar"
+      "filter_clear": "Limpar",
+      "statistics": {
+        "edible_brazil_species": "Espécies Comestíveis Do Brasil",
+        "observations": "Observações",
+        "extinction_risk_species": "Espécies Em Risco de Extinção",
+        "brazilian_type_species": "Espécies Tipo Brasileiras"
+      }
     },
     "contact_page": {
       "title": "Entre em contato",

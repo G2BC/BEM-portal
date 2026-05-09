@@ -69,7 +69,13 @@
       "select_distributions": "Regions of occurrence",
       "filters": "Filters",
       "filter_apply": "Apply",
-      "filter_clear": "Clear"
+      "filter_clear": "Clear",
+      "statistics": {
+        "edible_brazil_species": "Edible Species From Brazil",
+        "observations": "Observations",
+        "extinction_risk_species": "Species At Risk of Extinction",
+        "brazilian_type_species": "Brazilian Type Species"
+      }
     },
     "contact_page": {
       "title": "Contact us",

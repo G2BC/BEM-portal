@@ -38,6 +38,13 @@ export interface SearchEspeciesProps {
 
 export type ISearchEspecies = { items: ISpecie[] } & IPagination;
 
+export interface ISpeciesStatistics {
+  edible_brazil_species: number;
+  observations: number;
+  extinction_risk_species: number;
+  brazilian_type_species: number;
+}
+
 export const searchEspecies = async ({
   search,
   country,
@@ -49,6 +56,16 @@ export const searchEspecies = async ({
 }: SearchEspeciesProps): Promise<ISearchEspecies> => {
   const resposta: AxiosResponse<ISearchEspecies> = await API.get("/species/list", {
     params: { search, country, distributions, page, per_page, is_visible: isVisible },
+    signal,
+  });
+
+  return resposta.data;
+};
+
+export const fetchSpeciesStatistics = async (
+  signal?: AbortController["signal"]
+): Promise<ISpeciesStatistics> => {
+  const resposta: AxiosResponse<ISpeciesStatistics> = await API.get("/species/statistics", {
     signal,
   });
 
