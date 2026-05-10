@@ -211,7 +211,9 @@ export default function PanelSpeciesPage() {
                             item.is_visible
                           )}`}
                         >
-                          {item.is_visible ? t("species_page.lumm.yes") : t("species_page.lumm.no")}
+                          {item.is_visible
+                            ? t("species_page.attributes.yes")
+                            : t("species_page.attributes.no")}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right">
@@ -267,7 +269,9 @@ export default function PanelSpeciesPage() {
                         item.is_visible
                       )}`}
                     >
-                      {item.is_visible ? t("species_page.lumm.yes") : t("species_page.lumm.no")}
+                      {item.is_visible
+                        ? t("species_page.attributes.yes")
+                        : t("species_page.attributes.no")}
                     </span>
                   </p>
                   <div className="mt-3">

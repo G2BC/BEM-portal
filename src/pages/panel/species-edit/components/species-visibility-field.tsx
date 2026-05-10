@@ -34,13 +34,13 @@ export function SpeciesVisibilityField({ form, t }: SpeciesVisibilityFieldProps)
                 value="true"
                 className="data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground hover:data-[state=on]:bg-primary/90"
               >
-                {t("species_page.lumm.yes")}
+                {t("species_page.attributes.yes")}
               </ToggleGroupItem>
               <ToggleGroupItem
                 value="false"
                 className="data-[state=on]:border-rose-600 data-[state=on]:bg-rose-600 data-[state=on]:text-white hover:data-[state=on]:bg-rose-700"
               >
-                {t("species_page.lumm.no")}
+                {t("species_page.attributes.no")}
               </ToggleGroupItem>
             </ToggleGroup>
           </FormControl>

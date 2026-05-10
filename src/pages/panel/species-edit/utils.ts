@@ -246,8 +246,8 @@ export function getLuminescentLevelClass(level: 0 | 1 | 2) {
 }
 
 export function getTriStateValueLabel(value: string, t: TFunction) {
-  if (value === "true") return t("species_page.lumm.yes");
-  if (value === "false") return t("species_page.lumm.no");
+  if (value === "true") return t("species_page.attributes.yes");
+  if (value === "false") return t("species_page.attributes.no");
   return t("species_page.fields.no_information");
 }
 

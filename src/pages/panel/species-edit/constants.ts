@@ -3,13 +3,13 @@ import type { BooleanFormValue, SpeciesEditFormValues, TriStateFormValue } from 
 
 export const TRISTATE_SELECT_OPTIONS: Array<{ value: TriStateFormValue; labelKey: string }> = [
   { value: "unknown", labelKey: "species_page.fields.no_information" },
-  { value: "true", labelKey: "species_page.lumm.yes" },
-  { value: "false", labelKey: "species_page.lumm.no" },
+  { value: "true", labelKey: "species_page.attributes.yes" },
+  { value: "false", labelKey: "species_page.attributes.no" },
 ];
 
 export const BOOLEAN_SELECT_OPTIONS: Array<{ value: BooleanFormValue; labelKey: string }> = [
-  { value: "true", labelKey: "species_page.lumm.yes" },
-  { value: "false", labelKey: "species_page.lumm.no" },
+  { value: "true", labelKey: "species_page.attributes.yes" },
+  { value: "false", labelKey: "species_page.attributes.no" },
 ];
 
 export const SPECIES_EDIT_FIELDS: SpeciesEditFieldConfig[] = [

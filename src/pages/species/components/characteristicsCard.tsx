@@ -164,9 +164,9 @@ export function CharacteristicsCard({
           label: t("species_page.fields.cultivation_possible"),
           value:
             characteristics?.cultivation_possible === true
-              ? t("species_page.lumm.yes")
+              ? t("species_page.attributes.yes")
               : characteristics?.cultivation_possible === false
-                ? t("species_page.lumm.no")
+                ? t("species_page.attributes.no")
                 : t("species_page.fields.no_information"),
         },
         ...(characteristics?.cultivation_possible === true

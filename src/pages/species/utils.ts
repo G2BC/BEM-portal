@@ -75,9 +75,9 @@ export function sortPhotos(photos: SpeciePhoto[]) {
 }
 
 export function formatLuminescence(value: boolean | null | undefined): string {
-  if (value === true) return "species_page.lumm.yes";
-  if (value === false) return "species_page.lumm.no";
-  return "species_page.lumm.unknown";
+  if (value === true) return "species_page.attributes.yes";
+  if (value === false) return "species_page.attributes.no";
+  return "species_page.attributes.unknown";
 }
 
 type LocalizedCharacteristicKey =
