@@ -48,7 +48,7 @@ export default function DadosPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 my-10 text-white">
+    <div className="container mx-auto px-4 my-10 text-foreground">
       <h1 className="text-[34px] xl:text-[50px] font-bold leading-[38px] xl:leading-[54px] mb-8">
         {t("dados_page.title")}
       </h1>
@@ -101,7 +101,7 @@ export default function DadosPage() {
           {loading ? t("dados_page.downloading") : t("dados_page.download_cta")}
         </Button>
       </div>
-      {error && <p className="mt-4 text-red-400 text-sm">{t("dados_page.error")}</p>}
+      {error && <p className="mt-4 text-destructive text-sm">{t("dados_page.error")}</p>}
     </div>
   );
 }
