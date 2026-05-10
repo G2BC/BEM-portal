@@ -29,6 +29,7 @@ import { ConservationStatusCard } from "./components/conservationStatusCard";
 import { SpeciesRequestCard } from "./components/speciesRequestCard";
 import { CountryTypeIcon } from "@/components/country-type-icon";
 import { getCountryTypeDescription } from "@/lib/country-type-description";
+import { BEMIcon } from "@/components/bem-icon";
 
 export default function SpeciesPage() {
   const { dados, loading, ncbiRecords, ncbiLoading } = useSpeciesPage();
@@ -103,6 +104,11 @@ export default function SpeciesPage() {
             ) : null}
           </div>
           <span className="flex items-center gap-3 shrink-0">
+            <BEMIcon
+              type={dados?.bem || ""}
+              description={dados?.bem || ""}
+              imageClassName="w-12 h-12 shrink-0"
+            />
             <CountryTypeIcon
               country={countryTypeCode ?? ""}
               description={getCountryTypeDescription(t, countryTypeCode)}
@@ -131,6 +137,11 @@ export default function SpeciesPage() {
                 ) : null}
               </div>
               <span className="flex items-center gap-3 shrink-0">
+                <BEMIcon
+                  type={dados?.bem || ""}
+                  description={dados?.bem || ""}
+                  imageClassName="w-12 h-12 shrink-0"
+                />
                 <CountryTypeIcon
                   country={countryTypeCode ?? ""}
                   description={getCountryTypeDescription(t, countryTypeCode)}
