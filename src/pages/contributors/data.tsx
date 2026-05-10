@@ -25,10 +25,8 @@ import Ruby from "@/assets/contributors/Ruby.png";
 import Noemia from "@/assets/contributors/Noemia.png";
 
 import PBenevides from "@/assets/contributors/developers/P_Benevides.png";
-import ULima from "@/assets/contributors/developers/U_Lima.png";
 import DGomes from "@/assets/contributors/developers/D_Gomes.png";
 import RCoutinho from "@/assets/contributors/developers/R_Coutinho.png";
-import IBrandao from "@/assets/contributors/developers/I_Brandao.png";
 import ICruz from "@/assets/contributors/developers/I_Cruz.png";
 import ACruz from "@/assets/contributors/developers/A_Cruz.png";
 import VBitencourt from "@/assets/contributors/developers/V_Bitencourt.png";
@@ -301,12 +299,6 @@ export const developers: Contributor[] = [
     bio: { en: "Backend", pt: "Backend" },
   },
   {
-    avatar: ULima,
-    name: "Uendel Lima",
-    links: [],
-    bio: { en: "Backend", pt: "Backend" },
-  },
-  {
     avatar: DGomes,
     name: "Deivisson Gomes",
     links: [],
@@ -315,12 +307,6 @@ export const developers: Contributor[] = [
   {
     avatar: RCoutinho,
     name: "Rafael Coutinho",
-    links: [],
-    bio: { en: "Frontend", pt: "Frontend" },
-  },
-  {
-    avatar: IBrandao,
-    name: "Iuri Brandão",
     links: [],
     bio: { en: "Frontend", pt: "Frontend" },
   },
