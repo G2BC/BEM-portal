@@ -19,7 +19,7 @@ const mainLinks = [
 const sobreLinks = [
   { path: "/sobre", label: "header.about" },
   { path: "/colaboradores", label: "header.collaborators" },
-  { path: "/dados", label: "header.data" },
+  // { path: "/dados", label: "header.data" },
 ];
 
 export function HeaderNav({
