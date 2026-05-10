@@ -46,6 +46,13 @@ export interface ISpeciesStatistics {
   brazilian_type_species: number;
 }
 
+export interface IDistributionOccurrenceStatistics {
+  [distribution: string]: {
+    occurrences_count: number;
+    classifications_count: Record<string, number>;
+  };
+}
+
 export const searchEspecies = async ({
   search,
   bem,
@@ -70,6 +77,17 @@ export const fetchSpeciesStatistics = async (
   const resposta: AxiosResponse<ISpeciesStatistics> = await API.get("/species/statistics", {
     signal,
   });
+
+  return resposta.data;
+};
+
+export const fetchDistributionOccurrenceStatistics = async (
+  signal?: AbortController["signal"]
+): Promise<IDistributionOccurrenceStatistics> => {
+  const resposta: AxiosResponse<IDistributionOccurrenceStatistics> = await API.get(
+    "/species/distributions/statistics",
+    { signal }
+  );
 
   return resposta.data;
 };

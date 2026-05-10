@@ -60,6 +60,10 @@
         "secondary_cta": "View distribution map"
       }
     },
+    "distribution_page": {
+      "instructions": "Click a BEM category to view the Brazilian states where these mushrooms may occur.",
+      "error": "Distribution statistics could not be loaded."
+    },
     "explore_page": {
       "input_placeholder": "Species",
       "result_label": "species found",

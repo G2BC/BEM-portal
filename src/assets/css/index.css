@@ -240,3 +240,15 @@ body {
   top: 4px !important;
   right: 6px !important;
 }
+
+.distribution-heat-marker {
+  background: transparent;
+  border: 0;
+}
+
+.distribution-heat-marker span {
+  display: block;
+  border-radius: 9999px;
+  filter: blur(6px);
+  opacity: 1;
+}
