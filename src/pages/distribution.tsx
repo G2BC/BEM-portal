@@ -248,8 +248,10 @@ export default function DistributionPage() {
                     type={classification}
                     description={CLASSIFICATION_TOOLTIPS[classification]}
                     imageClassName="h-8 w-8 max-h-8 max-w-8 shrink-0"
-                  />
-                  <span>{classification}</span>
+                    className="flex w-full items-center gap-3"
+                  >
+                    <span>{classification}</span>
+                  </BEMIcon>
                 </button>
               );
             })}
