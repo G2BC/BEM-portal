@@ -9,6 +9,7 @@ import { getPhotoUrl } from "@/pages/species/utils";
 import { ConservationStatusIcon } from "@/components/conservation-status-icon";
 import { CountryTypeIcon } from "@/components/country-type-icon";
 import { getCountryTypeDescription } from "@/lib/country-type-description";
+import { BEMIcon } from "@/components/bem-icon";
 
 export function SpecieCard(props: ISpecie) {
   const { t, i18n } = useTranslation();
@@ -84,6 +85,12 @@ export function SpecieCard(props: ISpecie) {
                   <span />
                 )}
                 <span className="flex shrink-0 items-center gap-2">
+                  <BEMIcon
+                    type={props.bem}
+                    description={props.bem || ""}
+                    className="inline-flex shrink-0"
+                    imageClassName="h-8 w-8 shrink-0"
+                  />
                   <CountryTypeIcon
                     country={countryTypeCode}
                     description={getCountryTypeDescription(t, countryTypeCode)}
