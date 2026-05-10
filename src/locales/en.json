@@ -12,6 +12,7 @@
       "taxonomy": "Taxonomy",
       "external_links": "External links",
       "source": "Source",
+      "show": "Show:",
       "view_more": "View more",
       "country_type_descriptions": {
         "T": "Brazilian Type",
@@ -322,6 +323,7 @@
         "source_inaturalist": "iNaturalist",
         "source_mushroom_observer": "Mushroom Observer",
         "source_specieslink": "speciesLink",
+        "source_bold": "BOLD Sistems",
         "observed_on": "Observed on",
         "quality_research": "Research grade",
         "quality_needs_id": "Needs ID",

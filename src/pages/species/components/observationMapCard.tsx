@@ -14,6 +14,15 @@ import { useIsMobile } from "@/hooks/use-is-mobile";
 
 const DEFAULT_CENTER: [number, number] = [20, 0];
 const DEFAULT_ZOOM = 2;
+const OBSERVATION_SOURCE_KEYS = [
+  "inaturalist_research",
+  "inaturalist_needs_id",
+  "mushroom_observer",
+  "specieslink",
+  "bold",
+] as const;
+
+type ObservationFilterKey = (typeof OBSERVATION_SOURCE_KEYS)[number];
 
 function FitBounds({ observations }: { observations: IObservation[] }) {
   const map = useMap();
@@ -24,15 +33,36 @@ function FitBounds({ observations }: { observations: IObservation[] }) {
 }
 
 const SOURCE_COLORS = {
-  inaturalist: "#22c55e",
   mushroom_observer: "#f59e0b",
   specieslink: "#60a5fa",
+  bold: "#f9a8d4",
 } as const;
+
+const INATURALIST_NEEDS_ID_COLOR = "#E0E000";
+const INATURALIST_RESEARCH_COLOR = "#75AC00";
+
+const isINaturalistResearchGrade = (qualityGrade: string | null) =>
+  qualityGrade === "research" || qualityGrade === "research_grade";
+
+const isINaturalistResearchObservation = (obs: IObservation) =>
+  obs.source === "inaturalist" && isINaturalistResearchGrade(obs.quality_grade);
+
+const getObservationColor = (obs: IObservation) => {
+  if (isINaturalistResearchObservation(obs)) {
+    return INATURALIST_RESEARCH_COLOR;
+  }
+
+  if (obs.source === "inaturalist") {
+    return INATURALIST_NEEDS_ID_COLOR;
+  }
+
+  return SOURCE_COLORS[obs.source] ?? "#6b7280";
+};
 
 function ObservationPopup({ obs }: { obs: IObservation }) {
   const { t, i18n } = useTranslation();
   const sourceName = t(`species_page.observations.source_${obs.source}`);
-  const sourceColor = SOURCE_COLORS[obs.source] ?? "#6b7280";
+  const sourceColor = getObservationColor(obs);
   const formattedDate = obs.observed_on
     ? new Date(obs.observed_on + "T00:00:00").toLocaleDateString(i18n.language, {
         day: "2-digit",
@@ -47,7 +77,7 @@ function ObservationPopup({ obs }: { obs: IObservation }) {
   const qualityLabel = qualityKey && i18n.exists(qualityKey) ? t(qualityKey) : null;
 
   return (
-    <Card className="w-[200px] overflow-hidden !border-0 outline-none bg-[#1c1f1c] text-white shadow-xl py-0 gap-0">
+    <Card className="w-[200px] overflow-hidden !border-0 outline-none bg-white text-slate-900 shadow-xl py-0 gap-0">
       {obs.photo_url && (
         <img src={obs.photo_url} alt="" className="h-28 w-full object-cover" loading="lazy" />
       )}
@@ -55,7 +85,7 @@ function ObservationPopup({ obs }: { obs: IObservation }) {
         <p className="text-xs font-semibold" style={{ color: sourceColor }}>
           {sourceName}
         </p>
-        <div className="space-y-0.5 text-[11px] text-white/55">
+        <div className="space-y-0.5 text-[11px] text-slate-500">
           {formattedDate && (
             <p>
               {t("species_page.observations.observed_on")}: {formattedDate}
@@ -94,7 +124,7 @@ function MapContent({ observations }: { observations: IObservation[] }) {
     >
       <FitBounds observations={observations} />
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         attribution='&copy; <a href="https://carto.com/">CARTO</a>'
       />
       {observations.map((obs) => (
@@ -103,8 +133,8 @@ function MapContent({ observations }: { observations: IObservation[] }) {
           center={[obs.latitude, obs.longitude]}
           radius={5}
           pathOptions={{
-            color: SOURCE_COLORS[obs.source] ?? "#6b7280",
-            fillColor: SOURCE_COLORS[obs.source] ?? "#6b7280",
+            color: getObservationColor(obs),
+            fillColor: getObservationColor(obs),
             fillOpacity: 0.75,
             weight: 1,
           }}
@@ -138,6 +168,9 @@ export function ObservationMapCard({
   const { t } = useTranslation();
   const isMobile = useIsMobile();
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [activeSources, setActiveSources] = React.useState<Set<ObservationFilterKey>>(
+    () => new Set(OBSERVATION_SOURCE_KEYS)
+  );
 
   const { data, isLoading } = useQuery({
     queryKey: speciesKeys.observations(speciesId),
@@ -151,24 +184,127 @@ export function ObservationMapCard({
 
   if (!isLoading && total === 0) return null;
 
-  const legend = (
-    <div className="flex items-center gap-4 text-xs text-slate-500">
-      {Object.entries(SOURCE_COLORS).map(([source, color]) => (
-        <span key={source} className="flex items-center gap-1.5">
-          <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
-          {t(`species_page.observations.source_${source}`)}
-        </span>
-      ))}
-    </div>
+  const toggleSource = (source: ObservationFilterKey) => {
+    setActiveSources((current) => {
+      const next = new Set(current);
+      if (next.has(source)) {
+        next.delete(source);
+      } else {
+        next.add(source);
+      }
+      return next;
+    });
+  };
+
+  const filteredObservations = observations.filter((obs) => {
+    if (isINaturalistResearchObservation(obs)) {
+      return activeSources.has("inaturalist_research");
+    }
+    if (obs.source === "inaturalist") {
+      return activeSources.has("inaturalist_needs_id");
+    }
+    return activeSources.has(obs.source as ObservationFilterKey);
+  });
+
+  const makeLegendLabel = (sourceLabel: string, detail?: string) =>
+    detail ? `${sourceLabel} · ${detail}` : sourceLabel;
+
+  const observationCounts = observations.reduce(
+    (counts, obs) => {
+      if (isINaturalistResearchObservation(obs)) {
+        counts.inaturalistResearch += 1;
+      } else if (obs.source === "inaturalist") {
+        counts.inaturalistNeedsId += 1;
+      } else if (obs.source === "mushroom_observer") {
+        counts.mushroomObserver += 1;
+      } else if (obs.source === "specieslink") {
+        counts.specieslink += 1;
+      } else if (obs.source === "bold") {
+        counts.bold += 1;
+      }
+
+      return counts;
+    },
+    {
+      inaturalistResearch: 0,
+      inaturalistNeedsId: 0,
+      mushroomObserver: 0,
+      specieslink: 0,
+      bold: 0,
+    }
   );
-  const modalLegend = (
-    <div className="flex items-center gap-4 text-xs text-white/50">
-      {Object.entries(SOURCE_COLORS).map(([source, color]) => (
-        <span key={source} className="flex items-center gap-1.5">
-          <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
-          {t(`species_page.observations.source_${source}`)}
-        </span>
-      ))}
+
+  const legendItems = [
+    {
+      key: "inaturalist_research",
+      color: INATURALIST_RESEARCH_COLOR,
+      label: makeLegendLabel(
+        t("species_page.observations.source_inaturalist"),
+        t("species_page.observations.quality_research")
+      ),
+      count: observationCounts.inaturalistResearch,
+    },
+    {
+      key: "inaturalist_needs_id",
+      color: INATURALIST_NEEDS_ID_COLOR,
+      label: makeLegendLabel(
+        t("species_page.observations.source_inaturalist"),
+        t("species_page.observations.quality_needs_id")
+      ),
+      count: observationCounts.inaturalistNeedsId,
+    },
+    {
+      key: "mushroom_observer",
+      color: SOURCE_COLORS.mushroom_observer,
+      label: t("species_page.observations.source_mushroom_observer"),
+      count: observationCounts.mushroomObserver,
+    },
+    {
+      key: "specieslink",
+      color: SOURCE_COLORS.specieslink,
+      label: t("species_page.observations.source_specieslink"),
+      count: observationCounts.specieslink,
+    },
+    {
+      key: "bold",
+      color: SOURCE_COLORS.bold,
+      label: t("species_page.observations.source_bold"),
+      count: observationCounts.bold,
+    },
+  ];
+
+  const legend = (
+    <div className="space-y-2 text-xs">
+      <p className="text-slate-400">{t("common.show")}</p>
+      <div className="flex flex-wrap items-center gap-2">
+        {legendItems.map(({ key, color, label, count }) => {
+          const isActive = activeSources.has(key as ObservationFilterKey);
+          return (
+            <button
+              key={key}
+              type="button"
+              onClick={() => toggleSource(key as ObservationFilterKey)}
+              disabled={count === 0}
+              className={`flex h-7 items-center gap-1.5 rounded-md border px-2.5 font-medium transition-colors ${
+                isActive
+                  ? "border-slate-300 bg-slate-100 text-slate-700 shadow-sm hover:bg-slate-200"
+                  : "border-slate-200 bg-transparent text-slate-400 hover:bg-slate-50"
+              } ${count === 0 ? "cursor-not-allowed opacity-45" : ""}`}
+              aria-pressed={isActive}
+            >
+              <span
+                className="inline-block h-2 w-2 rounded-full"
+                style={{
+                  backgroundColor: color,
+                  opacity: isActive ? 1 : 0.45,
+                }}
+              />
+              <span>{label}</span>
+              <span className={isActive ? "text-slate-500" : "text-slate-300"}>{count}</span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 
@@ -190,15 +326,15 @@ export function ObservationMapCard({
             </div>
           ) : (
             <>
-              <div className="relative z-0 h-80 w-full overflow-hidden rounded-xl [&_.leaflet-container]:!bg-[#1a1a1a]">
+              <div className="relative z-0 h-80 w-full overflow-hidden rounded-xl [&_.leaflet-container]:!bg-slate-100">
                 <button
                   onClick={() => setModalOpen(true)}
-                  className="absolute top-2 right-2 z-[1000] bg-black/60 hover:bg-black/80 text-white rounded-md p-1.5 transition-colors"
+                  className="absolute top-2 right-2 z-[1000] rounded-md bg-white/90 p-1.5 text-slate-700 shadow-sm ring-1 ring-slate-200 transition-colors hover:bg-white"
                   aria-label={t("common.expand")}
                 >
                   <Maximize2 className="w-4 h-4" />
                 </button>
-                <MapContent observations={observations} />
+                <MapContent observations={filteredObservations} />
               </div>
               <div className="mt-1.5">{legend}</div>
             </>
@@ -208,15 +344,15 @@ export function ObservationMapCard({
 
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
         <DialogContent
-          className={`p-0 gap-0 overflow-hidden bg-[#1c1f1c] border-white/10 flex flex-col ${
+          className={`p-0 gap-0 overflow-hidden bg-white border-slate-200 flex flex-col ${
             isMobile ? "w-screen h-[100dvh] max-w-none rounded-none" : "max-w-5xl w-[95vw] h-[65vh]"
           }`}
         >
           <DialogTitle className="sr-only">{t("species_page.observations.title")}</DialogTitle>
-          <div className="relative z-0 flex-1 min-h-0 [&_.leaflet-container]:!bg-[#1a1a1a]">
-            <MapContent observations={observations} />
+          <div className="relative z-0 flex-1 min-h-0 [&_.leaflet-container]:!bg-slate-100">
+            <MapContent observations={filteredObservations} />
           </div>
-          <div className="px-4 py-2 border-t border-white/10">{modalLegend}</div>
+          <div className="px-4 py-2 border-t border-slate-200">{legend}</div>
         </DialogContent>
       </Dialog>
     </>
