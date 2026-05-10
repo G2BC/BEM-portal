@@ -4,6 +4,35 @@ import { LiaOrcid } from "react-icons/lia";
 
 import ALenz from "@/assets/contributors/A_Lenz.jpeg";
 import EJunior from "@/assets/contributors/E_Junior.jpg";
+import Mariana from "@/assets/contributors/Mariana.png";
+import Nelson from "@/assets/contributors/Nelson.png";
+import Marina from "@/assets/contributors/Marina.png";
+import VitorX from "@/assets/contributors/VitorX.png";
+import Felipe from "@/assets/contributors/Felipe.png";
+import Melissa from "@/assets/contributors/Melissa.png";
+import MariaEduarda from "@/assets/contributors/MariaEduarda.png";
+import Larissa from "@/assets/contributors/Larissa.png";
+import Altielys from "@/assets/contributors/Altielys.png";
+import Ariadne from "@/assets/contributors/Ariadne.png";
+import AlexandreFilho from "@/assets/contributors/AlexandreFilho.png";
+import Cristiano from "@/assets/contributors/Cristiano.png";
+import Renato from "@/assets/contributors/Renato.png";
+import Tatiana from "@/assets/contributors/Tatiana.png";
+import Jadson from "@/assets/contributors/Jadson.png";
+import Juliano from "@/assets/contributors/Juliano.png";
+import Maria from "@/assets/contributors/Maria.png";
+import Ruby from "@/assets/contributors/Ruby.png";
+import Noemia from "@/assets/contributors/Noemia.png";
+
+import PBenevides from "@/assets/contributors/developers/P_Benevides.png";
+import ULima from "@/assets/contributors/developers/U_Lima.png";
+import DGomes from "@/assets/contributors/developers/D_Gomes.png";
+import RCoutinho from "@/assets/contributors/developers/R_Coutinho.png";
+import IBrandao from "@/assets/contributors/developers/I_Brandao.png";
+import ICruz from "@/assets/contributors/developers/I_Cruz.png";
+import ACruz from "@/assets/contributors/developers/A_Cruz.png";
+import VBitencourt from "@/assets/contributors/developers/V_Bitencourt.png";
+import DBarbosa from "@/assets/contributors/developers/D_Barbosa.png";
 
 import G2BC from "@/assets/contributors/institutions/G2BC.png";
 import IFSP from "@/assets/contributors/institutions/IFSP.png";
@@ -35,6 +64,24 @@ export type Contributor = {
 
 export const contributors: Contributor[] = [
   {
+    avatar: Mariana,
+    name: "Mariana P. Drewinski",
+    bio: {
+      en: "PhD in Plant Biodiversity and Environment (Environmental Research Institute, São Paulo, SP, Brazil), is a mycologist and has experience in systematics of macrofungi and mushroom production. Her research topics include the diversity of wild edible mushrooms in Brazil, mainly from the Atlantic Rainforest, and the cultivation potential of wild strains. Mariana is also interested in fungal conservation and science outreach.",
+      pt: "",
+    },
+    links: [],
+  },
+  {
+    avatar: Nelson,
+    name: "Nelson Menolli Jr",
+    bio: {
+      en: "Is biologist, Doctor in Plant Biodiversity and Environment (Environmental Research Institute, São Paulo, SP, Brazil), full professor at Federal Institute of Education, Science and Technology of São Paulo (IFSP), Brazil, coordinator of the iFungiLab and curator of the fungarium FungiA at the same institution. Nelson has experience in taxonomy, conservation and molecular phylogeny of mushroom-forming fungi and cultivation of wild edible mushrooms. As an initiative of scientific outreach and science communication, Nelson coordinates the profile @iFungiLab on Instagram.",
+      pt: "",
+    },
+    links: [],
+  },
+  {
     avatar: ALenz,
     name: "Alexandre Rafael Lenz",
     bio: {
@@ -65,12 +112,165 @@ export const contributors: Contributor[] = [
     ],
   },
   {
+    avatar: Marina,
+    name: "Marina Pires Corrêa-Santos",
+    bio: {
+      en: "Msc in Plant Biodiversity and Environment (Environmental Research Institute, São Paulo, SP, Brazil), is a mycologist and has experience in mushroom domestication. She researches the cultivation factors of wild edible mushrooms in Brazil, mainly from the Atlantic Forest. Her masters study focused on the diversity and cultivation factors of wild strains of the genus Lentinus.",
+      pt: "",
+    },
+    links: [],
+  },
+  {
+    avatar: VitorX,
+    name: "Vitor X. Lima",
+    bio: {
+      en: "PhD in Fungal Biology (Federal University of Pernambuco, Recife, PE, Brazil), has experience in taxonomy and systematics of myxomycetes, dictyostelids and wood-inhabiting basidiomycetes from the Atlantic Forest, statistical ecology, biogeography and molecular phylogeny of these organisms. Has also experience in prospecting wild edible fungi for ex situ cultivation, and ecology of soil and endophytic fungi.",
+      pt: "",
+    },
+    links: [],
+  },
+  {
+    avatar: Felipe,
+    name: "Felipe T. Lima",
+    bio: {
+      en: "MSc in Agricultural Microbiology (Federal University of Viçosa, Viçosa, MG, Brazil), is a Forest Engineer (Rural Federal University of Pernambuco) which focuses its efforts on research and extension in the areas of forest microbiology, microorganism-plant interactions and forestry. Felipe is currently a collaborating researcher at Instituto de Pesquisas e Estudos Florestais (IPEF).",
+      pt: "",
+    },
+    links: [],
+  },
+  {
+    avatar: Melissa,
+    name: "Melissa Palacio",
+    bio: {
+      en: "PhD in Botany (Federal University of Rio Grande do Sul, Porto Alegre, RS, Brazil). She has experience in systematics and ecology of Neotropical macrofungi, especially polypores from the Atlantic Forest. Her latest studies focused on the diversity of the genus Polyporus. Melissa is other interests include evolution, biotechnology, fungal education and conservation.",
+      pt: "",
+    },
+    links: [],
+  },
+  {
+    avatar: MariaEduarda,
+    name: "Maria Eduarda A. Borges",
+    bio: {
+      en: "Has a masters and is a PhD student in the Graduate Program in Biology of Fungi, Algae and Plants (Federal University of Santa Catarina, Florianópolis, SC, Brazil). She is interested in taxonomy, molecular phylogeny, and interactions of Agaricomycetes with emphasis in bioluminescent mushrooms, especially species of Mycena. Maria Eduarda is a member of the MICOLAB-UFSC and part of the TropicoEctomicorrizas project. She is an enthusiast of outreach and the person behind @coguquebrilha. She has experience in the field and her interests also include conservation of fungi and teaching mycology.",
+      pt: "",
+    },
+    links: [],
+  },
+  {
+    avatar: Larissa,
+    name: "Larissa Trierveiler-Pereira",
+    bio: {
+      en: "PhD in Botany (Federal University of Rio Grande do Sul, Porto Alegre, RS, Brazil) and currently a collaborator researcher at State University of Campinas. She has experience in systematics and ecology of Neotropical macrofungi, particularly basidiomycetes from the Atlantic Forest. Larissa also has experience in scientific outreach and science communication. She hosts an Instagram profile on edible mushrooms (@fancnacabeca), has published a book about the subject, and coordinates elective courses of science communication on mycology and edible mushrooms. Larissa is also interested in topics as: mycology education, ethnomycology, and mycophagy.",
+      pt: "",
+    },
+    links: [],
+  },
+  {
+    avatar: Altielys,
+    name: "Altielys C. Magnago",
+    bio: {
+      en: " 'PhD in Botany (Federal University of Rio Grande do Sul, Porto Alegre, RS, Brazil). He has experience in systematics and ecology of Neotropical macrofungi, specially boletoid fungi from the Brazilian Atlantic Forest. He is also involved in societal activities concerning fungal diversity and scientific divulgation through social media, hosting an Instagram profile on fungal diversity (@fungacapixaba). His other interests include mycophagy and fungal education and conservation.",
+      pt: "",
+    },
+    links: [],
+  },
+  {
+    avatar: Ariadne,
+    name: "Ariadne N. M. Furtado",
+    bio: {
+      en: "PhD in Biology of Fungi, Algae and Plants (Federal University of Santa Catarina, Florianópolis, SC, Brazil) and a member of the Brazilian Mycological Society and the South American Mycorrhizal Research Network, and a researcher at the TropicoEctomicorrizas project (UFSC-Brazil). She has experience in systematics of macrofungi, mainly Clavariaceae sensu lato, and diversity of Neotropical ectomycorrhizae.  Ariadne also has experience with protein structure modeling and molecular docking, and is currently a postdoctoral researcher (Federal University of Paraíba, Brazil). Ariadne is interested in how trait-based approaches predict mycorrhizal dispersal structure, and how MiSSPs influence structural modifications of ectomycorrhizal symbiosis by promoting, for example, root determinacy, which pathways are affected by fungal signaling, and how fungi contribute to hormonal imbalance in plants.",
+      pt: "",
+    },
+    links: [],
+  },
+  {
+    avatar: AlexandreFilho,
+    name: "Alexandre G. S. Silva-Filho",
+    bio: {
+      en: "Msc in Botany and a PhD in Systematics and Evolution (Federal University of Rio Grande do Norte, Natal, RN, Brazil). His expertise is in Taxonomy, Systematics and Phylogeny of Agaricomycetes (Basidiomycota). Currently, he is a Postdoctoral researcher at IFungiLab, at the Federated Institute of Science, Education and Technology of São Paulo, where has been developing research with Taxonomy and Systematics of Mycenaceae from the Brazilian Atlantic Rainforest.",
+      pt: "",
+    },
+    links: [],
+  },
+  {
+    avatar: Cristiano,
+    name: "Cristiano Coelho do Nascimento",
+    links: [],
+    bio: {
+      en: "Is a nurse and biologist, Msc in Fungal Biology (Federal University of Pernambuco, Recife, PE, Brazil), PhD student in Plant Biodiversity and Environment (Institute of Botany, São Paulo, Brazil), professor at Federal Institute of Education, Science and Technology of Piauí (IFPI), Brazil. He is interested in taxonomy, molecular phylogeny, ethnomycology, and conservation of Agaricomycetes, as well as the cultivation of wild edible mushrooms. He is also involved in scientific outreach concerning fungal biology through the profile @IFungiLab on Instagram.",
+      pt: "",
+    },
+  },
+  {
+    avatar: Renato,
+    name: "Renato L. M. Alvarenga",
+    bio: {
+      en: "PhD in Fungal Biology (Federal University of Pernambuco, Recife, PE, Brazil), has experience in taxonomy and systematics of jelly fungi (Auriculariales, Tremellales and Dacrymycetes) from the Amazon Forest, Atlantic Forest and Cerrado, statistical ecology, biogeography and molecular phylogeny of wood-inhabiting basidiomycetes. He also has experience in prospecting edible wild fungi for ex situ cultivation, biotechnology with an emphasis on bioactives with antimicrobial activity and enzyme production.",
+      pt: "",
+    },
+    links: [],
+  },
+  {
+    avatar: Tatiana,
+    name: "Tatiana B. Gibertoni",
+    links: [],
+    bio: {
+      en: "PhD in Fungal Biology (Federal University of Pernambuco Recife, PE, Brazil) and in Experimental Ecology and Geobotany (Università degli Studi di Pavia, Italy) and currently full professor at Federal University of Pernambuco, vice-coordinator of the Fungal Biology Post-Graduate Program (Federal University of Pernambuco) and vice-curator of Herbarium URM. She is interested in taxonomy, systematics, conservation of Agaricomycetes, as well as the sustainable use of these fungi as food, in bioremediation and in pharmaceutics. She is also involved in societal activities concerning fungal diversity and scientific divulgation through social media.",
+      pt: "",
+    },
+  },
+  {
+    avatar: Jadson,
+    name: "Jadson J. S. Oliveira",
+    links: [],
+    bio: {
+      en: "PhD in Plant Biodiversity and the Environment (Environmental Research Institute, São Paulo, SP, Brazil). He has experience in Botany and Mycology, especially in taxonomy and phylogeny of Fungi (basidiomycetes), mycelium cultivation, genetics and evolution of Agaricales. He has a postdoctoral degree from the Royal Ontario Museum, Toronto, Canada, in Phylogenomics using Exome Target Sequencing in Agaricales, and from the National Institute for Amazon Research (INPA), Manaus, AM, with a taxonomy and systematics research project on the suborder Marasmiineae in areas of the central Amazon.",
+      pt: "",
+    },
+  },
+  {
+    avatar: Juliano,
+    name: "Juliano M. Baltazar",
+    links: [],
+    bio: {
+      en: "PhD in Botany (Federal University of Rio Grande do Sul, Porto Alegre, RS, Brazil) and professor at the Federal University of São Carlos. He has experience in systematics and ecology of Neotropical macrofungi, especially corticioid fungi and polypores from the Atlantic Forest. Juliano is also interested in ethnomycology, mycophagy, edible fungi, mycology education and education as general.",
+      pt: "",
+    },
+  },
+  {
+    avatar: Maria,
+    name: "Maria Alice Neves",
+    links: [],
+    bio: {
+      en: "Has a PhD in Plant Sciences through The New York Botanical Garden and CUNY. She is a professor at the Federal University of Santa Catarina and the graduate program in Biology of Fungi, Algae and Plants, coordinator of the MICOLAB-UFSC, and curator of the Fungarium FLOR. Maria-Alice has experience in mushroom taxonomy and ectomycorrhizal interactions and is the founder of the TropicoEctomicorrizas project. She started the Rick Foray in 2010, an outreach activity to get people interested in mycology and natural history. Her other interests include fungal education and conservation and scientific embroidery.",
+      pt: "",
+    },
+  },
+  {
+    avatar: Ruby,
+    name: "Ruby Vargas-Isla",
+    links: [],
+    bio: {
+      en: "PhD in Botany (National Amazon Research Institute, INPA, Manaus, AM, Brazil). She currently participates in the Amazon Mushrooms Research Group projects of the INPA and has a start-up carrying out environmental consulting and spawn production of native mushroom species in the Amazonas Organic Production Center. She chose to study fungi with emphasis on edible native mushrooms to the Amazon, ethnomycology, fungiculture and mycotourism. In addition to articles, she writes booklets and technical-scientific guides and books about mushrooms and is published in indigenous and non-indigenous languages.",
+      pt: "",
+    },
+  },
+  {
+    avatar: Noemia,
+    name: "Noemia K. Ishikawa",
+    links: [],
+    bio: {
+      en: "PhD in Environmental Resources from Hokkaido University, Japan. She is a researcher at the National Amazon Research Institute, Manaus, AM, Brazil. She leads the Amazon Mushrooms Research Group since 2007. Coordinates projects about fungiculture, mycotourism, ethnomycology and popularization of mycology in the Amazon. In addition to articles and scientific books about mushrooms, she writes childrens books, published in indigenous and non-indigenous languages.",
+      pt: "",
+    },
+  },
+];
+
+export const developers: Contributor[] = [
+  {
     avatar: EJunior,
     name: "Ernesto S. M. Neto Júnior",
-    bio: {
-      pt: "Desenvolvedor de software full stack e graduando em Sistemas de Informação na Universidade do Estado da Bahia (UNEB). Atua profissionalmente no desenvolvimento de aplicações web e APIs, com experiência em JavaScript/TypeScript, React/Node e Python/Django, além de integrações e arquitetura de microsserviços. No âmbito acadêmico, contribui para o LUMM, um banco de dados web voltado à divulgação científica sobre fungos luminescentes, e desenvolve interesse em engenharia de software aplicada à bioinformática, com ênfase em segurança de aplicações web conteinerizadas.",
-      en: "Full-stack software developer and undergraduate student in Information Systems at the State University of Bahia (UNEB). Works professionally on the development of web applications and APIs, with experience in JavaScript/TypeScript, React/Node, and Python/Django, as well as integrations and microservices architecture. In the academic context, contributes to LUMM, a web database focused on the scientific dissemination of bioluminescent fungi, and develops interest in software engineering applied to bioinformatics, with an emphasis on the security of containerized web applications.",
-    },
+    bio: { en: "Full Stack", pt: "Full Stack" },
     links: [
       {
         icon: <Mail className="w-5 h-5" />,
@@ -93,6 +293,60 @@ export const contributors: Contributor[] = [
         title: "GitHub",
       },
     ],
+  },
+  {
+    avatar: PBenevides,
+    name: "Pedro Benevides",
+    links: [],
+    bio: { en: "Backend", pt: "Backend" },
+  },
+  {
+    avatar: ULima,
+    name: "Uendel Lima",
+    links: [],
+    bio: { en: "Backend", pt: "Backend" },
+  },
+  {
+    avatar: DGomes,
+    name: "Deivisson Gomes",
+    links: [],
+    bio: { en: "Frontend", pt: "Frontend" },
+  },
+  {
+    avatar: RCoutinho,
+    name: "Rafael Coutinho",
+    links: [],
+    bio: { en: "Frontend", pt: "Frontend" },
+  },
+  {
+    avatar: IBrandao,
+    name: "Iuri Brandão",
+    links: [],
+    bio: { en: "Frontend", pt: "Frontend" },
+  },
+  {
+    avatar: ICruz,
+    name: "Ítalo Cruz",
+    links: [],
+    bio: { en: "UI/UX Designer", pt: "UI/UX Designer" },
+  },
+  {
+    avatar: ACruz,
+    name: "Adeonita Sousa",
+    links: [],
+    bio: { en: "Backend", pt: "Backend" },
+  },
+  {
+    avatar: VBitencourt,
+    name: "Vitor Bitencourt",
+    links: [],
+    bio: { en: "Full Stack", pt: "Full Stack" },
+  },
+  {
+    avatar: DBarbosa,
+    name: "Davi Barbosa",
+    links: [],
+    bio: { en: "Full Stack", pt: "Full Stack" },
   },
 ];
 
