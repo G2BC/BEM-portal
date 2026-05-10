@@ -7,13 +7,13 @@ export default function ContributorsPage() {
 
   return (
     <section className="container mx-auto pt-10 px-4">
-      <h2 className="text-[34px] xl:text-[50px] font-bold text-white">
+      <h2 className="text-[34px] xl:text-[50px] font-bold text-foreground">
         {t("collaborators_page.groups")}
       </h2>
 
       <ResearchGroupsSection />
 
-      <h1 className="text-[34px] xl:text-[50px] font-bold text-white">
+      <h1 className="text-[34px] xl:text-[50px] font-bold text-foreground">
         {t("collaborators_page.team")}
       </h1>
 
