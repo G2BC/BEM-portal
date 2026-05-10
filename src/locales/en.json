@@ -442,7 +442,7 @@
         "photo_metadata_title": "Incomplete photo license data",
         "photo_metadata_text": "Review license, uploader and rights holder fields for attached photos.",
         "photo_license_required": "Select a license.",
-        "photo_attribution_required": "Provide who uploaded this photo on LUMM.",
+        "photo_attribution_required": "Provide who uploaded this photo on BEM.",
         "photo_rights_holder_required": "Provide the copyright holder.",
         "photo_source_url_invalid": "Provide a valid URL.",
         "photo_declaration_required": "Confirm the rights declaration."
@@ -461,7 +461,7 @@
     },
     "dados_page": {
       "title": "Database download",
-      "description": "Download the full LUMM database in your preferred format.",
+      "description": "Download the full BEM database in your preferred format.",
       "version_label": "Version",
       "version_latest": "Current",
       "lang_label": "Data language",
@@ -650,11 +650,11 @@
       "species_photos_gallery_empty": "This species does not have photos yet",
       "species_photos_load_error": "Could not load this species photos",
       "species_photos_badge_featured": "Featured",
-      "species_photos_badge_lumm": "LUMM",
+      "species_photos_badge_lumm": "BEM",
       "species_photos_meta_missing": "Not provided",
       "species_photos_validation_title": "Review the data before uploading",
       "species_photos_validation_select_files": "Select at least one photo to upload.",
-      "species_photos_validation_metadata": "Fill uploaded by (LUMM) and copyright holder to continue.",
+      "species_photos_validation_metadata": "Fill uploaded by (BEM) and copyright holder to continue.",
       "species_photos_validation_source_url": "The source URL is invalid.",
       "species_photos_upload_success_title": "Photos uploaded successfully",
       "species_photos_upload_success_text": "{{count}} photo(s) were added to this species.",
@@ -926,7 +926,7 @@
       "title": "Glossary",
       "paragraph1": "This glossary provides definitions for terms that are useful in understanding zebrafish development, anatomy, genetics and bioinformatics. Terms are defined in a general sense as they apply to eukaryotic genetics, particularly zebrafish genetics; some terms are also defined as they are specifically used in ZFIN (e.g., gene). This list will grow as time goes on. If there is a term you think should be included in this list, please contact ZFIN User Support.",
       "paragraph2": "The terms are alphabetically ordered across all categories. Categories: [Morphology] based on Vellinga (Flora Agaricina Neerlandica, Cap. 2 and 8); [Ecology] based on Põlme et al. 2021 (FungalTraits); [Bioluminescence] based on Kaskova et al. 2017, Purtov et al. 2015 and subsequent literature; [Collection] based on Lodge et al. 2004 and IAPT nomenclature standards.",
-      "paragraph3": "Click on a letter below to navigate through the taxonomy and morphology terms in the LUMM Glossary.",
+      "paragraph3": "Click on a letter below to navigate through the taxonomy and morphology terms in the BEM Glossary.",
       "morphology": "Morphology",
       "ecology": "Ecology",
       "bioluminescence": "Bioluminescence",
@@ -1373,7 +1373,7 @@
       "title": "Guidance & Orientation",
       "section_guidance_title": "Section-by-Section Guidance",
       "intro": {
-        "text1": "LUMM collects data on one of Earth's rarest biological phenomena: fungal bioluminescence. Every record in the system is a primary data point in an ongoing global census of ~132 known luminescent species. The quality and completeness of each record directly determines the scientific value of the database. This guide explains how to fill every field in the species record. It is intended for mycologists, naturalists, molecular biologists, and citizen scientists contributing observations. All contributions are reviewed by a curator before publication. Read this guide before your first submission.",
+        "text1": "BEM collects data on Brazilian edible mushrooms. Every record in the system is a primary data point for consolidating taxonomic, ecological, molecular, and occurrence information. The quality and completeness of each record directly determines the scientific value of the database. This guide explains how to fill every field in the species record. It is intended for mycologists, naturalists, molecular biologists, and citizen scientists contributing observations. All contributions are reviewed by a curator before publication. Read this guide before your first submission.",
         "mandatory_note": "Fields marked ★ are mandatory — a record without them cannot be published."
       },
       "principles": {
@@ -1393,7 +1393,7 @@
       },
       "sec2": {
         "title": "Section 2 — Bioluminescent Anatomy",
-        "intro": "Section 2 is LUMM's unique scientific contribution — no other database captures bioluminescence at this level of anatomical detail.",
+        "intro": "Section 2 records anatomical attributes that are important for describing and comparing species in BEM.",
         "obs_title": "OBSERVING BIOLUMINESCENCE IN THE FIELD",
         "obs1": "Allow your eyes to fully dark-adapt for at least 10–15 minutes in complete darkness before assessing luminescence.",
         "obs2": "Do not use a red torch — even dim red light resets adaptation.",
@@ -1442,7 +1442,7 @@
       "sec6": {
         "title": "Section 6 — Molecular Data",
         "text1": "Section 6 aggregates all molecular data.",
-        "text2": "The NCBI Taxonomy ID is the anchor — entering it allows LUMM to auto-generate links to every Entrez database.",
+        "text2": "The NCBI Taxonomy ID is the anchor — entering it allows BEM to auto-generate links to every Entrez database.",
         "text3": "For bioluminescent species, the gene cluster fields (HispS, H3H, Luz, CPH, NpgA) are especially important: enter GenBank accession numbers only when the sequence was obtained from THIS species, not from a related organism used as a reference."
       },
       "sec7": {

@@ -442,7 +442,7 @@
         "photo_metadata_title": "Dados de licença incompletos",
         "photo_metadata_text": "Revise os campos de licença, envio e titularidade nas fotos anexadas.",
         "photo_license_required": "Selecione uma licença.",
-        "photo_attribution_required": "Informe quem enviou a foto no LUMM.",
+        "photo_attribution_required": "Informe quem enviou a foto no BEM.",
         "photo_rights_holder_required": "Informe o titular dos direitos autorais.",
         "photo_source_url_invalid": "Informe uma URL válida.",
         "photo_declaration_required": "Confirme a declaração de direitos."
@@ -461,7 +461,7 @@
     },
     "dados_page": {
       "title": "Download do banco de dados",
-      "description": "Baixe o banco de dados completo do LUMM no formato de sua preferência.",
+      "description": "Baixe o banco de dados completo do BEM no formato de sua preferência.",
       "version_label": "Versão",
       "version_latest": "Atual",
       "lang_label": "Idioma dos dados",
@@ -650,11 +650,11 @@
       "species_photos_gallery_empty": "Esta espécie ainda não possui fotos cadastradas",
       "species_photos_load_error": "Não foi possível carregar as fotos desta espécie",
       "species_photos_badge_featured": "Destaque",
-      "species_photos_badge_lumm": "LUMM",
+      "species_photos_badge_lumm": "BEM",
       "species_photos_meta_missing": "Não informado",
       "species_photos_validation_title": "Revise os dados antes de enviar",
       "species_photos_validation_select_files": "Selecione ao menos uma foto para upload.",
-      "species_photos_validation_metadata": "Preencha quem enviou no LUMM e o titular dos direitos para continuar.",
+      "species_photos_validation_metadata": "Preencha quem enviou no BEM e o titular dos direitos para continuar.",
       "species_photos_validation_source_url": "A URL da fonte é inválida.",
       "species_photos_upload_success_title": "Fotos enviadas com sucesso",
       "species_photos_upload_success_text": "{{count}} foto(s) foram adicionadas à espécie.",
@@ -924,9 +924,9 @@
     },
     "glossary_page": {
       "title": "Glossário",
-      "paragraph1": "Este glossário fornece definições e informações sobre a taxonomia, morfologia e distribuição de fungos bioluminescentes, com foco nos dados integrados ao repositório LUMM (Luminescent Mushroom Database). Se houver um termo que você acredita que deva ser incluído, entre em contato conosco.",
+      "paragraph1": "Este glossário fornece definições e informações sobre a taxonomia, morfologia e distribuição de cogumelos comestíveis brasileiros, com foco nos dados integrados ao BEM. Se houver um termo que você acredita que deva ser incluído, entre em contato conosco.",
       "paragraph2": "Os termos estão ordenados alfabeticamente entre todas as categorias. Categorias: [Morfologia] baseada em Vellinga (Flora Agaricina Neerlandica, Cap. 2 e 8); [Ecologia] baseada em Põlme et al. 2021 (FungalTraits); [Bioluminescência] baseada em Kaskova et al. 2017, Purtov et al. 2015 e literatura subsequente; [Coleta] baseada em Lodge et al. 2004 e nos padrões de nomenclatura da IAPT.",
-      "paragraph3": "Clique em uma letra abaixo para navegar pelos termos de taxonomia e morfologia do Glossário LUMM.",
+      "paragraph3": "Clique em uma letra abaixo para navegar pelos termos de taxonomia e morfologia do Glossário BEM.",
       "morphology": "Morfologia",
       "ecology": "Ecologia",
       "bioluminescence": "Bioluminescência",
@@ -1373,7 +1373,7 @@
       "title": "Orientação e Guia",
       "section_guidance_title": "Orientações por Seção",
       "intro": {
-        "text1": "O LUMM coleta dados sobre um dos fenômenos biológicos mais raros da Terra: a bioluminescência fúngica. Cada registro no sistema é um ponto de dado primário em um censo global contínuo de aproximadamente 132 espécies luminescentes conhecidas. A qualidade e integridade de cada registro determinam diretamente o valor científico do banco de dados. Este guia explica como preencher todos os campos no registro de espécies. Ele é voltado para micologistas, naturalistas, biólogos moleculares e cientistas cidadãos que contribuem com observações. Todas as contribuições são revisadas por um curador antes da publicação. Leia este guia antes da sua primeira submissão.",
+        "text1": "O BEM coleta dados sobre cogumelos comestíveis brasileiros. Cada registro no sistema é um ponto de dado primário para consolidar informações taxonômicas, ecológicas, moleculares e de ocorrência. A qualidade e integridade de cada registro determinam diretamente o valor científico do banco de dados. Este guia explica como preencher todos os campos no registro de espécies. Ele é voltado para micologistas, naturalistas, biólogos moleculares e cientistas cidadãos que contribuem com observações. Todas as contribuições são revisadas por um curador antes da publicação. Leia este guia antes da sua primeira submissão.",
         "mandatory_note": "Campos marcados com ★ são obrigatórios — um registro sem eles não pode ser publicado."
       },
       "principles": {
@@ -1393,7 +1393,7 @@
       },
       "sec2": {
         "title": "Seção 2 — Anatomia Bioluminescente",
-        "intro": "A Seção 2 é a contribuição científica única do LUMM — nenhum outro banco de dados captura a bioluminescência neste nível de detalhe anatômico.",
+        "intro": "A Seção 2 registra atributos anatômicos importantes para a descrição e comparação das espécies no BEM.",
         "obs_title": "OBSERVANDO A BIOLUMINESCÊNCIA NO CAMPO",
         "obs1": "Permita que seus olhos se adaptem totalmente ao escuro por pelo menos 10–15 minutos em escuridão total antes de avaliar a luminescência.",
         "obs2": "Não use lanterna vermelha — mesmo a luz vermelha fraca reinicia a adaptação.",
@@ -1442,7 +1442,7 @@
       "sec6": {
         "title": "Seção 6 — Dados Moleculares",
         "text1": "A Seção 6 agrega todos os dados moleculares.",
-        "text2": "O ID de Taxonomia do NCBI é a âncora — inseri-lo permite que o LUMM gere links automáticos para todos os bancos de dados Entrez.",
+        "text2": "O ID de Taxonomia do NCBI é a âncora — inseri-lo permite que o BEM gere links automáticos para todos os bancos de dados Entrez.",
         "text3": "Para espécies bioluminescentes, os campos de agrupamento de genes (HispS, H3H, Luz, CPH, NpgA) são especialmente importantes: insira números de acesso do GenBank apenas quando a sequência foi obtida DESTA espécie, e não de um organismo relacionado usado como referência."
       },
       "sec7": {

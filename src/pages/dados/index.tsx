@@ -35,7 +35,7 @@ export default function DadosPage() {
       const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = blobUrl;
-      a.download = `lumm_v${data.version}_${data.lang}.${data.format}`;
+      a.download = `bem_v${data.version}_${data.lang}.${data.format}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
