@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/G2BC/BEM-portal/compare/v1.2.0...v1.2.1) (2026-05-11)
+
+
+### Bug Fixes
+
+* adjust minimum height of DistributionPage for improved layout consistency ([207656d](https://github.com/G2BC/BEM-portal/commit/207656decf617191430ca258bebad2e28a677186))
+* disable scroll wheel zoom on DistributionPage for improved user interaction ([b24d060](https://github.com/G2BC/BEM-portal/commit/b24d060c8282e40cec4e7d3c13ee945d50953d4e))
+* update color-scheme in CSS for light mode and adjust textarea text color for improved visibility ([44ba12e](https://github.com/G2BC/BEM-portal/commit/44ba12e9b861008fe48ddc269099669cb1364af1))
+
 # [1.2.0](https://github.com/G2BC/BEM-portal/compare/v1.1.0...v1.2.0) (2026-05-11)
 
 
