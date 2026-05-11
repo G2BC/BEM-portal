@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/G2BC/BEM-portal/compare/v1.0.4...v1.0.5) (2026-05-11)
+
+
+### Bug Fixes
+
+* replace multiple VITE environment variables with DOTENV_KEY in Dockerfile and update package dependencies for dotenv support ([40c09e2](https://github.com/G2BC/BEM-portal/commit/40c09e295b7de8a900f163e3815e16bd05e12f66))
+
 ## [1.0.4](https://github.com/G2BC/BEM-portal/compare/v1.0.3...v1.0.4) (2026-05-11)
 
 
