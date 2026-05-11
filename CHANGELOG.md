@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/G2BC/BEM-portal/compare/v1.4.1...v1.5.0) (2026-05-11)
+
+
+### Features
+
+* add plural tooltips for BEM classifications and update tooltip retrieval in DistributionPage ([3964f34](https://github.com/G2BC/BEM-portal/commit/3964f3455c4f72d5297dedf772bf980ab3b3067e))
+
 ## [1.4.1](https://github.com/G2BC/BEM-portal/compare/v1.4.0...v1.4.1) (2026-05-11)
 
 
