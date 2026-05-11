@@ -39,7 +39,10 @@ export function HeaderMenuNav() {
           <Menu className="text-primary min-w-8 w-8 min-h-8 h-8 cursor-pointer" />
         </Button>
       </SheetTrigger>
-      <SheetContent closeButtonClassName="text-primary" className="bg-[#131313] border-transparent">
+      <SheetContent
+        closeButtonClassName="text-primary"
+        className="bg-[#131313] border-transparent z-1000"
+      >
         <SheetHeader>
           <SheetTitle>
             <LanguageSwitcher onClick={handleClose} />
