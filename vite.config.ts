@@ -28,7 +28,7 @@ export default defineConfig(({ mode }) => {
 
   const sites = {
     production: "https://bem.uneb.br",
-    staging: "https://bem-web.onrender.com",
+    staging: "https://bem-portal.onrender.com",
     development: "http://localhost:5173",
   };
 

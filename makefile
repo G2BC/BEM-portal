@@ -1,4 +1,4 @@
-APP ?= bem-web
+APP ?= bem-portal
 IMAGE ?= ghcr.io/g2bc/$(APP)
 ART ?= artifacts
 GIT_SHA := $(shell git rev-parse --short HEAD 2>/dev/null || echo local)

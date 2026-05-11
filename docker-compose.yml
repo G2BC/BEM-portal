@@ -1,7 +1,7 @@
 services:
   web:
-    image: ${APP_IMAGE:-ghcr.io/g2bc/bem-web}:${IMAGE_TAG:-latest}
-    container_name: bem-web
+    image: ${APP_IMAGE:-ghcr.io/g2bc/bem-portal}:${IMAGE_TAG:-latest}
+    container_name: bem-portal
     restart: unless-stopped
     ports:
       - "4001:80"

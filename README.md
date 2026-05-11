@@ -1,6 +1,6 @@
 ![Licença MIT](https://img.shields.io/badge/Licença-MIT-yellow.svg)
 
-# BEM-web
+# bem-portal
 
 ## Requisitos
 
@@ -11,8 +11,8 @@
 ### 1️⃣ Clonar o repositório
 
 ```bash
-git@github.com:G2BC/BEM-web.git
-cd BEM-web
+git@github.com:G2BC/bem-portal.git
+cd bem-portal
 ```
 
 ### 2️⃣ Instalar dependências
