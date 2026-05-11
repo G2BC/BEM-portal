@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/G2BC/BEM-portal/compare/v1.0.5...v1.0.6) (2026-05-11)
+
+
+### Bug Fixes
+
+* update package-lock.json to version 1.0.4, enhancing dependency management and structure ([4020b9b](https://github.com/G2BC/BEM-portal/commit/4020b9bb0114493acaa642716c6d36c9d62f2e36))
+
 ## [1.0.5](https://github.com/G2BC/BEM-portal/compare/v1.0.4...v1.0.5) (2026-05-11)
 
 
