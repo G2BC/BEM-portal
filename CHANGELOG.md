@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/G2BC/BEM-portal/compare/v1.2.1...v1.2.2) (2026-05-11)
+
+
+### Bug Fixes
+
+* add z-index to SheetContent in HeaderMenuNav for improved layering ([d37dbb1](https://github.com/G2BC/BEM-portal/commit/d37dbb19d0976ebf3d330c37a7ec3df09c6ff3a7))
+
 ## [1.2.1](https://github.com/G2BC/BEM-portal/compare/v1.2.0...v1.2.1) (2026-05-11)
 
 
