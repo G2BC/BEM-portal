@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 
 export default function AboutPage() {
   const { t } = useTranslation();
+  const citationDoiUrl = t("about_page.citation_doi_url");
 
   return (
     <section className="container mx-auto px-4 py-16 text-foreground">
@@ -17,7 +18,17 @@ export default function AboutPage() {
         {t("about_page.citation_title")}
       </h2>
 
-      <p className="text-lg leading-relaxed">{t("about_page.citation")}</p>
+      <p className="text-lg leading-relaxed">
+        {t("about_page.citation")}{" "}
+        <a
+          href={citationDoiUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-primary underline underline-offset-4"
+        >
+          {t("about_page.citation_doi_label")}
+        </a>
+      </p>
     </section>
   );
 }
