@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/G2BC/BEM-portal/compare/v1.2.3...v1.2.4) (2026-05-11)
+
+
+### Bug Fixes
+
+* update English and Portuguese translations for clarity and consistency in mushroom descriptions ([4346b47](https://github.com/G2BC/BEM-portal/commit/4346b479e54a85c1be9cf83c34c02965576b9f6d))
+
 ## [1.2.3](https://github.com/G2BC/BEM-portal/compare/v1.2.2...v1.2.3) (2026-05-11)
 
 
