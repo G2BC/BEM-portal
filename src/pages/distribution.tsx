@@ -194,7 +194,7 @@ export default function DistributionPage() {
         minZoom={3}
         maxZoom={8}
         zoomControl={false}
-        scrollWheelZoom
+        scrollWheelZoom={false}
         className="z-0 order-2 min-h-[430px] flex-1 md:h-full md:w-full"
       >
         <ZoomControl position="topright" />
