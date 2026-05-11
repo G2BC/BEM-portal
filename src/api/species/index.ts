@@ -63,7 +63,7 @@ export const searchEspecies = async ({
   signal,
   isVisible,
 }: SearchEspeciesProps): Promise<ISearchEspecies> => {
-  const resposta: AxiosResponse<ISearchEspecies> = await API.get("/species/list", {
+  const resposta: AxiosResponse<ISearchEspecies> = await API.get("/species", {
     params: { search, bem, country, distributions, page, per_page, is_visible: isVisible },
     signal,
   });
@@ -85,7 +85,7 @@ export const fetchDistributionOccurrenceStatistics = async (
   signal?: AbortController["signal"]
 ): Promise<IDistributionOccurrenceStatistics> => {
   const resposta: AxiosResponse<IDistributionOccurrenceStatistics> = await API.get(
-    "/species/distributions/statistics",
+    "/species/distribution-statistics",
     { signal }
   );
 
@@ -93,14 +93,14 @@ export const fetchDistributionOccurrenceStatistics = async (
 };
 
 export const selectDistributions = async (signal?: AbortController["signal"]) => {
-  const resposta: AxiosResponse<IDistribution[]> = await API.get("/species/distributions/select", {
+  const resposta: AxiosResponse<IDistribution[]> = await API.get("/species/options/distributions", {
     signal,
   });
   return resposta.data;
 };
 
 export const selectSpeciesCountry = async (search?: string, signal?: AbortController["signal"]) => {
-  const resposta: AxiosResponse<ISelect[]> = await API.get("/species/country/select", {
+  const resposta: AxiosResponse<ISelect[]> = await API.get("/species/options/countries", {
     params: { search },
     signal,
   });
@@ -109,7 +109,7 @@ export const selectSpeciesCountry = async (search?: string, signal?: AbortContro
 };
 
 export const selectSpeciesBem = async (search?: string, signal?: AbortController["signal"]) => {
-  const resposta: AxiosResponse<ISelect[]> = await API.get("/species/bem/select", {
+  const resposta: AxiosResponse<ISelect[]> = await API.get("/species/options/bem", {
     params: { search },
     signal,
   });
@@ -129,7 +129,7 @@ export const selectSpeciesDomain = async (
   search?: string,
   signal?: AbortController["signal"]
 ) => {
-  const resposta: AxiosResponse<ISelectLocalized[]> = await API.get("/species/domains/select", {
+  const resposta: AxiosResponse<ISelectLocalized[]> = await API.get("/species/options/domains", {
     params: { domain, search },
     signal,
   });
@@ -143,7 +143,7 @@ export const selectSpecies = async (params?: {
   signal?: AbortController["signal"];
 }) => {
   const { search, exclude_species_id, signal } = params ?? {};
-  const resposta: AxiosResponse<ISpeciesSelect[]> = await API.get("/species/select", {
+  const resposta: AxiosResponse<ISpeciesSelect[]> = await API.get("/species/options/species", {
     params: { search, exclude_species_id },
     signal,
   });
@@ -155,7 +155,7 @@ export const fetchSpecies = async (
   species?: string,
   signal?: AbortController["signal"]
 ): Promise<ISpecie> => {
-  const resposta: AxiosResponse<ISpecie> = await API.get(`/species/${species}`, {
+  const resposta: AxiosResponse<ISpecie> = await API.get(`/species/by-name/${species}`, {
     signal,
   });
 
@@ -175,7 +175,7 @@ export type CreateSpeciesPayload = UpdateSpeciesPayload &
   }>;
 
 export const createSpecies = async (payload: CreateSpeciesPayload): Promise<ISpecie> => {
-  const response = await API.post<ISpecie>("/species", payload);
+  const response = await API.post<ISpecie>("/admin/species", payload);
   return response.data;
 };
 
@@ -216,11 +216,11 @@ export const updateSpecies = async (
   speciesId: number | string,
   payload: UpdateSpeciesPayload
 ): Promise<void> => {
-  await API.patch(`/species/${encodeURIComponent(String(speciesId))}`, payload);
+  await API.patch(`/admin/species/${encodeURIComponent(String(speciesId))}`, payload);
 };
 
 export const deleteSpecies = async (speciesId: number | string): Promise<void> => {
-  await API.delete(`/species/${encodeURIComponent(String(speciesId))}`);
+  await API.delete(`/admin/species/${encodeURIComponent(String(speciesId))}`);
 };
 
 export const generateSpeciesDirectPhotoUploadUrl = async (
@@ -228,7 +228,7 @@ export const generateSpeciesDirectPhotoUploadUrl = async (
   payload: SpeciesDirectPhotoUploadUrlRequest
 ): Promise<SpeciesDirectPhotoUploadUrlResponse> => {
   const response = await API.post<SpeciesDirectPhotoUploadUrlResponse>(
-    `/species/${speciesId}/photos/upload-url`,
+    `/admin/species/${speciesId}/photo-upload-urls`,
     payload
   );
   return response.data;
@@ -238,7 +238,7 @@ export const createSpeciesPhoto = async (
   speciesId: number,
   payload: CreateSpeciesPhotoPayload
 ): Promise<SpeciePhoto> => {
-  const response = await API.post<SpeciePhoto>(`/species/${speciesId}/photos`, payload);
+  const response = await API.post<SpeciePhoto>(`/admin/species/${speciesId}/photos`, payload);
   return response.data;
 };
 
@@ -248,7 +248,7 @@ export const updateSpeciesPhoto = async (
   payload: UpdateSpeciesPhotoPayload
 ): Promise<SpeciePhoto> => {
   const response = await API.patch<SpeciePhoto>(
-    `/species/${speciesId}/photos/${encodeURIComponent(String(photoId))}`,
+    `/admin/species/${speciesId}/photos/${encodeURIComponent(String(photoId))}`,
     payload
   );
   return response.data;
@@ -258,7 +258,7 @@ export const deleteSpeciesPhoto = async (
   speciesId: number,
   photoId: number | string
 ): Promise<void> => {
-  await API.delete(`/species/${speciesId}/photos/${encodeURIComponent(String(photoId))}`);
+  await API.delete(`/admin/species/${speciesId}/photos/${encodeURIComponent(String(photoId))}`);
 };
 
 export const fetchSpeciesNcbi = async (
@@ -266,7 +266,7 @@ export const fetchSpeciesNcbi = async (
   signal?: AbortController["signal"]
 ): Promise<unknown> => {
   return runWithSilencedApiErrors(async () => {
-    const response: AxiosResponse<unknown> = await API.get(`/species/${species}/ncbi`, {
+    const response: AxiosResponse<unknown> = await API.get(`/species/by-name/${species}/ncbi`, {
       signal,
       timeout: 45_000,
     });
@@ -278,7 +278,7 @@ export const generateSpeciesPhotoUploadUrl = async (
   payload: SpeciesPhotoUploadUrlRequest
 ): Promise<SpeciesPhotoUploadUrlResponse> => {
   const response = await API.post<SpeciesPhotoUploadUrlResponse>(
-    "/species/requests/upload-url",
+    "/species-change-requests/upload-urls",
     payload
   );
   return response.data;
@@ -287,7 +287,7 @@ export const generateSpeciesPhotoUploadUrl = async (
 export const createSpeciesChangeRequest = async (
   payload: SpeciesChangeRequestCreatePayload
 ): Promise<SpeciesChangeRequest> => {
-  const response = await API.post<SpeciesChangeRequest>("/species/requests", payload);
+  const response = await API.post<SpeciesChangeRequest>("/species-change-requests", payload);
   return response.data;
 };
 
@@ -296,7 +296,9 @@ export const listSpeciesChangeRequests = async (params?: {
   page?: number;
   per_page?: number;
 }): Promise<SpeciesChangeRequestPagination> => {
-  const response = await API.get<SpeciesChangeRequestPagination>("/species/requests", { params });
+  const response = await API.get<SpeciesChangeRequestPagination>("/admin/species-change-requests", {
+    params,
+  });
   return response.data;
 };
 
@@ -305,7 +307,7 @@ export const reviewSpeciesChangeRequest = async (
   payload: SpeciesChangeRequestReviewPayload
 ): Promise<SpeciesChangeRequest> => {
   const response = await API.patch<SpeciesChangeRequest>(
-    `/species/requests/${requestId}/review`,
+    `/admin/species-change-requests/${requestId}/review`,
     payload
   );
   return response.data;
@@ -324,7 +326,7 @@ export type UpdateReferencePayload = Partial<{
 }>;
 
 export const searchReferences = async (search?: string, signal?: AbortController["signal"]) => {
-  const response = await API.get<IReference[]>("/references/select", {
+  const response = await API.get<IReference[]>("/admin/references/options", {
     params: { search },
     signal,
   });
@@ -335,9 +337,10 @@ export const associateExistingReference = async (
   speciesId: number,
   referenceId: number
 ): Promise<IReference> => {
-  const response = await API.post<IReference>(`/species/${speciesId}/references/associate`, {
-    reference_id: referenceId,
-  });
+  const response = await API.post<IReference>(
+    `/admin/species/${speciesId}/reference-associations`,
+    { reference_id: referenceId }
+  );
   return response.data;
 };
 
@@ -345,7 +348,7 @@ export const createAndAssociateReference = async (
   speciesId: number,
   payload: CreateAndAssociateReferencePayload
 ): Promise<IReference> => {
-  const response = await API.post<IReference>(`/species/${speciesId}/references`, payload);
+  const response = await API.post<IReference>(`/admin/species/${speciesId}/references`, payload);
   return response.data;
 };
 
@@ -353,7 +356,7 @@ export const updateReference = async (
   referenceId: number,
   payload: UpdateReferencePayload
 ): Promise<IReference> => {
-  const response = await API.patch<IReference>(`/references/${referenceId}`, payload);
+  const response = await API.patch<IReference>(`/admin/references/${referenceId}`, payload);
   return response.data;
 };
 
@@ -361,7 +364,7 @@ export const disassociateReference = async (
   speciesId: number,
   referenceId: number
 ): Promise<void> => {
-  await API.delete(`/species/${speciesId}/references/${referenceId}`);
+  await API.delete(`/admin/species/${speciesId}/references/${referenceId}`);
 };
 
 export interface OutdatedSpeciesItem {
@@ -378,7 +381,7 @@ export const listOutdatedSpecies = async (params?: {
   signal?: AbortController["signal"];
 }): Promise<IOutdatedSpecies> => {
   const { page, per_page, signal } = params ?? {};
-  const response: AxiosResponse<IOutdatedSpecies> = await API.get("/species/outdated", {
+  const response: AxiosResponse<IOutdatedSpecies> = await API.get("/admin/species/outdated", {
     params: { page, per_page },
     signal,
   });
@@ -400,7 +403,7 @@ export const cleanupTmpSpeciesUploads = async (params?: {
   dry_run?: boolean;
 }): Promise<CleanupTmpUploadsResponse> => {
   const response = await API.post<CleanupTmpUploadsResponse>(
-    "/species/requests/cleanup-tmp",
+    "/admin/species-change-requests/temp-uploads/cleanup",
     null,
     {
       params,

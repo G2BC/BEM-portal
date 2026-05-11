@@ -15,6 +15,8 @@ export async function fetchSnapshotDownloadUrl(
 ): Promise<SnapshotDownloadResponse> {
   const params: Record<string, string | number> = { lang, format };
   if (version !== undefined) params.version = version;
-  const { data } = await API.get<SnapshotDownloadResponse>("/snapshot/download", { params });
+  const { data } = await API.get<SnapshotDownloadResponse>("/snapshots/latest/download", {
+    params,
+  });
   return data;
 }
