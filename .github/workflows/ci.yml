@@ -56,7 +56,7 @@ jobs:
           file: ./Dockerfile
           push: false
           load: true
-          tags: lumm-web:${{ github.sha }}
+          tags: bem-portal:${{ github.sha }}
           build-args: |
             VITE_API_URL=${{ secrets.VITE_API_URL }}
             VITE_API_KEY=${{ secrets.VITE_API_KEY }}
@@ -85,12 +85,12 @@ jobs:
 
       - name: Trivy image
         run: |
-          trivy image lumm-web:${{ github.sha }} \
+          trivy image bem-portal:${{ github.sha }} \
             --severity LOW,MEDIUM,HIGH,CRITICAL \
             --ignore-unfixed \
             -f table -o artifacts/trivy-image.txt
 
-          trivy image lumm-web:${{ github.sha }} \
+          trivy image bem-portal:${{ github.sha }} \
             --severity LOW,MEDIUM,HIGH,CRITICAL \
             --ignore-unfixed \
             -f json -o artifacts/trivy-image.json

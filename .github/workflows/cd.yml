@@ -70,9 +70,9 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ steps.image_meta.outputs.owner }}/lumm-web:${{ steps.meta.outputs.tag }}
-            ghcr.io/${{ steps.image_meta.outputs.owner }}/lumm-web:${{ github.sha }}
-            ghcr.io/${{ steps.image_meta.outputs.owner }}/lumm-web:latest
+            ghcr.io/${{ steps.image_meta.outputs.owner }}/bem-portal:${{ steps.meta.outputs.tag }}
+            ghcr.io/${{ steps.image_meta.outputs.owner }}/bem-portal:${{ github.sha }}
+            ghcr.io/${{ steps.image_meta.outputs.owner }}/bem-portal:latest
           build-args: |
             VITE_API_URL=${{ secrets.VITE_API_URL }}
             VITE_API_KEY=${{ secrets.VITE_API_KEY }}
