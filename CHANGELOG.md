@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/G2BC/BEM-portal/compare/v1.0.2...v1.0.3) (2026-05-11)
+
+
+### Bug Fixes
+
+* add comment in .env.sample to encourage the use of dotenv-vault ([7ad6a28](https://github.com/G2BC/BEM-portal/commit/7ad6a28f1453d1adf4afb4af1cd628944f4fc52a))
+
 ## [1.0.2](https://github.com/G2BC/BEM-portal/compare/v1.0.1...v1.0.2) (2026-05-11)
 
 
