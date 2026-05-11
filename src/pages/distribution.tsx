@@ -5,8 +5,8 @@ import { speciesKeys } from "@/api/query-keys";
 import { BEMIcon } from "@/components/bem-icon";
 import {
   CLASSIFICATION_COLORS,
-  CLASSIFICATION_TOOLTIPS,
   CLASSIFICATIONS,
+  getClassificationTooltip,
   type Classification,
 } from "@/constants/bem_classifications";
 import { BRAZIL_STATE_CENTERS, BRAZIL_STATE_NAMES } from "@/constants/brazil-states";
@@ -147,7 +147,7 @@ export default function DistributionPage() {
                 >
                   <BEMIcon
                     type={classification}
-                    description={`${classification} - ${CLASSIFICATION_TOOLTIPS[locale][classification]}`}
+                    description={`${classification} - ${getClassificationTooltip(classification, locale, { plural: true })}`}
                     imageClassName="h-8 w-8 max-h-8 max-w-8 shrink-0"
                     className="flex w-full flex-col items-center gap-1 md:flex-row md:gap-3"
                   >
