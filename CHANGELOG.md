@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/G2BC/BEM-portal/compare/v1.0.1...v1.0.2) (2026-05-11)
+
+
+### Bug Fixes
+
+* ensure all items are valid by filtering out null values in useExplorePage ([a58dec1](https://github.com/G2BC/BEM-portal/commit/a58dec1b6950514e3dd7cd1a983ed700599ad5b7))
+
 ## [1.0.1](https://github.com/G2BC/BEM-portal/compare/v1.0.0...v1.0.1) (2026-05-11)
 
 
