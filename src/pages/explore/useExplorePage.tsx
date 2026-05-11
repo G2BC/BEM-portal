@@ -158,7 +158,7 @@ export function useExplorePage() {
 
   // Build a shape compatible with the old `dados` contract
   const lastPage = data?.pages[data.pages.length - 1];
-  const allItems = data?.pages.flatMap((p) => p.items) ?? [];
+  const allItems = data?.pages.flatMap((p) => p.items ?? []).filter((item) => item != null) ?? [];
   const dados = data
     ? {
         items: allItems,
