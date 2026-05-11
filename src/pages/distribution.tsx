@@ -187,7 +187,7 @@ export default function DistributionPage() {
   const maxCount = Math.max(...visibleStates.map((item) => item.count), 1);
 
   return (
-    <section className="relative flex min-h-[calc(100svh-85px)] flex-col overflow-hidden bg-[#a8cfd8] md:block md:h-[calc(100vh-85px)] md:min-h-[640px]">
+    <section className="relative flex min-h-[calc(100svh-85px)] flex-col overflow-hidden bg-[#a8cfd8] md:block md:h-[calc(100vh-85px)] md:min-h-[820px]">
       <MapContainer
         center={[-13.5, -53.2]}
         zoom={4}
