@@ -89,7 +89,7 @@ export function SpecieCard(props: ISpecie) {
                 <span className="flex shrink-0 items-center gap-2">
                   <BEMIcon
                     type={props.bem}
-                    description={getClassificationTooltip(props.bem, locale)}
+                    description={`${props.bem} - ${getClassificationTooltip(props.bem, locale)}`}
                     className="inline-flex shrink-0"
                     imageClassName="h-8 w-8 shrink-0"
                   />

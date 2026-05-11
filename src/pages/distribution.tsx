@@ -147,7 +147,7 @@ export default function DistributionPage() {
                 >
                   <BEMIcon
                     type={classification}
-                    description={CLASSIFICATION_TOOLTIPS[locale][classification]}
+                    description={`${classification} - ${CLASSIFICATION_TOOLTIPS[locale][classification]}`}
                     imageClassName="h-8 w-8 max-h-8 max-w-8 shrink-0"
                     className="flex w-full flex-col items-center gap-1 md:flex-row md:gap-3"
                   >

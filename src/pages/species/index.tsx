@@ -108,7 +108,7 @@ export default function SpeciesPage() {
           <span className="flex flex-wrap items-center gap-3">
             <BEMIcon
               type={dados?.bem || ""}
-              description={getClassificationTooltip(dados?.bem, tooltipLocale)}
+              description={`${dados?.bem} - ${getClassificationTooltip(dados?.bem, tooltipLocale)}`}
               imageClassName="w-10 h-10 shrink-0"
             />
             <CountryTypeIcon
@@ -142,7 +142,7 @@ export default function SpeciesPage() {
               <span className="flex items-center gap-3 shrink-0">
                 <BEMIcon
                   type={dados?.bem || ""}
-                  description={getClassificationTooltip(dados?.bem, tooltipLocale)}
+                  description={`${dados?.bem} - ${getClassificationTooltip(dados?.bem, tooltipLocale)}`}
                   imageClassName="w-12 h-12 shrink-0"
                 />
                 <CountryTypeIcon
