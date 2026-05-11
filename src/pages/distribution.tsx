@@ -187,7 +187,7 @@ export default function DistributionPage() {
   const maxCount = Math.max(...visibleStates.map((item) => item.count), 1);
 
   return (
-    <section className="relative h-[calc(100vh-85px)] min-h-[640px] overflow-hidden bg-[#a8cfd8]">
+    <section className="relative flex min-h-[calc(100svh-85px)] flex-col overflow-hidden bg-[#a8cfd8] md:block md:h-[calc(100vh-85px)] md:min-h-[640px]">
       <MapContainer
         center={[-13.5, -53.2]}
         zoom={4}
@@ -195,7 +195,7 @@ export default function DistributionPage() {
         maxZoom={8}
         zoomControl={false}
         scrollWheelZoom
-        className="z-0 h-full w-full"
+        className="z-0 order-2 min-h-[430px] flex-1 md:h-full md:w-full"
       >
         <ZoomControl position="topright" />
         <TileLayer
@@ -214,12 +214,12 @@ export default function DistributionPage() {
         ))}
       </MapContainer>
 
-      <aside className="absolute left-0 top-0 z-[400] flex h-full w-[320px] flex-col border-r border-black/10 bg-white/95 shadow-xl backdrop-blur-sm max-md:h-auto max-md:max-h-[45%] max-md:w-full max-md:border-b max-md:border-r-0">
-        <div className="bg-[#131313] px-6 py-5 text-center text-sm font-bold leading-tight text-white">
+      <aside className="order-1 z-[400] flex w-full flex-col border-b border-black/10 bg-white/95 shadow-xl backdrop-blur-sm md:absolute md:left-0 md:top-0 md:h-full md:w-[320px] md:border-b-0 md:border-r">
+        <div className="bg-[#131313] px-4 py-3 text-center text-sm font-bold leading-tight text-white md:px-6 md:py-5">
           {t("distribution_page.instructions")}
         </div>
 
-        <div className="border-b border-neutral-200 px-4 py-3 text-sm">
+        <div className="border-b border-neutral-200 px-4 py-2 text-sm md:py-3">
           <span className="font-semibold text-[#131313]">{selectedClassification}</span>
         </div>
 
@@ -231,7 +231,7 @@ export default function DistributionPage() {
         ) : isError ? (
           <div className="px-5 py-6 text-sm text-red-600">{t("distribution_page.error")}</div>
         ) : (
-          <div className="min-h-0 flex-1 overflow-y-auto pb-3">
+          <div className="scrollbar-hide flex min-h-0 overflow-x-auto md:block md:flex-1 md:overflow-y-auto md:pb-3">
             {CLASSIFICATIONS.map((classification) => {
               const active = classification === selectedClassification;
               return (
@@ -240,7 +240,7 @@ export default function DistributionPage() {
                   type="button"
                   onClick={() => setSelectedClassification(classification)}
                   className={cn(
-                    "flex h-[51px] w-full items-center gap-3 border-b border-neutral-200 px-4 text-left text-base text-[#131313] transition-colors hover:bg-neutral-100",
+                    "flex h-[76px] w-[82px] shrink-0 items-center justify-center border-r border-neutral-200 px-2 text-center text-sm text-[#131313] transition-colors hover:bg-neutral-100 md:h-[51px] md:w-full md:justify-start md:border-b md:border-r-0 md:px-4 md:text-left md:text-base",
                     active && "bg-neutral-100 font-semibold"
                   )}
                 >
@@ -248,7 +248,7 @@ export default function DistributionPage() {
                     type={classification}
                     description={CLASSIFICATION_TOOLTIPS[classification]}
                     imageClassName="h-8 w-8 max-h-8 max-w-8 shrink-0"
-                    className="flex w-full items-center gap-3"
+                    className="flex w-full flex-col items-center gap-1 md:flex-row md:gap-3"
                   >
                     <span>{classification}</span>
                   </BEMIcon>
