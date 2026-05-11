@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/G2BC/BEM-portal/compare/v1.0.6...v1.1.0) (2026-05-11)
+
+
+### Features
+
+* update production environment variables in .env.vault for enhanced security and versioning ([278b339](https://github.com/G2BC/BEM-portal/commit/278b339e8fe24332bb382254c65a91529e49ed9b))
+
 ## [1.0.6](https://github.com/G2BC/BEM-portal/compare/v1.0.5...v1.0.6) (2026-05-11)
 
 
