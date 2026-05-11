@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/G2BC/BEM-portal/compare/v1.3.0...v1.4.0) (2026-05-11)
+
+
+### Features
+
+* enhance AboutPage with citation link and DOI support for improved reference accessibility ([39a9af5](https://github.com/G2BC/BEM-portal/commit/39a9af526a957f849f0d64b0cea60ea323d04396))
+
 # [1.3.0](https://github.com/G2BC/BEM-portal/compare/v1.2.4...v1.3.0) (2026-05-11)
 
 
