@@ -4,6 +4,6 @@ services:
     container_name: bem-portal
     restart: unless-stopped
     ports:
-      - "4001:80"
+      - "4002:80"
     security_opt:
       - no-new-privileges:true
