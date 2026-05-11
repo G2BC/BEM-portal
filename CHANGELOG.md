@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/G2BC/BEM-portal/compare/v1.4.0...v1.4.1) (2026-05-11)
+
+
+### Bug Fixes
+
+* enhance BEMIcon descriptions in SpecieCard and SpeciesPage for better clarity ([68f1afd](https://github.com/G2BC/BEM-portal/commit/68f1afd257621407eda2091529fa2378526986c2))
+
 # [1.4.0](https://github.com/G2BC/BEM-portal/compare/v1.3.0...v1.4.0) (2026-05-11)
 
 
