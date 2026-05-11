@@ -96,7 +96,7 @@ export default function SpeciesPage() {
       )}
       {/* título mobile — aparece acima de tudo, escondido no desktop */}
       <header className="xl:hidden mb-6">
-        <div className="flex items-start gap-5">
+        <div className="space-y-4">
           <div className="min-w-0">
             <h1 className="text-[34px] font-bold leading-[38px] italic tracking-tight">
               {dados?.scientific_name}
@@ -105,21 +105,22 @@ export default function SpeciesPage() {
               <p className="mt-1.5 text-base text-slate-600">{dados.common_name.trim()}</p>
             ) : null}
           </div>
-          <span className="flex items-center gap-3 shrink-0">
+          <span className="flex flex-wrap items-center gap-3">
             <BEMIcon
               type={dados?.bem || ""}
               description={getClassificationTooltip(dados?.bem, tooltipLocale)}
-              imageClassName="w-12 h-12 shrink-0"
+              imageClassName="w-10 h-10 shrink-0"
             />
             <CountryTypeIcon
               country={countryTypeCode ?? ""}
               description={getCountryTypeDescription(t, countryTypeCode)}
-              imageClassName="w-12 h-12 shrink-0"
+              imageClassName="w-10 h-10 shrink-0"
             />
             <ConservationStatusIcon
               code={conservationStatusCode}
               label={conservationStatusLabel}
               description={conservationStatusDescription}
+              imageClassName="w-10 h-10 shrink-0"
             />
           </span>
         </div>
