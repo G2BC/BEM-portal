@@ -3,6 +3,14 @@ import "leaflet/dist/leaflet.css";
 import { fetchDistributionOccurrenceStatistics } from "@/api/species";
 import { speciesKeys } from "@/api/query-keys";
 import { BEMIcon } from "@/components/bem-icon";
+import {
+  CLASSIFICATION_COLORS,
+  CLASSIFICATION_TOOLTIPS,
+  CLASSIFICATIONS,
+  type Classification,
+} from "@/constants/bem_classifications";
+import { BRAZIL_STATE_CENTERS, BRAZIL_STATE_NAMES } from "@/constants/brazil-states";
+import { normalize } from "@/lib/lang";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import L from "leaflet";
@@ -10,114 +18,6 @@ import { Loader2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from "react-leaflet";
-
-const CLASSIFICATIONS = [
-  "BEM1",
-  "BEM2",
-  "BEM3",
-  "BEM4",
-  "BEM5",
-  "BEM6",
-  "BEM7",
-  "BEM8",
-  "BEM9",
-  "BEM10",
-  "P1",
-  "P2",
-] as const;
-
-type Classification = (typeof CLASSIFICATIONS)[number];
-
-const CLASSIFICATION_COLORS: Record<(typeof CLASSIFICATIONS)[number], string> = {
-  BEM1: "#66BB6A",
-  BEM2: "#9CCC65",
-  BEM3: "#FFEB3B",
-  BEM4: "#FFEE58",
-  BEM5: "#FFA726",
-  BEM6: "#FF7043",
-  BEM7: "#EF5350",
-  BEM8: "#EC407A",
-  BEM9: "#AB47BC",
-  BEM10: "#7E57C2",
-  P1: "#5C6BC0",
-  P2: "#42A5F5",
-};
-
-const CLASSIFICATION_TOOLTIPS: Record<Classification, string> = {
-  BEM1: "Espécies comestíveis que claramente ocorrem e são consumidas no Brasil ou que representam um novo recurso alimentar para o país.",
-  BEM2: "Espécie comestível (após alguns preparos ou cuidados prévios) que claramente ocorre e é consumida no Brasil ou que representa um novo recurso alimentar para o país.",
-  BEM3: "Espécie comestível consumida no Brasil mas que necessita de mais estudos para confirmar sua identidade e ocorrência no país.",
-  BEM4: "Espécie comestível (após alguns preparos ou cuidados prévios) consumida no Brasil, mas que requer mais estudos para confirmar sua identidade e ocorrência no país.",
-  BEM5: "Espécie comestível não claramente consumida no Brasil, mas que representa um novo recurso alimentar para o país após novos estudos para confirmar sua identidade e ocorrência no Brasil.",
-  BEM6: "Espécie comestível (após alguns preparos ou cuidados prévios) claramente não consumida no Brasil, mas que representa um novo recurso alimentar para o país após novos estudos para confirmar sua identidade e ocorrência no Brasil.",
-  BEM7: "Espécie que ocorre claramente no Brasil, mas com incidência pouco clara ou ausente de que foi consumida.",
-  BEM8: "Espécie com incidência pouco clara ou ausente para consumo e que requer mais estudos para confirmar sua identidade e ocorrência no Brasil.",
-  BEM9: "Espécie que ocorre claramente no Brasil, mas com comestibilidade não confirmada, incluindo poucos registros de venenosidade.",
-  BEM10:
-    "Espécie com comestibilidade não confirmada, incluindo poucos registros de venenosidade, e que necessita de mais estudos para confirmar sua identidade e ocorrência no Brasil.",
-  P1: "Espécie venenosa que ocorre claramente no Brasil e causa reação adversa e prejudicial quando consumida.",
-  P2: "Espécie venenosa que causa reações adversas e nocivas quando consumida e necessita de mais estudos para confirmação de sua identidade e ocorrência no Brasil.",
-};
-
-const BRAZIL_STATE_CENTERS: Record<string, [number, number]> = {
-  AC: [-9.02, -70.81],
-  AL: [-9.57, -36.78],
-  AP: [1.41, -51.77],
-  AM: [-3.47, -65.1],
-  BA: [-12.97, -38.5],
-  CE: [-5.2, -39.53],
-  DF: [-15.79, -47.88],
-  ES: [-19.19, -40.34],
-  GO: [-15.98, -49.86],
-  MA: [-5.42, -45.44],
-  MT: [-12.64, -55.42],
-  MS: [-20.51, -54.54],
-  MG: [-18.1, -44.38],
-  PA: [-3.79, -52.48],
-  PB: [-7.24, -36.78],
-  PR: [-24.89, -51.55],
-  PE: [-8.38, -37.86],
-  PI: [-6.6, -42.28],
-  RJ: [-22.25, -42.66],
-  RN: [-5.81, -36.59],
-  RS: [-30.03, -51.23],
-  RO: [-10.83, -63.34],
-  RR: [1.99, -61.33],
-  SC: [-27.33, -49.44],
-  SP: [-22.19, -48.79],
-  SE: [-10.57, -37.45],
-  TO: [-10.25, -48.25],
-};
-
-const BRAZIL_STATE_NAMES: Record<string, string> = {
-  AC: "Acre",
-  AL: "Alagoas",
-  AP: "Amapá",
-  AM: "Amazonas",
-  BA: "Bahia",
-  CE: "Ceará",
-  DF: "Distrito Federal",
-  ES: "Espírito Santo",
-  GO: "Goiás",
-  MA: "Maranhão",
-  MT: "Mato Grosso",
-  MS: "Mato Grosso do Sul",
-  MG: "Minas Gerais",
-  PA: "Pará",
-  PB: "Paraíba",
-  PR: "Paraná",
-  PE: "Pernambuco",
-  PI: "Piauí",
-  RJ: "Rio de Janeiro",
-  RN: "Rio Grande do Norte",
-  RS: "Rio Grande do Sul",
-  RO: "Rondônia",
-  RR: "Roraima",
-  SC: "Santa Catarina",
-  SP: "São Paulo",
-  SE: "Sergipe",
-  TO: "Tocantins",
-};
 
 function HeatMarker({
   classification,
@@ -158,7 +58,8 @@ function HeatMarker({
 }
 
 export default function DistributionPage() {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const locale = normalize(i18n.language);
   const [selectedClassification, setSelectedClassification] = useState<Classification>("BEM1");
 
   const { data, isLoading, isError } = useQuery({
@@ -246,7 +147,7 @@ export default function DistributionPage() {
                 >
                   <BEMIcon
                     type={classification}
-                    description={CLASSIFICATION_TOOLTIPS[classification]}
+                    description={CLASSIFICATION_TOOLTIPS[locale][classification]}
                     imageClassName="h-8 w-8 max-h-8 max-w-8 shrink-0"
                     className="flex w-full flex-col items-center gap-1 md:flex-row md:gap-3"
                   >

@@ -14,7 +14,7 @@ import {
   normalizeConservationStatusCode,
   sortPhotos,
 } from "./utils";
-import { DEFAULT_LOCALE } from "@/lib/lang";
+import { DEFAULT_LOCALE, normalize } from "@/lib/lang";
 import { BibliographyCard } from "./components/bibliographyCard";
 import { ConservationStatusIcon } from "@/components/conservation-status-icon";
 import { CuriositiesCard } from "./components/curiositiesCard";
@@ -30,6 +30,7 @@ import { SpeciesRequestCard } from "./components/speciesRequestCard";
 import { CountryTypeIcon } from "@/components/country-type-icon";
 import { getCountryTypeDescription } from "@/lib/country-type-description";
 import { BEMIcon } from "@/components/bem-icon";
+import { getClassificationTooltip } from "@/constants/bem_classifications";
 
 export default function SpeciesPage() {
   const { dados, loading, ncbiRecords, ncbiLoading } = useSpeciesPage();
@@ -47,6 +48,7 @@ export default function SpeciesPage() {
   }
 
   const locale = lang ?? DEFAULT_LOCALE;
+  const tooltipLocale = normalize(i18n.language);
   const characteristics = dados?.species_characteristics;
   const countryTypeCode = dados?.brazilian_type || dados?.brazilian_type_synonym;
   const isPtLanguage = i18n.language.toLowerCase().startsWith("pt");
@@ -106,7 +108,7 @@ export default function SpeciesPage() {
           <span className="flex items-center gap-3 shrink-0">
             <BEMIcon
               type={dados?.bem || ""}
-              description={dados?.bem || ""}
+              description={getClassificationTooltip(dados?.bem, tooltipLocale)}
               imageClassName="w-12 h-12 shrink-0"
             />
             <CountryTypeIcon
@@ -139,7 +141,7 @@ export default function SpeciesPage() {
               <span className="flex items-center gap-3 shrink-0">
                 <BEMIcon
                   type={dados?.bem || ""}
-                  description={dados?.bem || ""}
+                  description={getClassificationTooltip(dados?.bem, tooltipLocale)}
                   imageClassName="w-12 h-12 shrink-0"
                 />
                 <CountryTypeIcon

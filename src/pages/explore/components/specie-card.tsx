@@ -4,16 +4,18 @@ import photoDefault from "@/assets/specie-card-default.png";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router";
 import { Binoculars } from "lucide-react";
-import { DEFAULT_LOCALE } from "@/lib/lang";
+import { DEFAULT_LOCALE, normalize } from "@/lib/lang";
 import { getPhotoUrl } from "@/pages/species/utils";
 import { ConservationStatusIcon } from "@/components/conservation-status-icon";
 import { CountryTypeIcon } from "@/components/country-type-icon";
 import { getCountryTypeDescription } from "@/lib/country-type-description";
 import { BEMIcon } from "@/components/bem-icon";
+import { getClassificationTooltip } from "@/constants/bem_classifications";
 
 export function SpecieCard(props: ISpecie) {
   const { t, i18n } = useTranslation();
   const { lang } = useParams();
+  const locale = normalize(i18n.language);
   const numberFormatter = new Intl.NumberFormat(i18n.language);
 
   const photoFeatured = props.photos?.find((p) => p.featured === true);
@@ -87,7 +89,7 @@ export function SpecieCard(props: ISpecie) {
                 <span className="flex shrink-0 items-center gap-2">
                   <BEMIcon
                     type={props.bem}
-                    description={props.bem || ""}
+                    description={getClassificationTooltip(props.bem, locale)}
                     className="inline-flex shrink-0"
                     imageClassName="h-8 w-8 shrink-0"
                   />
