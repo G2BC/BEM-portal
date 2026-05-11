@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/G2BC/BEM-portal/compare/v1.2.4...v1.3.0) (2026-05-11)
+
+
+### Features
+
+* add BEM classifications and Brazil state data with tooltips for improved species distribution and classification display ([57b81d7](https://github.com/G2BC/BEM-portal/commit/57b81d714e8825b3e0fa8b3cab96d3290ab8a106))
+
 ## [1.2.4](https://github.com/G2BC/BEM-portal/compare/v1.2.3...v1.2.4) (2026-05-11)
 
 
