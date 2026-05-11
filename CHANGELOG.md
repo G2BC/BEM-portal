@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/G2BC/BEM-portal/compare/v1.0.0...v1.0.1) (2026-05-11)
+
+
+### Bug Fixes
+
+* update .env.vault with new environment variable values and versions for development, CI, staging, and production ([46d44af](https://github.com/G2BC/BEM-portal/commit/46d44af4b41955001de325863807d1b86c192880))
+
 # 1.0.0 (2026-05-11)
 
 
