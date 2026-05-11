@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/G2BC/BEM-portal/compare/v1.0.3...v1.0.4) (2026-05-11)
+
+
+### Bug Fixes
+
+* update CI and CD workflows to replace multiple VITE environment variables with DOTENV_KEY for improved configuration management ([de9644b](https://github.com/G2BC/BEM-portal/commit/de9644baba2020edda39d34ff0bb464431891ee9))
+
 ## [1.0.3](https://github.com/G2BC/BEM-portal/compare/v1.0.2...v1.0.3) (2026-05-11)
 
 
