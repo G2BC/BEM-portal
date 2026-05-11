@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/G2BC/BEM-portal/compare/v1.1.0...v1.2.0) (2026-05-11)
+
+
+### Features
+
+* enhance layout and styling of DistributionPage for better responsiveness and user experience ([df31c82](https://github.com/G2BC/BEM-portal/commit/df31c82db128aa9f7823737521c76dcd888cf485))
+
 # [1.1.0](https://github.com/G2BC/BEM-portal/compare/v1.0.6...v1.1.0) (2026-05-11)
 
 
