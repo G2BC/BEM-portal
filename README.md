@@ -1,6 +1,6 @@
 ![Licença MIT](https://img.shields.io/badge/Licença-MIT-yellow.svg)
 
-# bem-portal
+# BEM-portal
 
 ## Requisitos
 
