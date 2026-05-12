@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/G2BC/BEM-portal/compare/v1.6.0...v1.6.1) (2026-05-12)
+
+
+### Bug Fixes
+
+* add search tag label to explore page in English and Portuguese ([286167c](https://github.com/G2BC/BEM-portal/commit/286167c6699de28e6ab20c3bc5a4ea7971fcc726))
+
 # [1.6.0](https://github.com/G2BC/BEM-portal/compare/v1.5.0...v1.6.0) (2026-05-12)
 
 
