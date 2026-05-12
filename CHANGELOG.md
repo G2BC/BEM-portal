@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/G2BC/BEM-portal/compare/v1.5.0...v1.6.0) (2026-05-12)
+
+
+### Features
+
+* add species search placeholder to explore page in English and Portuguese ([b0e74e6](https://github.com/G2BC/BEM-portal/commit/b0e74e649297976f1ffae14377b320bbef9ba5f0))
+
 # [1.5.0](https://github.com/G2BC/BEM-portal/compare/v1.4.1...v1.5.0) (2026-05-11)
 
 
