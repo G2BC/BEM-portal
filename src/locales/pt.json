@@ -66,6 +66,7 @@
     },
     "explore_page": {
       "input_placeholder": "Espécie",
+      "search_tag_label": "Busca",
       "species_search_placeholder": "Buscar por nome científico ou nome popular",
       "result_label": "espécie(s) encontrada(s)",
       "result_label_empty": "Nenhuma espécie encontrada",

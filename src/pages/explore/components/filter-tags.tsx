@@ -52,7 +52,7 @@ export function FilterTags({
     search
       ? {
           id: "search",
-          prefix: t("explore_page.input_placeholder"),
+          prefix: t("explore_page.search_tag_label"),
           value: search,
           onRemove: onClearSearch,
         }
