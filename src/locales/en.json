@@ -66,6 +66,7 @@
     },
     "explore_page": {
       "input_placeholder": "Species",
+      "species_search_placeholder": "Search by scientific name or common name",
       "result_label": "species found",
       "result_label_empty": "No species found",
       "resulta_label_connection": "for",

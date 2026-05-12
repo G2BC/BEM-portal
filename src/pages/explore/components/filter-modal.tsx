@@ -175,7 +175,7 @@ export function FilterModal({
           value={draftSearch}
           onChange={(e) => setDraftSearch(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleApply()}
-          placeholder={t("common.search")}
+          placeholder={t("explore_page.species_search_placeholder")}
         />
       </label>
       <label className="sm:col-span-2 flex flex-col gap-1.5">
