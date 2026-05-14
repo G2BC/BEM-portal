@@ -1,3 +1,10 @@
+## [1.6.3](https://github.com/G2BC/BEM-portal/compare/v1.6.2...v1.6.3) (2026-05-14)
+
+
+### Bug Fixes
+
+* update theme color from dark to light mode ([04c0aa6](https://github.com/G2BC/BEM-portal/commit/04c0aa6d4453ca4b9f1ecb9e710da8daf5a8377e))
+
 ## [1.6.2](https://github.com/G2BC/BEM-portal/compare/v1.6.1...v1.6.2) (2026-05-14)
 
 
