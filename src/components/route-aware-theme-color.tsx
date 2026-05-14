@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router";
 
 const THEME_COLOR_META_NAME = "theme-color";
-const PUBLIC_THEME_COLOR = "#FFFFFF";
+const PUBLIC_THEME_COLOR = "#131313";
 const PANEL_THEME_COLOR = "#FFFFFF";
 
 function resolveThemeColor(pathname: string) {
