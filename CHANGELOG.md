@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/G2BC/BEM-portal/compare/v1.6.1...v1.6.2) (2026-05-14)
+
+
+### Bug Fixes
+
+* fixing theme color ([c51a578](https://github.com/G2BC/BEM-portal/commit/c51a578da0d24e839d341e4595755f3545a042a3))
+
 ## [1.6.1](https://github.com/G2BC/BEM-portal/compare/v1.6.0...v1.6.1) (2026-05-12)
 
 
