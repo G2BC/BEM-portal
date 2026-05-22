@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/G2BC/BEM-portal/compare/v1.7.0...v1.8.0) (2026-05-22)
+
+
+### Features
+
+* add tooltip for observations in English and Portuguese locales ([21e5208](https://github.com/G2BC/BEM-portal/commit/21e5208678433ea88ec3576a771e460cd4cac192))
+
 # [1.7.0](https://github.com/G2BC/BEM-portal/compare/v1.6.3...v1.7.0) (2026-05-22)
 
 
