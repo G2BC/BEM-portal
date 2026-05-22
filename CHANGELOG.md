@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/G2BC/BEM-portal/compare/v1.6.3...v1.7.0) (2026-05-22)
+
+
+### Features
+
+* add conservation status filter and update related components ([3571751](https://github.com/G2BC/BEM-portal/commit/35717510af9d12eed190e967bc3a508d83ae73aa))
+
 ## [1.6.3](https://github.com/G2BC/BEM-portal/compare/v1.6.2...v1.6.3) (2026-05-14)
 
 
