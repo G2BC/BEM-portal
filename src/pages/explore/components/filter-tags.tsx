@@ -6,9 +6,11 @@ interface FilterTagsProps {
   bem: string;
   bemLabel: string;
   distributions: string[];
+  conservation: string[];
   onClearSearch: () => void;
   onClearBem: () => void;
   onClearDistributions: () => void;
+  onClearConservation: () => void;
 }
 
 function Tag({
@@ -40,13 +42,16 @@ export function FilterTags({
   bem,
   bemLabel,
   distributions,
+  conservation,
   onClearSearch,
   onClearBem,
   onClearDistributions,
+  onClearConservation,
 }: FilterTagsProps) {
   const { t } = useTranslation();
 
   const distributionValue = distributions.join(", ");
+  const conservationValue = conservation.join(", ");
 
   const tags = [
     search
@@ -70,6 +75,14 @@ export function FilterTags({
           prefix: t("explore_page.select_distributions"),
           value: distributionValue,
           onRemove: onClearDistributions,
+        }
+      : null,
+    conservation.length
+      ? {
+          id: "conservation",
+          prefix: t("explore_page.select_conservation"),
+          value: conservationValue,
+          onRemove: onClearConservation,
         }
       : null,
   ].filter(Boolean) as Array<{ id: string; prefix?: string; value: string; onRemove: () => void }>;

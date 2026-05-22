@@ -24,8 +24,10 @@ export default function ExplorePage() {
     handleClearInput,
     bem,
     distributions,
+    conservation,
     filterLabels,
     changeBem,
+    changeConservation,
     changeDistributions,
     applyFilters,
   } = useExplorePage();
@@ -72,6 +74,7 @@ export default function ExplorePage() {
               search={search}
               bem={bem}
               distributions={distributions}
+              conservation={conservation}
               filterLabels={filterLabels}
               onApply={applyFilters}
             />
@@ -82,9 +85,11 @@ export default function ExplorePage() {
               bem={bem}
               bemLabel={filterLabels.bem}
               distributions={distributions}
+              conservation={conservation}
               onClearSearch={handleClearInput}
               onClearBem={() => changeBem("")}
               onClearDistributions={() => changeDistributions([], {})}
+              onClearConservation={() => changeConservation([])}
             />
           </div>
           {loading ? (

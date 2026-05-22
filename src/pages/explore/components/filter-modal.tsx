@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/drawer";
 import { ComboboxAsync, type ComboboxOption } from "@/components/combobox-async";
 import { selectDistributions, selectSpeciesBem } from "@/api/species";
+import { IUCN_CONSERVATION_STATUSES } from "@/constants/iucn_redlist_statuses";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import type { Locale } from "@/lib/lang";
 
@@ -30,12 +31,14 @@ type FilterModalApplyFilters = {
   bemLabel: string;
   distributions: string[];
   distributionLabels: Record<string, string>;
+  conservation: string[];
 };
 
 interface FilterModalProps {
   search: string;
   bem: string;
   distributions: string[];
+  conservation: string[];
   filterLabels: { bem: string; distributions: Record<string, string> };
   onApply: (_filters: FilterModalApplyFilters) => void;
 }
@@ -44,6 +47,7 @@ export function FilterModal({
   search,
   bem,
   distributions,
+  conservation,
   filterLabels,
   onApply,
 }: FilterModalProps) {
@@ -56,6 +60,7 @@ export function FilterModal({
   const [draftBem, setDraftBem] = React.useState(bem);
   const [draftBemLabel, setDraftBemLabel] = React.useState(filterLabels.bem);
   const [draftDistributions, setDraftDistributions] = React.useState<string[]>(distributions);
+  const [draftConservation, setDraftConservation] = React.useState<string[]>(conservation);
   const [draftDistributionLabels, setDraftDistributionLabels] = React.useState<
     Record<string, string>
   >(filterLabels.distributions);
@@ -66,6 +71,7 @@ export function FilterModal({
       setDraftBem(bem);
       setDraftBemLabel(filterLabels.bem);
       setDraftDistributions(distributions);
+      setDraftConservation(conservation);
       setDraftDistributionLabels(filterLabels.distributions);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,7 +88,28 @@ export function FilterModal({
     };
   }, [open]);
 
-  const activeCount = [search, bem, ...distributions].filter(Boolean).length;
+  const activeCount = [search, bem, ...conservation, ...distributions].filter(Boolean).length;
+
+  const conservationOptions = React.useMemo<ComboboxOption[]>(
+    () =>
+      Object.entries(IUCN_CONSERVATION_STATUSES).map(([value, labels]) => ({
+        id: value,
+        label: `${value} - ${labels[lang] ?? labels.en}`,
+      })),
+    [lang]
+  );
+
+  const fetchConservationOptions = React.useCallback(
+    async (query: string): Promise<ComboboxOption[]> => {
+      const normalizedQuery = query.trim().toLocaleLowerCase();
+      if (!normalizedQuery) return conservationOptions;
+
+      return conservationOptions.filter((option) =>
+        option.label.toLocaleLowerCase().includes(normalizedQuery)
+      );
+    },
+    [conservationOptions]
+  );
 
   const fetchBemOptions = React.useCallback(
     async (query: string, signal: AbortController["signal"]): Promise<ComboboxOption[]> => {
@@ -128,17 +155,19 @@ export function FilterModal({
       bemLabel: draftBemLabel,
       distributions: draftDistributions,
       distributionLabels: draftDistributionLabels,
+      conservation: draftConservation,
     });
     setOpen(false);
   };
 
-  const hasActiveFilters = !!(search || bem || distributions.length);
+  const hasActiveFilters = !!(search || bem || distributions.length || conservation.length);
 
   const handleClear = () => {
     setDraftSearch("");
     setDraftBem("");
     setDraftBemLabel("");
     setDraftDistributions([]);
+    setDraftConservation([]);
     setDraftDistributionLabels({});
     if (hasActiveFilters) {
       onApply({
@@ -147,6 +176,7 @@ export function FilterModal({
         bemLabel: "",
         distributions: [],
         distributionLabels: {},
+        conservation: [],
       });
       setOpen(false);
     }
@@ -212,6 +242,20 @@ export function FilterModal({
             for (const opt of opts) labels[String(opt.id)] = opt.label;
             setDraftDistributionLabels(labels);
           }}
+        />
+      </label>
+      <label className="sm:col-span-2 flex flex-col gap-1.5">
+        <span className="text-sm text-muted-foreground">
+          {t("explore_page.select_conservation")}
+        </span>
+        <ComboboxAsync
+          variant="light"
+          multiple
+          fetchOptions={fetchConservationOptions}
+          initialKnownOptions={conservationOptions}
+          placeholder={t("explore_page.select_conservation_placeholder")}
+          value={draftConservation}
+          onSelect={(ids) => setDraftConservation(ids.map(String))}
         />
       </label>
     </div>

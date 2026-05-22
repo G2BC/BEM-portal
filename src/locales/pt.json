@@ -77,14 +77,17 @@
       "select_lineage": "Linhagem",
       "select_bem": "BEM",
       "select_distributions": "Estados de ocorrência",
+      "select_conservation": "Status de conservação",
+      "select_conservation_placeholder": "Selecione",
       "filters": "Filtros",
       "filter_apply": "Aplicar",
       "filter_clear": "Limpar",
       "statistics": {
         "edible_brazil_species": "Espécies Comestíveis Do Brasil",
-        "edible_brazil_species_tooltip": "As espécies consideradas são do BEM1 ao BEM6.",
+        "edible_brazil_species_tooltip": "Considera espécies classificadas no BEM como comestíveis ou potencialmente comestíveis, de BEM1 a BEM6.",
         "observations": "Observações",
         "extinction_risk_species": "Espécies Em Risco de Extinção",
+        "extinction_risk_species_tooltip": "Considera espécies classificadas pela IUCN como Vulnerável (VU), Em perigo (EN) ou Criticamente em perigo (CR).",
         "brazilian_type_species": "Espécies Tipo Brasileiras"
       }
     },

@@ -77,14 +77,17 @@
       "select_lineage": "Lineage",
       "select_bem": "BEM",
       "select_distributions": "Occurrence states",
+      "select_conservation": "Conservation status",
+      "select_conservation_placeholder": "Select",
       "filters": "Filters",
       "filter_apply": "Apply",
       "filter_clear": "Clear",
       "statistics": {
         "edible_brazil_species": "Edible Species From Brazil",
-        "edible_brazil_species_tooltip": "The species considered are from BEM1 to BEM6.",
+        "edible_brazil_species_tooltip": "Includes species classified in BEM as edible or potentially edible, from BEM1 to BEM6.",
         "observations": "Observations",
         "extinction_risk_species": "Species At Risk of Extinction",
+        "extinction_risk_species_tooltip": "Includes species classified by the IUCN as Vulnerable (VU), Endangered (EN), or Critically Endangered (CR).",
         "brazilian_type_species": "Brazilian Type Species"
       }
     },

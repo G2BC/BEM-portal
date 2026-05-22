@@ -29,7 +29,7 @@ const statConfig = [
     key: "extinction_risk_species",
     icon: ExtinctionIcon,
     labelKey: "explore_page.statistics.extinction_risk_species",
-    tooltipKey: undefined,
+    tooltipKey: "explore_page.statistics.extinction_risk_species_tooltip",
   },
   {
     key: "brazilian_type_species",
@@ -50,19 +50,9 @@ export function SpeciesStatisticsBar({ statistics, loading }: SpeciesStatisticsB
           const icon = (
             <Icon className="h-8 w-8 shrink-0 text-white md:h-9 md:w-9" strokeWidth={2.6} />
           );
-
-          return (
-            <div key={key} className="grid grid-cols-[40px_1fr] items-center gap-4 md:gap-6">
-              {tooltipKey ? (
-                <HoverPopover
-                  trigger={icon}
-                  triggerClassName="inline-flex h-10 w-10 items-center justify-center md:h-11 md:w-11"
-                  contentClassName="max-w-64 border border-white/20 bg-black/90 px-3 py-2 text-xs leading-relaxed text-white/90 shadow-lg"
-                  content={<p>{t(tooltipKey)}</p>}
-                />
-              ) : (
-                icon
-              )}
+          const statContent = (
+            <>
+              {icon}
               <div className="min-w-0 text-center md:text-left">
                 <p className="text-[14px] font-bold leading-[1.08] text-white md:text-[16px]">
                   {t(labelKey)}
@@ -75,7 +65,26 @@ export function SpeciesStatisticsBar({ statistics, loading }: SpeciesStatisticsB
                   </p>
                 )}
               </div>
-            </div>
+            </>
+          );
+
+          if (!tooltipKey) {
+            return (
+              <div key={key} className="grid grid-cols-[40px_1fr] items-center gap-4 md:gap-6">
+                {statContent}
+              </div>
+            );
+          }
+
+          return (
+            <HoverPopover
+              key={key}
+              trigger={statContent}
+              triggerWrapper="div"
+              triggerClassName="grid grid-cols-[40px_1fr] items-center gap-4 md:gap-6"
+              contentClassName="max-w-64 border border-white/20 bg-black/90 px-3 py-2 text-xs leading-relaxed text-white/90 shadow-lg"
+              content={<p>{t(tooltipKey)}</p>}
+            />
           );
         })}
       </div>

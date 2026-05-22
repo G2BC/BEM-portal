@@ -31,6 +31,7 @@ export interface SearchEspeciesProps {
   bem?: string;
   country?: string;
   distributions?: string;
+  conservation?: string;
   page?: number;
   per_page?: number;
   signal?: AbortController["signal"];
@@ -58,13 +59,23 @@ export const searchEspecies = async ({
   bem,
   country,
   distributions,
+  conservation,
   page,
   per_page,
   signal,
   isVisible,
 }: SearchEspeciesProps): Promise<ISearchEspecies> => {
   const resposta: AxiosResponse<ISearchEspecies> = await API.get("/species", {
-    params: { search, bem, country, distributions, page, per_page, is_visible: isVisible },
+    params: {
+      search,
+      bem,
+      country,
+      distributions,
+      conservation,
+      page,
+      per_page,
+      is_visible: isVisible,
+    },
     signal,
   });
 

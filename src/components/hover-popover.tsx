@@ -7,6 +7,7 @@ interface HoverPopoverProps {
   content: React.ReactNode;
   triggerClassName?: string;
   contentClassName?: string;
+  triggerWrapper?: "span" | "div";
 }
 
 export function HoverPopover({
@@ -14,13 +15,15 @@ export function HoverPopover({
   content,
   triggerClassName,
   contentClassName,
+  triggerWrapper = "span",
 }: HoverPopoverProps) {
   const [open, setOpen] = useState(false);
+  const TriggerWrapper = triggerWrapper;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <span
+        <TriggerWrapper
           className={cn(
             !triggerClassName && "underline decoration-dotted",
             "cursor-pointer select-none",
@@ -31,7 +34,7 @@ export function HoverPopover({
           onMouseLeave={() => setOpen(false)}
         >
           {trigger}
-        </span>
+        </TriggerWrapper>
       </PopoverTrigger>
       <PopoverContent
         className={cn(

@@ -44,10 +44,14 @@ export function useExplorePage() {
   const searchParam = searchParams.get("search") ?? "";
   const bemParam = searchParams.get("bem") ?? "";
   const distributionsParam = searchParams.get("distributions") ?? "";
+  const conservationParam = searchParams.get("conservation") ?? "";
 
   const [bem, setBem] = useState<string>(bemParam);
   const [distributions, setDistributions] = useState<string[]>(() =>
     distributionsParam ? distributionsParam.split(",") : []
+  );
+  const [conservation, setConservation] = useState<string[]>(() =>
+    conservationParam ? conservationParam.split(",").filter(Boolean) : []
   );
   const [search, setSearch] = useState<string>(searchParam);
   const [filterLabels, setFilterLabels] = useState<{
@@ -112,12 +116,13 @@ export function useExplorePage() {
     setSearch(searchParam);
     setBem(bemParam);
     setDistributions(distributionsParam ? distributionsParam.split(",") : []);
-  }, [searchParam, bemParam, distributionsParam]);
+    setConservation(conservationParam ? conservationParam.split(",").filter(Boolean) : []);
+  }, [searchParam, bemParam, distributionsParam, conservationParam]);
 
   // Reset auto-load counter whenever filters change
   useEffect(() => {
     setAutoLoadsUsed(0);
-  }, [searchParam, bemParam, distributionsParam, perPage]);
+  }, [searchParam, bemParam, distributionsParam, conservationParam, perPage]);
 
   // Responsive per_page
   useEffect(() => {
@@ -136,6 +141,7 @@ export function useExplorePage() {
         search: searchParam,
         bem: bemParam,
         distributions: distributionsParam,
+        conservation: conservationParam,
         perPage,
       }),
       queryFn: ({ pageParam, signal }) =>
@@ -143,6 +149,7 @@ export function useExplorePage() {
           search: searchParam || undefined,
           bem: bemParam || undefined,
           distributions: distributionsParam || undefined,
+          conservation: conservationParam || undefined,
           page: pageParam as number,
           per_page: perPage,
           signal,
@@ -190,13 +197,16 @@ export function useExplorePage() {
   );
 
   const upsertFilterParams = (
-    patch: Partial<{ search: string; bem: string; distributions: string }>,
+    patch: Partial<{ search: string; bem: string; distributions: string; conservation: string }>,
     opts?: { replace?: boolean }
   ) => {
     const curr = paramsToObject(searchParams);
     const next: Record<string, string> = { ...curr };
 
-    const setOrDelete = (key: "search" | "bem" | "distributions", val?: string) => {
+    const setOrDelete = (
+      key: "search" | "bem" | "distributions" | "conservation",
+      val?: string
+    ) => {
       const v = (val ?? "").trim();
       if (v) next[key] = v;
       else delete next[key];
@@ -205,6 +215,7 @@ export function useExplorePage() {
     if ("search" in patch) setOrDelete("search", String(patch.search ?? ""));
     if ("bem" in patch) setOrDelete("bem", String(patch.bem ?? ""));
     if ("distributions" in patch) setOrDelete("distributions", String(patch.distributions ?? ""));
+    if ("conservation" in patch) setOrDelete("conservation", String(patch.conservation ?? ""));
     delete next.country;
 
     delete next.page;
@@ -255,21 +266,31 @@ export function useExplorePage() {
     upsertFilterParams({ bem: newBem });
   };
 
+  const changeConservation = (newConservation: string[]) => {
+    const joined = newConservation.join(",");
+    if (conservation.join(",") === joined) return;
+    setConservation(newConservation);
+    upsertFilterParams({ conservation: joined });
+  };
+
   const applyFilters = (filters: {
     search: string;
     bem: string;
     bemLabel: string;
     distributions: string[];
     distributionLabels: Record<string, string>;
+    conservation: string[];
   }) => {
     setSearch(filters.search);
     setBem(filters.bem);
     setDistributions(filters.distributions);
+    setConservation(filters.conservation);
     setFilterLabels({ bem: filters.bemLabel, distributions: filters.distributionLabels });
     upsertFilterParams({
       search: filters.search,
       bem: filters.bem,
       distributions: filters.distributions.join(","),
+      conservation: filters.conservation.join(","),
     });
   };
 
@@ -287,11 +308,13 @@ export function useExplorePage() {
     search,
     bem,
     distributions,
+    conservation,
     filterLabels,
     onChangeSearch,
     handleSearch,
     handleClearInput,
     changeBem,
+    changeConservation,
     changeDistributions,
     applyFilters,
   };
