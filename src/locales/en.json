@@ -86,6 +86,7 @@
         "edible_brazil_species": "Edible Species From Brazil",
         "edible_brazil_species_tooltip": "Includes species classified in BEM as edible or potentially edible, from BEM1 to BEM6.",
         "observations": "Observations",
+        "observations_tooltip": "All observations are records from Brazil.",
         "extinction_risk_species": "Species At Risk of Extinction",
         "extinction_risk_species_tooltip": "Includes species classified by the IUCN as Vulnerable (VU), Endangered (EN), or Critically Endangered (CR).",
         "brazilian_type_species": "Brazilian Type Species"

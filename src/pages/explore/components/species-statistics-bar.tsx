@@ -23,7 +23,7 @@ const statConfig = [
     key: "observations",
     icon: Search,
     labelKey: "explore_page.statistics.observations",
-    tooltipKey: undefined,
+    tooltipKey: "explore_page.statistics.observations_tooltip",
   },
   {
     key: "extinction_risk_species",

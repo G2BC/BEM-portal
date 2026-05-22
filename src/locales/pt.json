@@ -86,6 +86,7 @@
         "edible_brazil_species": "Espécies Comestíveis Do Brasil",
         "edible_brazil_species_tooltip": "Considera espécies classificadas no BEM como comestíveis ou potencialmente comestíveis, de BEM1 a BEM6.",
         "observations": "Observações",
+        "observations_tooltip": "Todas as observações são registros no Brasil.",
         "extinction_risk_species": "Espécies Em Risco de Extinção",
         "extinction_risk_species_tooltip": "Considera espécies classificadas pela IUCN como Vulnerável (VU), Em perigo (EN) ou Criticamente em perigo (CR).",
         "brazilian_type_species": "Espécies Tipo Brasileiras"
