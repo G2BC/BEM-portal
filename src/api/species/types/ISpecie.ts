@@ -1,8 +1,20 @@
 import type { IDistribution } from "@/api/types/IDistribution";
 import type { IReference } from "@/api/types/IReference";
 
-interface Taxonomy {
+export interface TaxonomicName {
+  scientific_name: string;
   authors: string | null;
+  is_brazilian_type_synonym: boolean;
+}
+
+export interface TaxonomyNomenclature {
+  synonyms: TaxonomicName[];
+  basionym: TaxonomicName | null;
+}
+
+export interface Taxonomy {
+  authors: string | null;
+  /** @deprecated Replaced by nomenclature.basionym. */
   basionym: string | null;
   class_name?: string | null;
   family?: string | null;
@@ -14,8 +26,10 @@ interface Taxonomy {
   phylum?: string | null;
   section?: string | null;
   specific_epithet?: string | null;
+  /** @deprecated Replaced by nomenclature.synonyms. */
   synonyms: string | null;
   years_of_effective_publication: string | null;
+  nomenclature?: TaxonomyNomenclature;
 }
 
 export interface SpeciesLocalizedOption {
