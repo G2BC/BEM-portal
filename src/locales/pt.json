@@ -40,7 +40,7 @@
       "join_us_section": {
         "title": "Junte-se a nós:",
         "subtitle": "Explore conosco o universo",
-        "subtitle_end": "dos cogumelos comestíveis brasileiros",
+        "subtitle_end": "dos cogumelos comestíveis do Brasil",
         "cta": "Cadastre-se"
       },
       "links": {
@@ -53,9 +53,9 @@
       "hero": {
         "title": {
           "first_block": "Cogumelos",
-          "second_block": "comestíveis brasileiros"
+          "second_block": "comestíveis do Brasil"
         },
-        "description": "Explore espécies, registros e informações científicas sobre os cogumelos comestíveis brasileiros",
+        "description": "Explore espécies, registros e informações científicas sobre os cogumelos comestíveis do Brasil",
         "cta": "Explorar espécies",
         "secondary_cta": "Ver mapa de distribuição"
       }
@@ -115,7 +115,7 @@
     },
     "register_page": {
       "title": "Crie sua conta",
-      "subtitle": "Explore e colabore sobre cogumelos comestíveis brasileiros com o BEM",
+      "subtitle": "Explore e colabore sobre cogumelos comestíveis do Brasil com o BEM",
       "name_label": "Nome completo",
       "name_placeholder": "Digite seu nome",
       "email_label": "E-mail",
