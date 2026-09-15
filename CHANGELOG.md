@@ -1,3 +1,11 @@
+# [1.9.0](https://github.com/G2BC/BEM-portal/compare/v1.8.0...v1.9.0) (2026-09-15)
+
+
+### Features
+
+* add Denis as a contributor with updated bio and avatar ([ebac5ec](https://github.com/G2BC/BEM-portal/commit/ebac5ecb33e97b3d5b96f9e923a3405cf70a159d))
+* atualização de dados dos colaboradores ([15ee686](https://github.com/G2BC/BEM-portal/commit/15ee6868c475f1ca775f23e465e4479c8c21765d))
+
 # [1.8.0](https://github.com/G2BC/BEM-portal/compare/v1.7.0...v1.8.0) (2026-05-22)
 
 
