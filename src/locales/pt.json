@@ -62,7 +62,8 @@
     },
     "distribution_page": {
       "instructions": "Clique em uma categoria BEM para visualizar os estados onde esses cogumelos podem ocorrer no Brasil.",
-      "error": "Não foi possível carregar as estatísticas de distribuição."
+      "error": "Não foi possível carregar as estatísticas de distribuição.",
+      "no_records": "Nenhum registro geográfico encontrado para esta categoria."
     },
     "explore_page": {
       "input_placeholder": "Espécie",
