@@ -191,7 +191,9 @@ export default function DistributionPage() {
           <div className="px-5 py-6 text-sm text-red-600">{t("distribution_page.error")}</div>
         ) : (
           <div className="scrollbar-hide flex min-h-0 overflow-x-auto md:block md:flex-1 md:overflow-y-auto md:pb-3">
-            {CLASSIFICATIONS.map((classification) => {
+            {CLASSIFICATIONS.filter(
+              (classification) => classification !== "P1" && classification !== "P2"
+            ).map((classification) => {
               const active = classification === selectedClassification;
               return (
                 <button
