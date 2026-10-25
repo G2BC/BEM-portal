@@ -327,7 +327,7 @@
         }
       },
       "observations": {
-        "title": "Observações",
+        "title": "Observações e Coleções",
         "total": "{{count}} observação registrada",
         "total_plural": "{{count}} observações registradas",
         "source_inaturalist": "iNaturalist",
