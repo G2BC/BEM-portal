@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/G2BC/BEM-portal/compare/v1.9.0...v1.10.0) (2026-11-06)
+
+
+### Features
+
+* remove espaço em branco do docker ignore ([05a12a7](https://github.com/G2BC/BEM-portal/commit/05a12a7a9e656e65993282c3fae1e52369f0e40b))
+
 # [1.9.0](https://github.com/G2BC/BEM-portal/compare/v1.8.0...v1.9.0) (2026-09-15)
 
 
