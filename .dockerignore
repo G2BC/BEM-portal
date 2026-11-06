@@ -8,7 +8,6 @@ dist
 *.pem
 *.key
 *.crt
-
 .env*
 .flaskenv*
 !.env.project
