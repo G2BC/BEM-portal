@@ -2,6 +2,7 @@ import "leaflet/dist/leaflet.css";
 
 import { fetchDistributionOccurrenceStatistics } from "@/api/species";
 import { speciesKeys } from "@/api/query-keys";
+import brazilStatesData from "@/assets/geo/brazil-states.json";
 import { BEMIcon } from "@/components/bem-icon";
 import {
   CLASSIFICATION_COLORS,
@@ -9,53 +10,18 @@ import {
   getClassificationTooltip,
   type Classification,
 } from "@/constants/bem_classifications";
-import { BRAZIL_STATE_CENTERS, BRAZIL_STATE_NAMES } from "@/constants/brazil-states";
+import { BRAZIL_STATE_NAMES } from "@/constants/brazil-states";
 import { normalize } from "@/lib/lang";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import L from "leaflet";
+import type { Feature, GeoJsonObject } from "geojson";
+import L, { type Layer, type PathOptions } from "leaflet";
 import { Loader2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from "react-leaflet";
+import { GeoJSON, MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 
-function HeatMarker({
-  classification,
-  count,
-  maxCount,
-  position,
-  state,
-}: {
-  classification: Classification;
-  count: number;
-  maxCount: number;
-  position: [number, number];
-  state: string;
-}) {
-  const color = CLASSIFICATION_COLORS[classification];
-  const size = Math.max(58, Math.min(132, 44 + (count / Math.max(maxCount, 1)) * 88));
-  const icon = useMemo(
-    () =>
-      L.divIcon({
-        className: "distribution-heat-marker",
-        html: `<span style="width:${size}px;height:${size}px;background:radial-gradient(circle, ${color} 0%, ${color}99 28%, ${color}40 56%, transparent 72%);"></span>`,
-        iconSize: [size, size],
-        iconAnchor: [size / 2, size / 2],
-      }),
-    [color, size]
-  );
-
-  return (
-    <Marker position={position} icon={icon}>
-      <Popup>
-        <div className="min-w-36 rounded-md bg-white px-3 py-2 text-sm text-[#131313] shadow-lg">
-          <p className="font-semibold">{BRAZIL_STATE_NAMES[state] ?? state}</p>
-          <p className="text-xs text-neutral-600">{classification}</p>
-        </div>
-      </Popup>
-    </Marker>
-  );
-}
+const brazilStatesGeoJson = brazilStatesData as unknown as GeoJsonObject;
 
 export default function DistributionPage() {
   const { i18n, t } = useTranslation();
@@ -68,52 +34,144 @@ export default function DistributionPage() {
     staleTime: 1000 * 60 * 30,
   });
 
-  const visibleStates = useMemo(() => {
-    return Object.entries(data ?? {})
-      .map(([state, stats]) => {
-        const normalizedState = state.toUpperCase();
-        return {
-          state: normalizedState,
-          position: BRAZIL_STATE_CENTERS[normalizedState],
-          count: stats.classifications_count[selectedClassification] ?? 0,
-        };
-      })
-      .filter(
-        (item): item is { state: string; position: [number, number]; count: number } =>
-          item.count > 0 && Boolean(item.position)
-      )
-      .sort((a, b) => b.count - a.count);
+  const activeStatesMap = useMemo(() => {
+    const map: Record<string, number> = {};
+    Object.entries(data ?? {}).forEach(([state, stats]) => {
+      const count = stats.classifications_count[selectedClassification] ?? 0;
+      if (count > 0) {
+        map[state.toUpperCase()] = count;
+      }
+    });
+    return map;
   }, [data, selectedClassification]);
 
-  const maxCount = Math.max(...visibleStates.map((item) => item.count), 1);
+  const hasOccurrences = Object.keys(activeStatesMap).length > 0;
+  const currentColor = CLASSIFICATION_COLORS[selectedClassification];
+
+  const getFeatureStyle = (feature?: Feature): PathOptions => {
+    const uf = (feature?.properties?.sigla ?? "").toUpperCase();
+    const count = activeStatesMap[uf] ?? 0;
+    const hasOccurrence = count > 0;
+
+    if (hasOccurrence) {
+      return {
+        fillColor: currentColor,
+        fillOpacity: 0.35,
+        color: currentColor,
+        weight: 1.5,
+        opacity: 0.9,
+      };
+    }
+
+    return {
+      fillColor: "transparent",
+      fillOpacity: 0,
+      color: "rgba(100, 116, 139, 0.3)",
+      weight: 0.8,
+      opacity: 0.5,
+    };
+  };
+
+  const onEachFeature = (feature: Feature, layer: Layer) => {
+    const uf = (feature.properties?.sigla ?? "").toUpperCase();
+    const stateName = feature.properties?.name || BRAZIL_STATE_NAMES[uf] || uf;
+    const count = activeStatesMap[uf] ?? 0;
+    const hasOccurrence = count > 0;
+
+    const tooltipContent = hasOccurrence
+      ? `<div class="text-xs">
+          <div class="font-semibold text-slate-900">${stateName} (${uf})</div>
+          <div class="text-[11px] text-slate-600 mt-0.5">${count} ${count === 1 ? "ocorrência" : "ocorrências"}</div>
+        </div>`
+      : `<div class="text-xs font-semibold text-slate-900">${stateName} (${uf})</div>`;
+
+    layer.bindTooltip(tooltipContent, {
+      sticky: true,
+      direction: "top",
+      opacity: 1,
+      className:
+        "!bg-white !text-slate-900 !border !border-slate-300 !rounded-md !shadow-xl !px-2.5 !py-1.5 !font-sans",
+    });
+
+    layer.on({
+      mouseover: (e) => {
+        const l = e.target;
+        if (hasOccurrence) {
+          l.setStyle({
+            fillOpacity: 0.6,
+            weight: 2.2,
+            color: currentColor,
+          });
+          if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            l.bringToFront();
+          }
+        } else {
+          l.setStyle({
+            weight: 1.5,
+            color: "rgba(100, 116, 139, 0.6)",
+          });
+        }
+      },
+      mouseout: (e) => {
+        const l = e.target;
+        if (hasOccurrence) {
+          l.setStyle({
+            fillOpacity: 0.35,
+            weight: 1.5,
+            color: currentColor,
+          });
+        } else {
+          l.setStyle({
+            weight: 0.8,
+            color: "rgba(100, 116, 139, 0.3)",
+          });
+        }
+      },
+    });
+  };
 
   return (
     <section className="relative flex min-h-[calc(100svh-85px)] flex-col overflow-hidden bg-[#a8cfd8] md:block md:h-[calc(100vh-85px)] md:min-h-[820px]">
-      <MapContainer
-        center={[-13.5, -53.2]}
-        zoom={4}
-        minZoom={3}
-        maxZoom={8}
-        zoomControl={false}
-        scrollWheelZoom={false}
-        className="z-0 order-2 min-h-[430px] flex-1 md:h-full md:w-full"
-      >
-        <ZoomControl position="topright" />
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        />
-        {visibleStates.map((item) => (
-          <HeatMarker
-            key={`${selectedClassification}-${item.state}`}
-            classification={selectedClassification}
-            count={item.count}
-            maxCount={maxCount}
-            position={item.position}
-            state={item.state}
+      <div className="relative z-0 order-2 min-h-[430px] flex-1 md:h-full md:w-full">
+        <MapContainer
+          center={[-13.5, -53.2]}
+          zoom={4}
+          minZoom={3}
+          maxZoom={8}
+          zoomControl={false}
+          scrollWheelZoom={false}
+          className="h-full w-full"
+        >
+          <ZoomControl position="topright" />
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           />
-        ))}
-      </MapContainer>
+          <GeoJSON
+            key={selectedClassification}
+            data={brazilStatesGeoJson}
+            style={getFeatureStyle}
+            onEachFeature={onEachFeature}
+          />
+        </MapContainer>
+
+        {/* Cenário 3: Aviso quando não há registros na categoria selecionada */}
+        {!isLoading && !isError && !hasOccurrences && (
+          <div className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 z-[400] rounded-lg bg-white/95 px-4 py-2.5 shadow-lg border border-neutral-200 text-sm font-medium text-neutral-700 backdrop-blur-sm">
+            {t("distribution_page.no_records", {
+              defaultValue: "Nenhum registro geográfico encontrado para esta categoria.",
+            })}
+          </div>
+        )}
+
+        {/* Indicador de carregamento */}
+        {isLoading && (
+          <div className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 z-[400] flex items-center gap-2 rounded-lg bg-white/95 px-4 py-2 shadow-lg border border-neutral-200 text-xs text-neutral-600 backdrop-blur-sm">
+            <Loader2 className="size-3.5 animate-spin text-primary" />
+            <span>{t("common.loading", { defaultValue: "Carregando dados..." })}</span>
+          </div>
+        )}
+      </div>
 
       <aside className="order-1 z-[400] flex w-full flex-col border-b border-black/10 bg-white/95 shadow-xl backdrop-blur-sm md:absolute md:left-0 md:top-0 md:h-full md:w-[320px] md:border-b-0 md:border-r">
         <div className="bg-[#131313] px-4 py-3 text-center text-sm font-bold leading-tight text-white md:px-6 md:py-5">
@@ -133,7 +191,9 @@ export default function DistributionPage() {
           <div className="px-5 py-6 text-sm text-red-600">{t("distribution_page.error")}</div>
         ) : (
           <div className="scrollbar-hide flex min-h-0 overflow-x-auto md:block md:flex-1 md:overflow-y-auto md:pb-3">
-            {CLASSIFICATIONS.map((classification) => {
+            {CLASSIFICATIONS.filter(
+              (classification) => classification !== "P1" && classification !== "P2"
+            ).map((classification) => {
               const active = classification === selectedClassification;
               return (
                 <button
