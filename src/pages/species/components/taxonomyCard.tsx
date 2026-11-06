@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { ISpecie } from "@/api/species/types/ISpecie";
 import { BookOpenText } from "lucide-react";
 import { getCountryName } from "@/lib/country-names";
+import { TaxonomicSynonyms } from "./taxonomicSynonyms";
 
 interface TaxonomyCardProps {
   show: boolean;
@@ -102,25 +103,8 @@ export function TaxonomyCard({
       level: 0,
       italicValue: false,
     },
-    {
-      label: t("species_page.taxonomy.basionym"),
-      value: taxonomy?.basionym ?? "",
-      level: 0,
-      italicValue: false,
-    },
-    {
-      label: t("species_page.taxonomy.synonyms"),
-      value: taxonomy?.synonyms ?? "",
-      level: 0,
-      italicValue: false,
-    },
-    {
-      label: t("species_page.taxonomy.type_country"),
-      value: getCountryName(species?.type_country, i18n.language),
-      level: 0,
-      italicValue: false,
-    },
   ];
+  const typeCountry = getCountryName(species.type_country, i18n.language);
 
   return (
     <Card className={sectionCardClass}>
@@ -156,6 +140,18 @@ export function TaxonomyCard({
                 </div>
               );
             })}
+          <TaxonomicSynonyms
+            taxonomy={taxonomy}
+            currentScientificName={species.scientific_name}
+            rowLabelClass={rowLabelClass}
+            rowValueClass={rowValueClass}
+          />
+          {typeCountry ? (
+            <div className="flex flex-wrap items-start justify-between gap-1 border-b border-slate-200 pb-2 last:border-b-0">
+              <p className={rowLabelClass}>{t("species_page.taxonomy.type_country")}</p>
+              <p className={`${rowValueClass} max-w-[65%] text-right`}>{typeCountry}</p>
+            </div>
+          ) : null}
         </div>
       </CardContent>
     </Card>
