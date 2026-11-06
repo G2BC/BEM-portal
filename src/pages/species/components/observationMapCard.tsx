@@ -120,6 +120,9 @@ function MapContent({ observations }: { observations: IObservation[] }) {
       center={DEFAULT_CENTER}
       zoom={DEFAULT_ZOOM}
       scrollWheelZoom
+      wheelPxPerZoomLevel={120}
+      zoomSnap={0.5}
+      zoomDelta={0.5}
       className="h-full w-full"
     >
       <FitBounds observations={observations} />
