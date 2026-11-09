@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/G2BC/BEM-portal/compare/v1.10.0...v1.10.1) (2026-11-09)
+
+
+### Bug Fixes
+
+* remove pinned curl version from Dockerfile ([c2794cc](https://github.com/G2BC/BEM-portal/commit/c2794ccbaf9a11dc71c47ac29849e577140c6344))
+
 # [1.10.0](https://github.com/G2BC/BEM-portal/compare/v1.9.0...v1.10.0) (2026-11-06)
 
 
